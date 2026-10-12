@@ -2,7 +2,7 @@
 
 ## 当前状态（务必先读）
 
-- 目标版本：`v0.1.1`，**本地源码验收版**。22 个标准库测试、三轮并发、真实 Chromium 验收、仓库门与发布演练负控已通过；详见 [testing.md](testing.md) 和 [RELEASE-REHEARSAL.md](RELEASE-REHEARSAL.md)。
+- 目标版本：`v0.1.2`，**本地源码验收版**。22 个标准库测试、三轮并发、**44/44 探针安全审计**、真实 Chromium 验收、仓库门与发布演练负控已通过；详见 [testing.md](testing.md) 和 [RELEASE-REHEARSAL.md](RELEASE-REHEARSAL.md)。
 - **未公开部署、未 push、未在远程 GitHub 运行 CI，也未安装/演练 systemd 服务。** 本地源码 tag/归档不等同于生产发布。
 - OpenShop 是虚构数据 + 模拟支付的非生产级参考实现。不能用本地启动、HTTP 200 或“服务还活着”代替发布验收。
 - 任何公开部署、DNS、证书、反向代理、生产入口、远端推送或生产数据变更均需项目负责人的**明确授权**，不因本地验收通过而自动获得。
@@ -13,7 +13,7 @@
 
 | 项 | 要求 |
 | --- | --- |
-| 版本 | 语义化版本，本次候选 v0.1.1；必须与 `APP_VERSION`、页脚、CHANGELOG、tag 和文档一致 |
+| 版本 | 语义化版本，本次候选 v0.1.2；必须与 `APP_VERSION`、页脚、CHANGELOG、tag 和文档一致 |
 | 发布提交 | 维护者指定的集成分支上经审阅的固定 commit SHA，不能是未提交工作树 |
 | 发布负责人 | 由维护者在明确授权下指定，负责签署/批准部署与回滚决策 |
 | 发布窗口 | 明确开始/结束时间、影响面和回滚点；不得与无关生产变更混做 |
@@ -30,13 +30,14 @@ git log -1 --format="%H %s"
 
 python3 -B -m unittest discover -s tests -v
 python3 -B tests/test_trade_concurrency.py
+python3 -B tests/test_peer_review_probes.py
 python3 -B tools/check_repository.py --selftest
 python3 -B tools/check_repository.py --check
 ```
 
-4. 上述命令的原始 verdict 全部成功；三套测试的真实 HTTP 负控、三轮并发和仓库门正/负控必须通过，不能因白名单被“调绿”。
-5. CI 配置覆盖标准库测试、三轮并发、仓库门自检与门禁。**本轮只在本机按相同命令模拟全绿，尚未在远端 GitHub 实际触发 CI**；生产发布前仍必须在目标提交、目标远端留下可追溯的 CI 成功记录。
-6. 主路径浏览器验收已完成并留存真实 Chromium、13 张截图和 0 错误证据；生产发布前仍需由授权验收人补做独立的键盘/无障碍与部署验收。标准库门禁不能替代浏览器/部署验收。
+4. 上述命令的原始 verdict 全部成功；真实 HTTP 负控、三轮并发、44 探针安全审计和仓库门正/负控必须通过，不能因白名单被“调绿”。
+5. CI 配置覆盖标准库测试、三轮并发、44 探针安全审计、仓库门自检与门禁。**本轮只在本机按相同命令模拟全绿，尚未在远端 GitHub 实际触发 CI**；生产发布前仍必须在目标提交、目标远端留下可追溯的 CI 成功记录。
+6. 主路径浏览器验收已完成并留存真实 Chromium、13 张截图和 0 错误证据；另有人工真实浏览器证据覆盖拼团 2/2 与商家库存写入。生产发布前仍需由授权验收人补做独立的键盘/无障碍与部署验收。标准库/API 门禁不能替代浏览器/部署验收。
 7. 用新的数据目录做一次从零启动烟雾检查，健康端点返回 200/`ok` 和 `demo:true`；日志里无 unexpected traceback。
 8. 文档中所有本地链接有效；许可证保持 Apache-2.0；商品/人物均为虚构、支付标记为模拟、没有上线或 512 并发等未经证实声明。
 9. systemd unit、健康检查脚本、安装与回滚步骤需完成安全评审，并在 staging/等效环境演练并记录原样输出。本轮未完成这一部署演练。
@@ -51,10 +52,10 @@ python3 -B tools/check_repository.py --check
 
 ```bash
 git status --short
-git tag -a v0.1.1 -m "OpenShop v0.1.1"
-git archive --format=tar.gz --prefix=openshop-0.1.1/ -o /path/to/openshop-0.1.1.tar.gz v0.1.1
-sha256sum /path/to/openshop-0.1.1.tar.gz > /path/to/openshop-0.1.1.tar.gz.sha256
-tar -tzf /path/to/openshop-0.1.1.tar.gz
+git tag -a v0.1.2 -m "OpenShop v0.1.2"
+git archive --format=tar.gz --prefix=openshop-0.1.2/ -o /path/to/openshop-0.1.2.tar.gz v0.1.2
+sha256sum /path/to/openshop-0.1.2.tar.gz > /path/to/openshop-0.1.2.tar.gz.sha256
+tar -tzf /path/to/openshop-0.1.2.tar.gz
 ```
 
 - 在干净目录校验 SHA-256 后解包，再跑发布前门槛中的测试与门禁。
@@ -71,7 +72,7 @@ tar -tzf /path/to/openshop-0.1.1.tar.gz
 python3 -B tools/rehearse_release.py --selftest --out-dir /path/to/empty-selftest-evidence
 
 # 真实源码演练：要求干净树和指向 HEAD 的 annotated tag
-python3 -B tools/rehearse_release.py --tag v0.1.1 --out-dir /path/to/empty-release-evidence
+python3 -B tools/rehearse_release.py --tag v0.1.2 --out-dir /path/to/empty-release-evidence
 ```
 
 该工具会验证工作树干净、tag 是 annotated 且指向 HEAD、归档边界无脏文件，计算 SHA-256 并写出文件清单，从解包树重新跑标准库测试和仓库门，再从解包树启动真实服务并检查 `/healthz`、`/api/health`、`/api/session`→demo buyer 登录→目录 API、`/api/home` 与首页 shell，干净停止后写出 `release-summary.json` 与原始日志。**它不会 push、上传、安装 systemd 或修改任何网络入口。**
@@ -83,7 +84,7 @@ python3 -B tools/rehearse_release.py --tag v0.1.1 --out-dir /path/to/empty-relea
 完整安装与回滚样例见 [deploy/README.md](../deploy/README.md)。部署阶段的强制约束：
 
 - 只操作 `openshop.service`；不得改动任何现有 oss-* 服务、Caddy、DNS 或证书配置。
-- 代码释放到 root 所有、只读的 `/opt/openshop/releases/0.1.1`，通过 `/opt/openshop/current` 切换；非 root `openshop` 账号运行，只监听 `127.0.0.1:8780`。
+- 代码释放到 root 所有、只读的 `/opt/openshop/releases/0.1.2`，通过 `/opt/openshop/current` 切换；非 root `openshop` 账号运行，只监听 `127.0.0.1:8780`。
 - 数据目录外置为 `/var/lib/openshop`。升级前做一致性备份，保留当前 unit、旧 release 和日志。
 - 公网 HTTPS 终结由获授权运营者在独立变更中提供；服务保持回环监听。
 - 部署不是本发布流程自动执行的步骤。任何命令执行前必须完成授权和备份。
@@ -116,4 +117,4 @@ python3 -B tools/rehearse_release.py --tag v0.1.1 --out-dir /path/to/empty-relea
 
 ## 本次准备交付的边界
 
-本次交付可运行的源码、22 个标准库测试、三轮并发验收、真实浏览器验收证据、开源文档、CI 配置、仓库门与发布演练工具/负控。Lead 会完成本地源码 tag、归档、SHA-256 与解包启动复验；但**没有**公开上线、push 远端、运行远端 CI、安装 systemd unit、配置 DNS/TLS/Caddy、接触生产凭据或执行回滚。生产发布与回滚仍待明确授权、操作负责人和演练窗口。
+本次交付可运行的源码、22 个标准库测试、三轮并发、44 探针安全审计、真实 Chromium 验收与拼团/库存真实交互证据、开源文档、CI 配置、仓库门与发布演练工具/负控。Lead 会完成本地源码 tag、归档、SHA-256 与解包启动复验；但**没有**公开上线、push 远端、运行远端 CI、安装 systemd unit、配置 DNS/TLS/Caddy、接触生产凭据或执行回滚。生产发布与回滚仍待明确授权、操作负责人和演练窗口。

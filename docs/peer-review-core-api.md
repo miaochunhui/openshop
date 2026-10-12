@@ -1,6 +1,8 @@
 # Peer Review：核心 / 认证 / 目录 / 交易 API 安全审计
 
-> **2026-10-13 task-13 三方整合后复验（当前状态）**：v0.1.1 ce6378c 上，固定命令单次串行运行 44/44 probes PASS；F-01～F-05 五个 finding 回归探针均 PASS；controls=39、failures=0、findings=0。此前 3 个非 finding 红项已用现行 seller RBAC 检查替换过时 scope，并通过同库原地进程重启隔离两个限速控制，详见文末「三方整合后复验」。本页下方保留完整历史快照。
+> **2026-10-13 task-13 三方整合后复验（agent run on v0.1.1）**：v0.1.1 ce6378c 上，固定命令单次串行运行 44/44 probes PASS；F-01～F-05 五个 finding 回归探针均 PASS；controls=39、failures=0、findings=0。此前 3 个非 finding 红项已用现行 seller RBAC 检查替换过时 scope，并通过同库原地进程重启隔离两个限速控制，详见文末「三方整合后复验」。本页下方保留完整历史快照。
+>
+> **2026-10-13 Lead 整合验收（v0.1.2，最终发布口径）**：将 `448a30c` cherry-pick 到 master 并升级版本后，Lead 重新独立运行整套安全审查：`PEER_REVIEW verdict=PASS probes=44 controls=39 failures=0 findings=0`，通过同一个 44/44 结果。证据：`/hf3fs-jd/data/tmp/openshop/peer-review/v012-ci-20261013T020217/run-20261012T180226534835-728303/run-summary.json`。CI 已加入该真实 44 探针步骤；仍不等于公网渗透、TLS/HSTS/真实反代、多进程限速或浏览器 XSS 的完整证明。
 >
 > **2026-10-13 修复更新（历史）**：下面第 1–3 节保留**修复前**审计快照。F-01～F-05 已全部修复，修复后同一 finding probes 均转为 PASS；复核记录、剩余测试夹具限制与 QA 现行验收见文末「修复后复核」。不要再把本页开头的历史 verdict 当作当前产品状态。本报告保留原始失败与不覆盖边界。
 

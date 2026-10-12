@@ -17,7 +17,7 @@
 | 项 | 固定值 |
 | --- | --- |
 | 服务 unit | `openshop.service`（不要改 oss-* unit） |
-| 发布树 | `/opt/openshop/releases/0.1.1`，当前符号链接 `/opt/openshop/current` |
+| 发布树 | `/opt/openshop/releases/0.1.2`，当前符号链接 `/opt/openshop/current` |
 | 代码所有者 | `root:root`，组/其他只读，运行时目录只读 |
 | 服务账号 | `openshop` 系统用户/组，nologin，无 sudo |
 | 监听地址 | `127.0.0.1:8780`，固定非 0 端口，仅本机可达 |
@@ -56,11 +56,11 @@ sudo useradd --system --user-group --no-create-home --home-dir /var/lib/openshop
 
 # 2. 把已校验的固定版本归档解到不可变发布树。
 sudo install -d -o root -g root -m 0755 /opt/openshop/releases
-sudo tar -xzf /path/to/openshop-0.1.1.tar.gz -C /opt/openshop/releases
-sudo mv /opt/openshop/releases/openshop-0.1.1 /opt/openshop/releases/0.1.1
-sudo chown -R root:root /opt/openshop/releases/0.1.1
-sudo chmod -R u=rwX,go=rX /opt/openshop/releases/0.1.1
-sudo ln -s /opt/openshop/releases/0.1.1 /opt/openshop/current
+sudo tar -xzf /path/to/openshop-0.1.2.tar.gz -C /opt/openshop/releases
+sudo mv /opt/openshop/releases/openshop-0.1.2 /opt/openshop/releases/0.1.2
+sudo chown -R root:root /opt/openshop/releases/0.1.2
+sudo chmod -R u=rwX,go=rX /opt/openshop/releases/0.1.2
+sudo ln -s /opt/openshop/releases/0.1.2 /opt/openshop/current
 
 # 3. 在授权窗口内安装模板并启动。
 sudo install -m 0644 deploy/systemd/openshop.service /etc/systemd/system/openshop.service
@@ -94,7 +94,7 @@ unit 的 `ExecStartPost` 会运行 `deploy/healthcheck.py --url http://127.0.0.1
 4. 原子切换链接并重启：
 
 ```bash
-sudo ln -s /opt/openshop/releases/0.1.1 /opt/openshop/current.next
+sudo ln -s /opt/openshop/releases/0.1.2 /opt/openshop/current.next
 sudo mv -Tf /opt/openshop/current.next /opt/openshop/current
 sudo systemctl restart openshop.service
 curl -fsS http://127.0.0.1:8780/healthz
@@ -114,7 +114,7 @@ sudo install -d -o root -g root -m 0700 /var/backups/openshop
 sudo tar -C /var/lib -czf "/var/backups/openshop/openshop-data-$(date -u +%Y%m%dT%H%M%SZ).tar.gz" openshop
 
 # 2. 切回已验证的旧 release（原子替换 current 符号链接）。
-sudo ln -s /opt/openshop/releases/0.1.0 /opt/openshop/current.next
+sudo ln -s /opt/openshop/releases/0.1.1 /opt/openshop/current.next
 sudo mv -Tf /opt/openshop/current.next /opt/openshop/current
 
 # 3. 仅在确认数据/schema 与旧版本兼容时重新启动；否则先恢复备份并复核。

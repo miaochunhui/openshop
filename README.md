@@ -6,7 +6,7 @@ OpenShop（开集）是一个可自托管、可审阅的开源多边电商参考
 
 后端只依赖 Python 标准库与 SQLite，前端为原生 ES Module。没有构建步骤、第三方运行时依赖、CDN、外部字体或分析脚本，便于本地运行和代码审阅。
 
-**状态（2026-10-13）：v0.1.1 本地源码验收版。** 真实 API 验收 35/35、真实 Chromium 端到端 11/11 阶段、三轮并发验收（每轮 7 场景）和 22 个标准库测试全部通过，固定仓库门 PASS；13 张最终验收截图覆盖浏览、加购、结算、模拟支付、商家发货、买家收货和评价。当前**只在本地运行，未公开部署、未推送远端仓库**。
+**状态（2026-10-13）：v0.1.2 本地源码验收版。** 真实 API 验收 35/35、真实 Chromium 端到端 11/11 阶段、44/44 安全探针（39 controls）、三轮并发验收（每轮 7 场景）和 22 个标准库测试全部通过，固定仓库门 PASS；13 张最终验收截图覆盖浏览、加购、结算、模拟支付、商家发货、买家收货和评价。另有真实浏览器补验覆盖拼团 1/2→2/2 完整成团和商家库存 26→27 写入。当前**只在本地运行，未公开部署、未推送远端仓库**。
 
 > **真实边界**：全部商品、品牌、店铺、人物、评价与订单均为虚构演示数据；支付是明确标注的模拟流程，不产生真实扣款；这是**非生产级**单进程参考实现，不提供生产级容量、可用性或安全承诺，也未在公网发布。
 
@@ -100,6 +100,7 @@ Browser (vanilla ES modules, same-origin fetch)
 python3 -B tools/smoke_server.py
 python3 -B -m unittest discover -s tests -v
 python3 -B tests/test_trade_concurrency.py
+python3 -B tests/test_peer_review_probes.py
 python3 -B tools/check_repository.py --selftest
 python3 -B tools/check_repository.py --check
 ```
@@ -108,9 +109,11 @@ python3 -B tools/check_repository.py --check
 
 - 标准库测试默认把隔离数据写到系统临时目录；可用 `OPENSHOP_TMP_BASE`、`OPENSHOP_CATALOG_TEST_PORT`、`OPENSHOP_TRADE_TEST_PORT`、`OPENSHOP_SELLER_TEST_PORT` 覆盖。本轮为 **22 tests PASS**。
 - 并发验收在全新数据目录上用真实 HTTP 连续跑 **3 轮 × 7 场景**：8 并发抢 1 件库存、并发幂等建单、券领取/核销竞态、拼团名额与支付竞态、取消竞态、pay/cancel 竞态。可用 `OPENSHOP_CONCURRENCY_TEST_PORT`、`OPENSHOP_CONCURRENCY_EVIDENCE_ROOT` 覆盖端口与证据目录。
+- 独立安全审查：**44/44 probes PASS，39/39 controls PASS，5/5 findings 修复可回归**。限速控制通过同库原地进程重启获得干净额度，seller 权限由 guest 401、buyer 403、seller 200 + 自身店铺匹配验证；完整原始记录见 [docs/peer-review-core-api.md](docs/peer-review-core-api.md)。
 - 仓库门已现读 **PASS**：19 项检查 0 failures（1 个非阻断 warning：GitHub Actions 的 checkout action 使用 tag 而非 SHA 固定）。`--selftest` 带 19 个仓库门负控；发布演练另有 10 个负控全部通过。
 - 完整真实浏览器验收由 `tools/qa/run_acceptance.py` 编排，使用真实后端、真实 Chromium、真实 cookie/CSRF 和 SQLite；本轮为 **API 35 PASS / 0 FAIL、浏览器 11 PASS / 0 FAIL、13 张截图、0 控制台错误、0 外链请求、0 横向溢出**。命令、机器依赖和证据路径见 [docs/testing.md](docs/testing.md)。
-- CI 配置会依次执行标准库测试、真实三轮并发验收、仓库门自检和仓库门；本轮在本机模拟同一命令全绿。**远端 GitHub Actions 尚未实际触发。**
+- 另有真实浏览器补验：真实自营拼团由 1/2 已付款发起，再以第二位真实注册买家经 UI 参团并付款到 **FULL 2/2**；商家工作台经 UI 把报价库存从 **26 改为 27**，PATCH 200 且刷新后持久化。浏览器错误 0。
+- CI 配置会依次执行标准库测试、真实三轮并发验收、44 探针安全审计、仓库门自检和仓库门；本轮在本机模拟同一命令全绿。**远端 GitHub Actions 尚未实际触发。**
 - 仓库门需要系统 `node` 做 JS 语法检查；运行产品本身不需要 Node。
 - 安全说明见 [SECURITY.md](SECURITY.md)，独立审查与修复记录见 [docs/peer-review-core-api.md](docs/peer-review-core-api.md)。
 
@@ -150,4 +153,4 @@ python3 -B tools/check_repository.py --check
 
 ## English
 
-OpenShop is an audit-friendly, self-hosted open-source marketplace reference implementation: three offer types, real group-buying state, a stdlib-only Python backend, SQLite, and vanilla ES modules with no build step or third-party runtime dependencies. The fictional seed includes 18 products, 10 shops and 54 reviews. Local acceptance passed 35 real-HTTP API checks, 11 real-Chromium browser stages, a three-round seven-scenario concurrency suite, and 22 standard-library tests. Payments are simulated and all catalog identities are fictional. It has not been publicly deployed or pushed to a remote repository, and there is no production-scale or capacity guarantee. See [docs/INSTALL.md](docs/INSTALL.md) and [docs/testing.md](docs/testing.md). Licensed under Apache-2.0.
+OpenShop is an audit-friendly, self-hosted open-source marketplace reference implementation: three offer types, real group-buying state, a stdlib-only Python backend, SQLite, and vanilla ES modules with no build step or third-party runtime dependencies. The fictional seed includes 18 products, 10 shops and 54 reviews. Local acceptance passed 35 real-HTTP API checks, 11 real-Chromium browser stages, a 44-probe security audit with 39 controls, a three-round seven-scenario concurrency suite, 22 standard-library tests, plus real-browser evidence of a completed two-person group buy and a persisted seller inventory update. Payments are simulated and all catalog identities are fictional. It has not been publicly deployed or pushed to a remote repository, and there is no production-scale or capacity guarantee. See [docs/INSTALL.md](docs/INSTALL.md) and [docs/testing.md](docs/testing.md). Licensed under Apache-2.0.

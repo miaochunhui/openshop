@@ -1,8 +1,30 @@
 # 变更记录
 
-本项目当前状态为 **v0.1.1 本地源码验收版**。真实 API、真实 Chromium、三轮并发、标准库测试、仓库门与本地发布演练自检均已通过；**未公开部署、未推送远端仓库、未在远端 GitHub 实际执行 CI**。正式生产发布仍需 [docs/RELEASE.md](docs/RELEASE.md) 中的授权、远端 CI、部署与回滚演练。
+本项目当前状态为 **v0.1.2 本地源码验收版**。真实 API、真实 Chromium、三轮并发、44 探针安全审计、标准库测试、仓库门与本地发布演练自检均已通过；**未公开部署、未推送远端仓库、未在远端 GitHub 实际执行 CI**。正式生产发布仍需 [docs/RELEASE.md](docs/RELEASE.md) 中的授权、远端 CI、部署与回滚演练。
 
 记录日期：2026-10-13（Asia/Shanghai）。公开发布日期：待定。
+
+## [0.1.2] — 安全审计全绿与 CI 安全门（本地源码，未公开发布）
+
+### Added / Verified
+
+- 整合后的独立安全审查在 v0.1.2 代码上 **44/44 probes PASS、39/39 controls PASS、5/5 finding 回归 PASS**；Lead 独立复跑，CI 新增真实 44 探针安全审计步骤。
+- 旧 seller-stub/404 scope 改为真实 RBAC control；三个限速控制通过同库原地进程重启（保留 SQLite/session，日志 append，进程限速桶清零）获得独立额度，未使用白名单、skip 或放宽断言。
+- 真实浏览器补验：拼团发起付款到 1/2，再以第二个真实注册买家经 UI 参团付款到 FULL 2/2；商家工作台经真实 UI 将报价库存 26→27，HTTP 200 且刷新后持久化。浏览器错误 0。
+- 应用/健康接口/页脚版本升级为 **v0.1.2**。
+
+### Verification
+
+- `PEER_REVIEW verdict=PASS probes=44 controls=39 failures=0 findings=0 server_boots=4 restarts=3`；所有历史 finding F-01..F-05 保持回归 PASS。
+- `OPENSHOP_ACCEPTANCE verdict=PASS`：API 35/35；Chromium 11/11；13 截图；0 console/page/external/API errors。
+- 并发仍为 **3 rounds × 7 scenarios PASS**；标准库 **22 tests PASS**；仓库门 **PASS** 19 checks / 0 failures（1 个非阻断 Actions tag-pinning warning）；发布演练负控 **10/10 PASS**。
+- 命令与完整证据见 [docs/testing.md](docs/testing.md)、[docs/peer-review-core-api.md](docs/peer-review-core-api.md)。
+
+### Known limitations
+
+- 无公网部署、远端 push、远端 CI 实跑、systemd 安装、TLS/反代或生产回滚演练；v0.1.2 是本地源码版本。
+- 安全审查仍是独立 API/夹具测试，不是公网渗透、TLS/HSTS/真实反代、多进程分布式限速或浏览器 XSS 的完整证明；未覆盖范围已在报告中列出。
+- 三轮并发只覆盖单机单进程 SQLite + 固定 fixture；拼团无后台过期退款，售后仅整单单店铺，无真实支付/物流/KYC/风控或容量 SLA。
 
 ## [0.1.1] — 并发与发布演练补强（本地源码，未公开发布）
 

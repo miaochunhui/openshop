@@ -398,7 +398,7 @@ def run_selftest(out_dir: Path) -> int:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Rehearse a local OpenShop source tag without publishing it")
-    parser.add_argument("--tag", help="existing annotated tag at HEAD, e.g. v0.1.1")
+    parser.add_argument("--tag", help="existing annotated tag at HEAD, e.g. v0.1.2")
     parser.add_argument("--out-dir", required=True, type=Path, help="external evidence directory")
     parser.add_argument("--selftest", action="store_true", help="run temporary-fixture negative controls only")
     parser.add_argument("--port", type=int, default=None, help="loopback rehearsal port (default: free port)")
