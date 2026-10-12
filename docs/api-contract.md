@@ -149,7 +149,7 @@ Card 基础字段外加：
  "coupon_error":null, "has_group":false,
  "address_required":true}
 ```
-- 不在购物车的项不能参与报价。优惠以服务端判定，失败只让 `coupon=null` 并给 `coupon_error`（用户仍可换券/去结算）；不会静默给别人的券或过期券。
+- 不在购物车的项不能参与报价。优惠以服务端判定，失败只让 `coupon=null` 并给 `coupon_error`，HTTP 仍为 200（包括格式不合法的 code）；不会静默给别人的券、过期券或不适用分类的券。创建订单时才对该 coupon_code 做写侧校验，失败返回 422 `COUPON_INVALID`（格式非法的 code 可返回 400 `VALIDATION_ERROR`）。
 - group 项禁止 express，强制 standard；`has_group=true` 时仅允许单选一个 group item。
 
 ### OrderSummary

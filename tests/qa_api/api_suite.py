@@ -205,6 +205,7 @@ class ApiSuite:
                     "threshold_cents": int(raw.get("threshold_cents", definition.get("threshold_cents", 0)) or 0),
                     "discount_cents": int(raw.get("discount_cents", definition.get("discount_cents", 0)) or 0),
                     "title": raw.get("title") or definition.get("title") or code,
+                    "scope": raw.get("scope") or definition.get("scope") or "all",
                     "expires_at": raw.get("expires_at"),
                     "raw": raw,
                 }
@@ -218,15 +219,20 @@ class ApiSuite:
 
     def _pick_coupon(self, available: list[dict], subtotal_cents: int, *, exclude: Iterable[str] = ()) -> dict:
         excluded = set(exclude)
+        # The main journey selects an unrestricted coupon. Category-scoped
+        # coupons are deliberately not assumed applicable to whichever product
+        # the catalog fixture chose; the backend still rejects/scopes those and
+        # API-037 exercises invalid-coupon recovery separately.
         candidates = [
             c for c in available
             if c["code"] not in excluded and c["threshold_cents"] <= subtotal_cents and c["discount_cents"] > 0
+            and str(c.get("scope", "all")) == "all"
         ]
         if not candidates:
-            codes = [(c["code"], c["status"], c["threshold_cents"], c["discount_cents"]) for c in available]
+            codes = [(c["code"], c["status"], c["scope"], c["threshold_cents"], c["discount_cents"]) for c in available]
             raise CheckFailure(
-                f"no AVAILABLE coupon fits subtotal={subtotal_cents}; available={codes!r} "
-                "(journey requires a real usable coupon from seed/implementation)"
+                f"no AVAILABLE unrestricted coupon fits subtotal={subtotal_cents}; available={codes!r} "
+                "(journey requires a real usable unrestricted coupon from seed/implementation)"
             )
         return sorted(candidates, key=lambda c: (c["discount_cents"], str(c["code"])), reverse=True)[0]
 

@@ -810,7 +810,15 @@ def _shipping_options(lines: list[sqlite3.Row]) -> list[dict[str, Any]]:
 
 def checkout_quote(ctx: RequestContext, body: dict[str, Any]) -> dict[str, Any]:
     user = ctx.require_user()
-    code = _normalise_coupon_code(body.get("coupon_code"))
+    # Quoting is a recovery-friendly read: a mistyped or unknown coupon must not
+    # fail the whole checkout with a 4xx. Return the undiscounted quote plus a
+    # human-readable coupon_error; order creation remains fail-closed.
+    coupon_input_error: str | None = None
+    try:
+        code = _normalise_coupon_code(body.get("coupon_code"))
+    except ApiError as exc:
+        code = None
+        coupon_input_error = exc.message
     shipping = _shipping_method(body.get("shipping_method"))
     conn = ctx.db
     cart_id = _cart_id(conn, ctx.owner_key)
@@ -821,7 +829,10 @@ def checkout_quote(ctx: RequestContext, body: dict[str, Any]) -> dict[str, Any]:
     if has_group:
         shipping = "standard"
     subtotal, market_subtotal = _subtotal_for_lines(lines)
-    coupon, _coupon_row, coupon_error = _coupon_quote(conn, int(user["id"]), code, lines, subtotal)
+    if coupon_input_error is not None:
+        coupon, _coupon_row, coupon_error = None, None, coupon_input_error
+    else:
+        coupon, _coupon_row, coupon_error = _coupon_quote(conn, int(user["id"]), code, lines, subtotal)
     discount = int(coupon["discount_cents"]) if coupon else 0
     shipping_cents = 0 if shipping == "standard" else EXPRESS_FEE_CENTS
     total = max(0, subtotal - discount + shipping_cents)
