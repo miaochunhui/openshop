@@ -1,0 +1,36 @@
+# SPDX-License-Identifier: Apache-2.0
+# Stdlib tests plus the fail-closed repository gate. No credentials, no installs.
+name: ci
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: stdlib-tests-and-repository-gate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - name: Checkout without persisted git credentials
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Report toolchain versions
+        run: |
+          python3 --version
+          node --version
+      - name: Standard-library tests
+        run: python3 -B -m unittest discover -s tests -v
+      - name: Repository gate self-test
+        run: python3 -B tools/check_repository.py --selftest
+      - name: Repository gate
+        run: python3 -B tools/check_repository.py --check

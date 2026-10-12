@@ -1,0 +1,58 @@
+# SPDX-License-Identifier: Apache-2.0
+# TEMPLATE ONLY. Do not install or start without explicit production authorization.
+# Review paths, Python version, service account and backup plan first.
+[Unit]
+Description=OpenShop 开集 storefront (template; demo / non-production)
+Documentation=file:/opt/openshop/current/docs/INSTALL.md
+After=network.target
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=openshop
+Group=openshop
+WorkingDirectory=/opt/openshop/current
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=OPENSHOP_SECURE_COOKIES=1
+Environment=OPENSHOP_LOG_LEVEL=INFO
+StateDirectory=openshop
+StateDirectoryMode=0700
+ExecStart=/usr/bin/python3 -B /opt/openshop/current/apps/storefront/server.py --host 127.0.0.1 --port 8780 --data-dir /var/lib/openshop
+ExecStartPost=/usr/bin/python3 -B /opt/openshop/current/deploy/healthcheck.py --url http://127.0.0.1:8780/healthz --wait-seconds 10 --timeout 2
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=20
+KillSignal=SIGTERM
+UMask=0077
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+ProtectClock=true
+ProtectHostname=true
+RestrictNamespaces=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+IPAddressAllow=127.0.0.1/32 ::1/128
+IPAddressDeny=any
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=openshop
+TasksMax=64
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target
