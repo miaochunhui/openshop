@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="art-title art-desc">
+<title id="art-title">布面音箱细节插画</title>
+<desc id="art-desc">音箱编织网罩与皮绳挂带的近景，米色与苔绿色在窗光里留下细密的织纹。</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2=".72" y2="1">
+      <stop offset="0" stop-color="#d5bea0"/><stop offset="1" stop-color="#8a7256"/>
+    </linearGradient>
+    <radialGradient id="light" gradientUnits="userSpaceOnUse" cx="280" cy="180" r="720">
+      <stop offset="0" stop-color="#fff7e7" stop-opacity=".82"/>
+      <stop offset=".52" stop-color="#fff5e3" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#fff5e3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" gradientUnits="userSpaceOnUse" cx="600" cy="410" r="760">
+      <stop offset=".55" stop-color="#2d2117" stop-opacity="0"/>
+      <stop offset="1" stop-color="#2d2117" stop-opacity=".24"/>
+    </radialGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="2" seed="6" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .11"/></feComponentTransfer>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="28"/></filter>
+    <filter id="soft-s" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="11"/></filter>
+    <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#3c2a1d" flood-opacity=".26"/>
+    </filter>
+    <filter id="shadow-lg" x="-40%" y="-40%" width="190%" height="200%">
+      <feDropShadow dx="0" dy="28" stdDeviation="26" flood-color="#312116" flood-opacity=".3"/>
+    </filter>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="30"/>
+    </filter>
+
+
+<linearGradient id="detailBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d6bf9f"/><stop offset=".55" stop-color="#b59570"/><stop offset="1" stop-color="#69543e"/></linearGradient>
+<radialGradient id="greenBody" cx=".4" cy=".3" r=".85"><stop stop-color="#879379"/><stop offset=".6" stop-color="#69785f"/><stop offset="1" stop-color="#465541"/></radialGradient>
+<pattern id="weaveBig" width="34" height="31" patternUnits="userSpaceOnUse">
+  <path d="M0 8 H34 M0 22 H34" stroke="#ebd7b3" stroke-opacity=".23" stroke-width="3"/>
+  <path d="M7 0 V31 M23 0 V31" stroke="#34402d" stroke-opacity=".25" stroke-width="3"/>
+  <path d="M1 3 C6 7 11 4 17 8" stroke="#f6e8ce" stroke-opacity=".15" stroke-width="1.4" fill="none"/>
+</pattern>
+
+</defs>
+<rect width="1200" height="900" fill="url(#bg)"/>
+<rect width="1200" height="900" fill="url(#light)"/>
+
+<rect width="1200" height="900" fill="url(#detailBg)"/>
+<path d="M0 0 L540 0 L250 900 L0 900Z" fill="#fff3dc" opacity=".12" filter="url(#soft-s)"/>
+<g transform="translate(142,76) rotate(-4 450 380)" filter="url(#shadow-lg)">
+  <rect x="62" y="40" width="790" height="760" rx="250" fill="url(#greenBody)" stroke="#3c4635" stroke-opacity=".4" stroke-width="3"/>
+  <rect x="132" y="132" width="648" height="574" rx="205" fill="url(#weaveBig)"/>
+  <path d="M190 160 C330 118 556 116 728 170" fill="none" stroke="#f2dfbd" stroke-opacity=".26" stroke-width="6" stroke-linecap="round"/>
+  <path d="M180 720 C354 770 590 760 744 700" fill="none" stroke="#263222" stroke-opacity=".3" stroke-width="28" filter="url(#soft-s)"/>
+  <circle cx="442" cy="702" r="16" fill="#d7bc87" opacity=".9"/>
+  <path d="M822 250 C944 284 990 404 938 552 C910 632 866 682 816 704" fill="none" stroke="#6f5137" stroke-width="68" stroke-linecap="round"/>
+  <path d="M828 260 C936 300 974 408 928 536" fill="none" stroke="#ae875e" stroke-width="20" stroke-linecap="round"/>
+  <path d="M842 318 C892 360 904 444 886 514" fill="none" stroke="#d9b88b" stroke-opacity=".28" stroke-width="6"/>
+  <circle cx="866" cy="652" r="12" fill="#e6cf9f" stroke="#5c432e" stroke-width="2"/>
+</g>
+<g transform="translate(60,650) rotate(4)">
+  <path d="M0 90 H360" stroke="#846346" stroke-width="3"/>
+  <path d="M28 86 C148 62 278 64 336 80" fill="none" stroke="#f1e0c4" stroke-opacity=".2" stroke-width="3"/>
+</g>
+<g opacity=".6" fill="none" stroke="#fff2d8" stroke-width="2">
+  <path d="M70 190 C200 142 310 144 402 176"/>
+  <path d="M840 770 C950 742 1048 752 1120 790"/>
+</g>
+<g fill="#fff6e7" opacity=".3">
+  <circle cx="1042" cy="140" r="3"/><circle cx="1094" cy="208" r="2"/><circle cx="986" cy="806" r="2.5"/>
+</g>
+
+<rect width="1200" height="900" fill="url(#vignette)" opacity="0.5"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity="0.48"/>
+</svg>

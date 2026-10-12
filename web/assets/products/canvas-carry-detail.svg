@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="art-title art-desc">
+<title id="art-title">帆布托特包织纹与提手细节插画</title>
+<desc id="art-desc">帆布提手和铜铆钉的近景，双层面料的边缘、粗织纹理与一束绿叶在晨光里留下细影。</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2=".72" y2="1">
+      <stop offset="0" stop-color="#cbb798"/><stop offset="1" stop-color="#8b7358"/>
+    </linearGradient>
+    <radialGradient id="light" gradientUnits="userSpaceOnUse" cx="280" cy="180" r="760">
+      <stop offset="0" stop-color="#fff7e7" stop-opacity=".82"/>
+      <stop offset=".52" stop-color="#fff5e3" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#fff5e3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" gradientUnits="userSpaceOnUse" cx="600" cy="410" r="760">
+      <stop offset=".55" stop-color="#2d2117" stop-opacity="0"/>
+      <stop offset="1" stop-color="#2d2117" stop-opacity=".24"/>
+    </radialGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="2" seed="14" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .11"/></feComponentTransfer>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="28"/></filter>
+    <filter id="soft-s" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="11"/></filter>
+    <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#3c2a1d" flood-opacity=".26"/>
+    </filter>
+    <filter id="shadow-lg" x="-40%" y="-40%" width="190%" height="200%">
+      <feDropShadow dx="0" dy="28" stdDeviation="26" flood-color="#312116" flood-opacity=".3"/>
+    </filter>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="30"/>
+    </filter>
+
+
+<linearGradient id="canvasBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d8c5a9"/><stop offset=".55" stop-color="#b79d7b"/><stop offset="1" stop-color="#765f46"/></linearGradient>
+<linearGradient id="canvasBig" x1="0" y1="0" x2=".7" y2="1"><stop stop-color="#f0e5d3"/><stop offset=".55" stop-color="#e2d2bb"/><stop offset="1" stop-color="#cbb69a"/></linearGradient>
+<pattern id="canvasMacro" width="26" height="24" patternUnits="userSpaceOnUse">
+  <path d="M0 7 H26 M0 17 H26" stroke="#a1896b" stroke-opacity=".16" stroke-width="1.6"/>
+  <path d="M8 0 V24 M18 0 V24" stroke="#fff9ed" stroke-opacity=".18" stroke-width="1.3"/>
+  <circle cx="4" cy="20" r="1" fill="#806a52" opacity=".12"/>
+</pattern>
+
+</defs>
+<rect width="1200" height="900" fill="url(#bg)"/>
+<rect width="1200" height="900" fill="url(#light)"/>
+
+<rect width="1200" height="900" fill="url(#canvasBg)"/>
+<path d="M0 0 L500 0 L220 900 L0 900Z" fill="#fff3dd" opacity=".14" filter="url(#soft-s)"/>
+<g transform="rotate(6 600 450)" filter="url(#shadow-lg)">
+  <path d="M60 140 C300 80 800 82 1060 142 C1132 164 1140 782 1060 820 C810 866 288 860 82 816 C8 784 16 170 60 140Z" fill="url(#canvasBig)" stroke="#8e7658" stroke-opacity=".35" stroke-width="3"/>
+  <path d="M92 170 C360 130 770 130 1030 176" fill="none" stroke="#b49b78" stroke-opacity=".4" stroke-width="5"/>
+  <path d="M104 198 C382 164 764 164 1018 202" fill="none" stroke="#fff8ea" stroke-opacity=".32" stroke-width="3" stroke-dasharray="6 10"/>
+  <path d="M196 140 C220 12 332 -34 470 20 C538 46 558 98 534 158" fill="none" stroke="#cdbb9e" stroke-width="90" stroke-linecap="round"/>
+  <path d="M220 136 C256 36 342 6 446 42 C500 60 520 102 506 152" fill="none" stroke="#dfcfb6" stroke-width="50" stroke-linecap="round"/>
+  <path d="M232 124 C272 48 348 28 432 58" fill="none" stroke="#f5e8d2" stroke-opacity=".4" stroke-width="6" stroke-linecap="round"/>
+  <path d="M268 108 C296 94 326 94 352 108" fill="none" stroke="#a58d6e" stroke-width="3"/>
+  <circle cx="510" cy="160" r="22" fill="#c7a873" stroke="#765d3f" stroke-width="3"/>
+  <circle cx="503" cy="152" r="7" fill="#efdcb0" opacity=".78"/>
+  <circle cx="501" cy="154" r="12" fill="none" stroke="#7d6547" stroke-width="2"/>
+  <path d="M564 684 C682 706 888 704 1000 676" fill="none" stroke="#a58c6d" stroke-opacity=".35" stroke-width="4"/>
+  <path d="M614 92 C668 80 748 84 788 106" fill="none" stroke="#5f4c37" stroke-opacity=".25" stroke-width="3"/>
+  <path d="M898 150 C958 250 978 420 960 594 C950 700 976 782 1008 842" fill="none" stroke="#f2e2c9" stroke-opacity=".2" stroke-width="8" filter="url(#soft-s)"/>
+</g>
+<g transform="translate(728,196) rotate(12)">
+  <path d="M0 96 C34 22 116 -6 172 42 C200 66 204 116 176 150 C132 184 58 172 22 132Z" fill="#7e8764"/>
+  <path d="M30 108 C66 54 120 34 158 58 M58 102 C74 68 102 48 126 48" stroke="#525c40" stroke-width="3" fill="none"/>
+  <ellipse cx="142" cy="16" rx="44" ry="14" transform="rotate(-28 142 16)" fill="#929a72"/>
+</g>
+<g transform="translate(90,706)">
+  <path d="M0 0 H300" stroke="#876b4e" stroke-width="4"/>
+  <path d="M16 0 C132 20 234 18 292 -2" stroke="#f4e6d1" stroke-opacity=".2" stroke-width="4" fill="none"/>
+</g>
+<g opacity=".4" fill="none" stroke="#fff2da" stroke-width="2">
+  <path d="M120 310 C240 278 334 284 414 310 M786 780 C888 754 978 758 1060 784"/>
+</g>
+<rect width="1200" height="900" fill="url(#canvasMacro)" opacity=".6"/>
+<rect width="1200" height="900" fill="url(#vignette)" opacity="0.46"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity="0.48"/>
+</svg>

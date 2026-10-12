@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="art-title art-desc">
+<title id="art-title">晨路帆布托特包门厅插画</title>
+<desc id="art-desc">晨光门厅里的一只米白帆布托特包放在木凳上，绿色菜叶与笔记本露出包口，包身有内袋和铜铆钉。</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2=".72" y2="1">
+      <stop offset="0" stop-color="#e6d8c3"/><stop offset="1" stop-color="#bfa588"/>
+    </linearGradient>
+    <radialGradient id="light" gradientUnits="userSpaceOnUse" cx="260" cy="180" r="760">
+      <stop offset="0" stop-color="#fff7e7" stop-opacity=".82"/>
+      <stop offset=".52" stop-color="#fff5e3" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#fff5e3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" gradientUnits="userSpaceOnUse" cx="600" cy="410" r="760">
+      <stop offset=".55" stop-color="#2d2117" stop-opacity="0"/>
+      <stop offset="1" stop-color="#2d2117" stop-opacity=".24"/>
+    </radialGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="2" seed="48" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .11"/></feComponentTransfer>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="28"/></filter>
+    <filter id="soft-s" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="11"/></filter>
+    <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#3c2a1d" flood-opacity=".26"/>
+    </filter>
+    <filter id="shadow-lg" x="-40%" y="-40%" width="190%" height="200%">
+      <feDropShadow dx="0" dy="28" stdDeviation="26" flood-color="#312116" flood-opacity=".3"/>
+    </filter>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="30"/>
+    </filter>
+
+
+<linearGradient id="hall" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e9ddc9"/><stop offset=".62" stop-color="#d4c1a6"/><stop offset="1" stop-color="#b69a7a"/></linearGradient>
+<linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#b6926c"/><stop offset="1" stop-color="#9c7959"/></linearGradient>
+<linearGradient id="bench" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#a88460"/><stop offset="1" stop-color="#896647"/></linearGradient>
+<linearGradient id="canvasBag" x1="0" y1="0" x2=".7" y2="1"><stop stop-color="#f2e7d5"/><stop offset=".55" stop-color="#e4d5c0"/><stop offset="1" stop-color="#cdb99f"/></linearGradient>
+<pattern id="canvasWeave" width="22" height="20" patternUnits="userSpaceOnUse">
+  <path d="M0 6 H22 M0 14 H22" stroke="#a68f72" stroke-opacity=".13" stroke-width="1.3"/>
+  <path d="M7 0 V20 M15 0 V20" stroke="#fff9ee" stroke-opacity=".15" stroke-width="1.1"/>
+</pattern>
+
+</defs>
+<rect width="1200" height="900" fill="url(#bg)"/>
+<rect width="1200" height="900" fill="url(#light)"/>
+
+<path d="M0 0 H1200 V900 H0Z" fill="url(#hall)"/>
+<path d="M0 756 H1200 V900 H0Z" fill="url(#floor)"/>
+<path d="M0 756 H1200" stroke="#74604b" stroke-opacity=".24" stroke-width="2"/>
+<path d="M0 0 L392 0 L704 900 L274 900Z" fill="#fff2dc" opacity=".15" filter="url(#soft-s)"/>
+<path d="M760 0 L912 0 L1120 900 L956 900Z" fill="#fff4df" opacity=".09"/>
+<path d="M991 208 C956 380 924 562 916 756" stroke="#796247" stroke-opacity=".2" stroke-width="3" fill="none"/>
+<g fill="#7b8264" opacity=".2">
+  <ellipse cx="1000" cy="368" rx="76" ry="17" transform="rotate(44 1000 368)"/>
+  <ellipse cx="958" cy="484" rx="58" ry="13" transform="rotate(-28 958 484)"/>
+  <ellipse cx="984" cy="604" rx="45" ry="10" transform="rotate(54 984 604)"/>
+</g>
+
+<!-- bench -->
+<ellipse cx="594" cy="862" rx="430" ry="34" fill="#59422d" opacity=".2" filter="url(#soft)"/>
+<g filter="url(#shadow-lg)">
+  <path d="M144 704 C298 688 886 690 1052 712 L1042 766 C868 788 326 786 154 760Z" fill="url(#bench)" stroke="#654f39" stroke-opacity=".38" stroke-width="2"/>
+  <path d="M184 760 L146 880 M996 762 L1038 884 M304 762 L282 850 M870 762 L890 852" stroke="#5c4733" stroke-width="16" stroke-linecap="round"/>
+  <path d="M164 736 C356 712 832 714 1022 738" fill="none" stroke="#f5e4cb" stroke-opacity=".18" stroke-width="3"/>
+</g>
+
+<!-- bag sits on bench -->
+<g transform="rotate(-2 585 510)" filter="url(#shadow-lg)">
+  <path d="M412 366 C468 336 700 338 764 368 C788 438 792 548 764 690 C686 724 474 726 402 688 C384 568 386 438 412 366Z" fill="url(#canvasBag)" stroke="#8c7456" stroke-opacity=".38" stroke-width="3"/>
+  <path d="M430 384 C518 404 658 404 744 380" fill="none" stroke="#a99272" stroke-opacity=".36" stroke-width="4"/>
+  <path d="M416 680 C522 710 680 710 756 678" fill="none" stroke="#ad9574" stroke-opacity=".4" stroke-width="5"/>
+  <!-- handles, resting over the mouth -->
+  <path d="M452 366 C468 250 536 184 580 220 C610 244 604 304 576 358" fill="none" stroke="#cbb899" stroke-width="34" stroke-linecap="round"/>
+  <path d="M724 368 C702 262 650 206 616 236 C592 256 600 308 624 358" fill="none" stroke="#cbb899" stroke-width="34" stroke-linecap="round"/>
+  <path d="M460 356 C478 260 534 210 568 236" fill="none" stroke="#f1e3cc" stroke-opacity=".4" stroke-width="5" stroke-linecap="round"/>
+  <path d="M716 358 C696 268 654 224 628 250" fill="none" stroke="#f1e3cc" stroke-opacity=".34" stroke-width="5" stroke-linecap="round"/>
+  <!-- greens, paper -->
+  <g transform="translate(470,300) rotate(-12)">
+    <path d="M0 64 C26 16 84 0 122 28 C142 44 126 78 90 92 C52 106 16 92 0 64Z" fill="#76805f"/>
+    <path d="M20 66 C48 34 78 22 106 30 M40 72 C58 48 80 38 100 42" stroke="#515c43" stroke-width="3" fill="none"/>
+    <ellipse cx="94" cy="16" rx="38" ry="12" transform="rotate(-26 94 16)" fill="#8f9874"/>
+  </g>
+  <g transform="translate(618,268) rotate(5)">
+    <path d="M0 0 H130 L120 124 H0Z" fill="#e5d8c5" stroke="#796652" stroke-opacity=".3" stroke-width="2"/>
+    <path d="M14 22 H106 M14 38 H90 M14 54 H98" stroke="#a08b70" stroke-opacity=".45" stroke-width="2"/>
+  </g>
+  <!-- stitched pocket -->
+  <path d="M516 486 H656 L646 590 C596 604 560 602 526 590Z" fill="#e3d5be" stroke="#9d876a" stroke-opacity=".34" stroke-width="2"/>
+  <path d="M534 502 H636" stroke="#b29c7f" stroke-width="2" stroke-dasharray="4 7"/>
+  <g fill="#7b5a3d"><circle cx="442" cy="390" r="7"/><circle cx="724" cy="392" r="7"/></g>
+  <path d="M464 660 C548 682 654 684 732 662" fill="none" stroke="#f7ead6" stroke-opacity=".26" stroke-width="3"/>
+</g>
+
+<!-- props -->
+<g transform="translate(890,512)" filter="url(#shadow)">
+  <path d="M0 138 C-22 88 8 38 66 24 C126 10 178 52 176 112 C174 170 110 190 64 166 C34 154 10 150 0 138Z" fill="#cbb69b" stroke="#7c6752" stroke-opacity=".3" stroke-width="2"/>
+  <ellipse cx="90" cy="102" rx="76" ry="22" fill="#b09a7e"/>
+  <path d="M52 68 C78 44 118 48 142 74 C124 94 96 102 68 96" fill="none" stroke="#e6d7c2" stroke-opacity=".28" stroke-width="3"/>
+</g>
+<g transform="translate(158,702) rotate(-4)">
+  <path d="M0 0 H600 L634 86 C426 112 166 108 20 80Z" fill="#cab89f" opacity=".72"/>
+  <path d="M38 30 C184 12 420 14 586 36" fill="none" stroke="#f4e6d0" stroke-opacity=".24" stroke-width="3"/>
+</g>
+<g fill="#f8ead4" opacity=".32">
+  <circle cx="320" cy="180" r="2.4"/><circle cx="1104" cy="240" r="2"/><circle cx="776" cy="808" r="1.6"/>
+</g>
+<rect width="1200" height="900" fill="url(#canvasWeave)" opacity=".55"/>
+<rect width="1200" height="900" fill="url(#vignette)" opacity="0.52"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity="0.46"/>
+</svg>

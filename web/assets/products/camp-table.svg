@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="art-title art-desc">
+<title id="art-title">折木轻量桌露营插画</title>
+<desc id="art-desc">草坡上展开的轻量折叠桌，搪瓷杯、保温壶、折叠地图与远处的帐篷在夕照中安静摆放。</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2=".72" y2="1">
+      <stop offset="0" stop-color="#dfcca9"/><stop offset="1" stop-color="#a99573"/>
+    </linearGradient>
+    <radialGradient id="light" gradientUnits="userSpaceOnUse" cx="250" cy="190" r="760">
+      <stop offset="0" stop-color="#fff7e7" stop-opacity=".82"/>
+      <stop offset=".52" stop-color="#fff5e3" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#fff5e3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" gradientUnits="userSpaceOnUse" cx="600" cy="410" r="760">
+      <stop offset=".55" stop-color="#2d2117" stop-opacity="0"/>
+      <stop offset="1" stop-color="#2d2117" stop-opacity=".24"/>
+    </radialGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="2" seed="27" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .11"/></feComponentTransfer>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="28"/></filter>
+    <filter id="soft-s" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="11"/></filter>
+    <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#3c2a1d" flood-opacity=".26"/>
+    </filter>
+    <filter id="shadow-lg" x="-40%" y="-40%" width="190%" height="200%">
+      <feDropShadow dx="0" dy="28" stdDeviation="26" flood-color="#312116" flood-opacity=".3"/>
+    </filter>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="30"/>
+    </filter>
+
+
+<linearGradient id="grass" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#96936e"/><stop offset="1" stop-color="#c3b28a"/></linearGradient>
+<linearGradient id="tableTop" x1="0" y1="0" x2=".75" y2="1"><stop stop-color="#cbcdc1"/><stop offset=".5" stop-color="#a8aa9d"/><stop offset="1" stop-color="#818375"/></linearGradient>
+<linearGradient id="legWood" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#775b3e"/><stop offset=".55" stop-color="#9b7852"/><stop offset="1" stop-color="#5c442f"/></linearGradient>
+<pattern id="aluminum" width="18" height="18" patternUnits="userSpaceOnUse">
+  <path d="M0 9 H18" stroke="#f5f1e4" stroke-opacity=".16" stroke-width="1"/>
+  <path d="M9 0 V18" stroke="#4f5247" stroke-opacity=".08" stroke-width="1"/>
+</pattern>
+
+</defs>
+<rect width="1200" height="900" fill="url(#bg)"/>
+<rect width="1200" height="900" fill="url(#light)"/>
+
+<ellipse cx="240" cy="190" rx="360" ry="260" fill="#f1cb89" opacity=".28" filter="url(#glow)"/>
+<path d="M0 498 C166 430 300 454 434 500 C572 546 694 526 826 472 C978 410 1092 426 1200 472 V640 H0Z" fill="#a69b7a"/>
+<path d="M0 584 C150 534 280 550 410 600 C544 650 672 640 802 592 C960 532 1080 548 1200 604 V760 H0Z" fill="#7e8564"/>
+<g opacity=".32" fill="#4e5943">
+  <path d="M920 442 C1028 412 1126 446 1162 520 L982 520Z"/>
+  <path d="M1030 510 L1104 440 L1174 516Z"/>
+  <path d="M912 536 L1200 518 V596 L936 584Z"/>
+</g>
+<path d="M0 744 C204 688 398 710 580 746 C756 780 974 750 1200 682 V900 H0Z" fill="url(#grass)"/>
+<g fill="none" stroke="#707756" stroke-opacity=".5" stroke-width="2">
+  <path d="M52 826 C74 768 92 738 126 704 M78 818 C112 784 144 766 180 756 M266 818 C292 766 324 740 358 720 M760 826 C792 778 834 750 870 730 M1030 810 C1058 760 1090 738 1124 722"/>
+  <path d="M142 852 C176 806 204 786 238 770 M914 834 C948 794 986 774 1024 760"/>
+</g>
+<ellipse cx="626" cy="790" rx="376" ry="52" fill="#38402b" opacity=".26" filter="url(#soft)"/>
+
+<!-- table -->
+<g filter="url(#shadow-lg)">
+  <path d="M304 523 L936 503 L1006 641 L252 665Z" fill="url(#tableTop)" stroke="#4b503b" stroke-opacity=".4" stroke-width="3"/>
+  <path d="M326 546 L912 528 M316 570 L930 550 M302 594 L960 572 M282 620 L986 596" stroke="#6f725d" stroke-opacity=".36" stroke-width="4"/>
+  <path d="M264 651 L995 623 L1002 646 L258 676Z" fill="#5d5e4a"/>
+  <path d="M354 664 L320 828 M846 650 L886 812 M476 660 L456 788 M742 654 L770 780" stroke="url(#legWood)" stroke-width="24" stroke-linecap="round"/>
+  <path d="M320 828 L276 838 M886 812 L932 824" stroke="#584d36" stroke-width="16" stroke-linecap="round"/>
+  <circle cx="356" cy="668" r="18" fill="#77765d" stroke="#424633" stroke-width="3"/>
+  <circle cx="844" cy="654" r="18" fill="#77765d" stroke="#424633" stroke-width="3"/>
+</g>
+
+<!-- table props -->
+<g transform="translate(372,412)" filter="url(#shadow)">
+  <path d="M0 54 H124 L112 126 C78 136 36 134 8 124Z" fill="#e2d6c2" stroke="#6d6252" stroke-opacity=".35" stroke-width="2"/>
+  <ellipse cx="62" cy="55" rx="62" ry="13" fill="#f3e8d8"/>
+  <ellipse cx="62" cy="56" rx="45" ry="9" fill="#6d4a38"/>
+  <path d="M124 68 C160 70 160 104 120 114" stroke="#e2d6c2" stroke-width="9" fill="none"/>
+  <path d="M35 30 C45 10 60 8 72 20 C55 26 54 34 48 44" fill="#fff6e8" opacity=".25" filter="url(#soft-s)"/>
+</g>
+<g transform="translate(596,374)" filter="url(#shadow)">
+  <path d="M14 20 H112 L102 164 C72 174 38 172 18 162Z" fill="#697562" stroke="#3f493a" stroke-opacity=".4" stroke-width="2"/>
+  <path d="M62 50 V128" stroke="#c5b68d" stroke-width="3"/>
+  <path d="M18 20 C32 2 90 0 110 20 C82 36 46 36 18 20Z" fill="#d6c7aa" stroke="#6e624c" stroke-opacity=".3" stroke-width="2"/>
+  <circle cx="63" cy="18" r="9" fill="#6d573d"/>
+</g>
+<g transform="rotate(-7 760 520)" filter="url(#shadow)">
+  <path d="M0 20 L150 0 L192 54 L46 92Z" fill="#e8decc" stroke="#74664f" stroke-opacity=".3" stroke-width="2"/>
+  <path d="M18 33 L130 17 M28 50 L142 34 M38 66 L122 54" stroke="#a18e72" stroke-opacity=".5" stroke-width="2"/>
+</g>
+<g transform="translate(844,598)">
+  <path d="M0 108 C54 78 132 80 188 112 L174 186 C114 202 58 198 12 182Z" fill="#c5ae8d" stroke="#76634c" stroke-opacity=".3" stroke-width="2"/>
+  <path d="M18 118 C66 96 124 98 166 120 M26 142 C72 120 122 122 160 144" fill="none" stroke="#f1e3c8" stroke-opacity=".26" stroke-width="3"/>
+</g>
+<path d="M270 480 C214 480 190 548 154 614" fill="none" stroke="#5f553e" stroke-width="8" opacity=".35"/>
+<g fill="#f0dfbc" opacity=".4">
+  <circle cx="740" cy="760" r="2"/><circle cx="792" cy="786" r="1.5"/><circle cx="662" cy="792" r="1.4"/>
+</g>
+<rect width="1200" height="900" fill="url(#aluminum)" opacity=".3"/>
+<rect width="1200" height="900" fill="url(#vignette)" opacity="0.52"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity="0.46"/>
+</svg>

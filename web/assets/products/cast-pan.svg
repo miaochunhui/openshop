@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="art-title art-desc">
+<title id="art-title">黑石厚铁煎锅料理插画</title>
+<desc id="art-desc">亚麻布上的黑色铸铁煎锅，锅里有烤面包与煎蛋，旁边放着木铲和一小碗番茄。</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2=".72" y2="1">
+      <stop offset="0" stop-color="#eee2d0"/><stop offset="1" stop-color="#c9b194"/>
+    </linearGradient>
+    <radialGradient id="light" gradientUnits="userSpaceOnUse" cx="260" cy="170" r="740">
+      <stop offset="0" stop-color="#fff7e7" stop-opacity=".82"/>
+      <stop offset=".52" stop-color="#fff5e3" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#fff5e3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" gradientUnits="userSpaceOnUse" cx="600" cy="410" r="760">
+      <stop offset=".55" stop-color="#2d2117" stop-opacity="0"/>
+      <stop offset="1" stop-color="#2d2117" stop-opacity=".24"/>
+    </radialGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="2" seed="36" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .11"/></feComponentTransfer>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="28"/></filter>
+    <filter id="soft-s" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="11"/></filter>
+    <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#3c2a1d" flood-opacity=".26"/>
+    </filter>
+    <filter id="shadow-lg" x="-40%" y="-40%" width="190%" height="200%">
+      <feDropShadow dx="0" dy="28" stdDeviation="26" flood-color="#312116" flood-opacity=".3"/>
+    </filter>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="30"/>
+    </filter>
+
+
+<linearGradient id="stone" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e6dbc8"/><stop offset=".6" stop-color="#cab79c"/><stop offset="1" stop-color="#a58b6e"/></linearGradient>
+<linearGradient id="linen" x1="0" y1="0" x2=".7" y2="1"><stop stop-color="#f4eadb"/><stop offset="1" stop-color="#e0cfb8"/></linearGradient>
+<radialGradient id="panInner" cx=".4" cy=".34" r=".7"><stop stop-color="#48433a"/><stop offset=".55" stop-color="#302c26"/><stop offset="1" stop-color="#1a1815"/></radialGradient>
+<linearGradient id="woodTool" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#997048"/><stop offset=".6" stop-color="#7c5736"/><stop offset="1" stop-color="#5e412b"/></linearGradient>
+<pattern id="linenWeave" width="18" height="18" patternUnits="userSpaceOnUse">
+  <path d="M0 6 H18 M0 14 H18" stroke="#b29b7e" stroke-opacity=".13" stroke-width="1"/>
+  <path d="M6 0 V18 M14 0 V18" stroke="#fff9ed" stroke-opacity=".15" stroke-width="1"/>
+</pattern>
+
+</defs>
+<rect width="1200" height="900" fill="url(#bg)"/>
+<rect width="1200" height="900" fill="url(#light)"/>
+
+<path d="M0 0 H1200 V900 H0Z" fill="url(#stone)"/>
+<g opacity=".3" stroke="#7e6b55" stroke-width="1.5">
+  <path d="M0 150 C160 130 308 176 430 152 C610 120 760 158 944 136 C1056 122 1136 132 1200 150"/>
+  <path d="M0 286 C140 260 300 306 460 280 C646 248 842 300 1010 266 C1092 250 1152 260 1200 280"/>
+</g>
+<path d="M74 86 C340 34 936 36 1132 98 L1054 728 C906 792 292 792 146 726Z" fill="url(#linen)"/>
+<path d="M88 104 C380 60 884 60 1118 112" fill="none" stroke="#fff8ea" stroke-opacity=".24" stroke-width="3"/>
+<g opacity=".3" stroke="#a18665" stroke-width="2" fill="none">
+  <path d="M156 180 C386 152 806 154 1040 188 M136 332 C380 298 830 306 1068 350 M154 480 C390 452 824 460 1060 494 M136 626 C378 598 824 608 1060 640"/>
+</g>
+<ellipse cx="642" cy="694" rx="392" ry="90" fill="#4c3b2a" opacity=".28" filter="url(#soft)"/>
+<g transform="rotate(-9 600 455)" filter="url(#shadow-lg)">
+  <circle cx="560" cy="458" r="272" fill="#27251f" stroke="#15130f" stroke-width="7"/>
+  <circle cx="560" cy="458" r="242" fill="#35312a"/>
+  <circle cx="560" cy="458" r="232" fill="url(#panInner)"/>
+  <path d="M344 392 C380 272 494 216 616 226 C478 248 398 338 382 460 C360 520 384 600 438 648" fill="none" stroke="#76715f" stroke-opacity=".22" stroke-width="6"/>
+  <path d="M760 650 C816 584 842 508 824 426" fill="none" stroke="#8b836d" stroke-opacity=".18" stroke-width="5"/>
+  <path d="M776 360 C884 360 924 362 1032 390 C1056 396 1058 422 1034 430 C927 458 870 446 768 438" fill="none" stroke="#2d2a24" stroke-width="36" stroke-linecap="round"/>
+  <path d="M916 388 L1030 410" stroke="#555042" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="838" cy="396" r="11" fill="#14120f" stroke="#6e6554" stroke-width="2"/>
+  <path d="M302 430 C290 476 292 540 314 586" fill="none" stroke="#0f0e0c" stroke-opacity=".5" stroke-width="10"/>
+  <path d="M826 486 C844 492 848 512 836 526" fill="none" stroke="#6d6552" opacity=".28" stroke-width="3"/>
+  <!-- bread and egg -->
+  <g transform="translate(440,340) rotate(10)">
+    <path d="M0 112 C-24 62 0 8 60 -6 C128 -22 206 24 216 92 C224 150 170 200 102 196 C48 192 18 160 0 112Z" fill="#d7b577" stroke="#7d5d36" stroke-opacity=".35" stroke-width="3"/>
+    <path d="M36 46 C82 12 174 30 192 96" fill="none" stroke="#f2dbab" stroke-opacity=".4" stroke-width="5"/>
+    <path d="M42 136 C102 168 176 156 198 108" fill="none" stroke="#8e6537" stroke-opacity=".3" stroke-width="3"/>
+  </g>
+  <g transform="translate(584,398) rotate(-4)">
+    <path d="M0 104 C-26 56 -6 4 44 -12 C100 -30 166 6 172 74 C176 142 106 182 50 162 C16 150 -10 134 0 104Z" fill="#f6eddc" stroke="#baa585" stroke-opacity=".4" stroke-width="3"/>
+    <circle cx="98" cy="76" r="38" fill="#e0a33e"/>
+    <circle cx="88" cy="65" r="13" fill="#f3cf7e" opacity=".68"/>
+    <path d="M56 122 C92 140 136 130 158 106" fill="none" stroke="#d8c6aa" stroke-opacity=".5" stroke-width="3"/>
+  </g>
+  <g stroke="#6c6e50" stroke-width="5" fill="none" stroke-linecap="round">
+    <path d="M548 314 C582 284 640 282 682 316"/>
+    <path d="M572 328 C602 302 638 302 660 326"/>
+    <path d="M600 350 C616 336 632 338 644 352"/>
+  </g>
+  <g fill="#6d7050">
+    <ellipse cx="564" cy="338" rx="14" ry="6" transform="rotate(-28 564 338)"/>
+    <ellipse cx="690" cy="338" rx="13" ry="5" transform="rotate(22 690 338)"/>
+    <ellipse cx="638" cy="296" rx="12" ry="5" transform="rotate(72 638 296)"/>
+  </g>
+</g>
+<g transform="translate(872,594) rotate(-12)" filter="url(#shadow)">
+  <path d="M0 0 C52 40 58 152 20 228 C-20 250 -46 218 -34 168 C-18 112 -20 58 0 0Z" fill="url(#woodTool)" stroke="#65462d" stroke-opacity=".35" stroke-width="2"/>
+  <path d="M-4 70 C14 124 16 178 6 222" fill="none" stroke="#d4b083" stroke-opacity=".3" stroke-width="3"/>
+</g>
+<g transform="translate(172,608)">
+  <path d="M0 62 C30 12 94 0 142 36 C164 52 166 88 146 110 C106 148 38 138 10 104Z" fill="#d4bda0" stroke="#745f4b" stroke-opacity=".3" stroke-width="2"/>
+  <ellipse cx="82" cy="60" rx="70" ry="21" fill="#aa8d6d"/>
+  <g fill="#a6503b">
+    <circle cx="64" cy="56" r="15"/><circle cx="100" cy="48" r="13"/><circle cx="116" cy="70" r="11"/><circle cx="78" cy="78" r="10"/>
+  </g>
+</g>
+
+<rect width="1200" height="900" fill="url(#linenWeave)" opacity=".5"/>
+<rect width="1200" height="900" fill="url(#vignette)" opacity="0.5"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity="0.45"/>
+</svg>

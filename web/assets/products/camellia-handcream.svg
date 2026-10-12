@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="art-title art-desc">
+<title id="art-title">山茶润手霜静物插画</title>
+<desc id="art-desc">石盘上的铝管护手霜与白山茶，旁边是一小团乳霜和亚麻布，绿叶在柔光里投下长影。</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2=".72" y2="1">
+      <stop offset="0" stop-color="#e6e1d2"/><stop offset="1" stop-color="#b4b5a1"/>
+    </linearGradient>
+    <radialGradient id="light" gradientUnits="userSpaceOnUse" cx="270" cy="180" r="760">
+      <stop offset="0" stop-color="#fff7e7" stop-opacity=".82"/>
+      <stop offset=".52" stop-color="#fff5e3" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#fff5e3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" gradientUnits="userSpaceOnUse" cx="600" cy="410" r="760">
+      <stop offset=".55" stop-color="#2d2117" stop-opacity="0"/>
+      <stop offset="1" stop-color="#2d2117" stop-opacity=".24"/>
+    </radialGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="2" seed="52" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .11"/></feComponentTransfer>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="28"/></filter>
+    <filter id="soft-s" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="11"/></filter>
+    <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#3c2a1d" flood-opacity=".26"/>
+    </filter>
+    <filter id="shadow-lg" x="-40%" y="-40%" width="190%" height="200%">
+      <feDropShadow dx="0" dy="28" stdDeviation="26" flood-color="#312116" flood-opacity=".3"/>
+    </filter>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="30"/>
+    </filter>
+
+
+<linearGradient id="air" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e5e1d2"/><stop offset=".62" stop-color="#cfcebc"/><stop offset="1" stop-color="#aeb19d"/></linearGradient>
+<linearGradient id="stoneTable" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#a9a291"/><stop offset="1" stop-color="#847b6a"/></linearGradient>
+<radialGradient id="tray" cx=".45" cy=".4" r=".7"><stop stop-color="#e3dccd"/><stop offset=".75" stop-color="#c7bdab"/><stop offset="1" stop-color="#a99d8b"/></radialGradient>
+<linearGradient id="cloth" x1="0" y1="0" x2=".7" y2="1"><stop stop-color="#f0e6d8"/><stop offset="1" stop-color="#ded0bc"/></linearGradient>
+<linearGradient id="tube" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#c8c6ba"/><stop offset=".23" stop-color="#eeece1"/><stop offset=".55" stop-color="#bbb8ab"/><stop offset=".8" stop-color="#dad8cc"/><stop offset="1" stop-color="#a9a799"/></linearGradient>
+<linearGradient id="label" x1="0" y1="0" x2=".6" y2="1"><stop stop-color="#f1e8da"/><stop offset="1" stop-color="#dfd1bc"/></linearGradient>
+<linearGradient id="cap" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#8e8b7e"/><stop offset=".34" stop-color="#c5c0b1"/><stop offset=".7" stop-color="#918d80"/><stop offset="1" stop-color="#6e6b60"/></linearGradient>
+<radialGradient id="leaf" cx=".3" cy=".25" r=".85"><stop stop-color="#8b977c"/><stop offset=".6" stop-color="#718063"/><stop offset="1" stop-color="#55634b"/></radialGradient>
+<pattern id="stoneGrain" width="28" height="24" patternUnits="userSpaceOnUse">
+  <path d="M2 8 C10 3 16 13 26 7" stroke="#5f5548" stroke-opacity=".06" stroke-width="1.2" fill="none"/>
+  <circle cx="22" cy="18" r="1.2" fill="#5f5548" opacity=".06"/>
+</pattern>
+
+</defs>
+<rect width="1200" height="900" fill="url(#bg)"/>
+<rect width="1200" height="900" fill="url(#light)"/>
+
+<path d="M0 0 H1200 V900 H0Z" fill="url(#air)"/>
+<g opacity=".24" fill="none" stroke="#5e6b55" stroke-width="4">
+  <path d="M936 80 C846 244 828 420 874 586 C914 710 1010 756 1118 768"/>
+  <path d="M874 586 C784 604 724 678 704 780"/>
+</g>
+<g opacity=".19" fill="#728064">
+  <ellipse cx="976" cy="206" rx="96" ry="22" transform="rotate(44 976 206)"/>
+  <ellipse cx="868" cy="312" rx="86" ry="20" transform="rotate(-34 868 312)"/>
+  <ellipse cx="1008" cy="430" rx="74" ry="18" transform="rotate(22 1008 430)"/>
+  <ellipse cx="808" cy="598" rx="62" ry="15" transform="rotate(-46 808 598)"/>
+</g>
+<path d="M0 630 H1200 V900 H0Z" fill="url(#stoneTable)"/>
+<path d="M0 630 H1200" stroke="#7e705d" stroke-opacity=".25" stroke-width="2"/>
+<ellipse cx="610" cy="748" rx="476" ry="94" fill="url(#tray)"/>
+<ellipse cx="610" cy="743" rx="426" ry="74" fill="#d7cebf" opacity=".7"/>
+<g transform="translate(108,592) rotate(-5)">
+  <path d="M0 44 C134 4 354 2 510 34 L566 240 C398 292 164 294 8 246Z" fill="url(#cloth)" opacity=".88"/>
+  <path d="M24 76 C158 50 348 50 500 76 M38 138 C188 112 358 112 520 142" fill="none" stroke="#ac9a80" stroke-opacity=".28" stroke-width="3"/>
+  <path d="M512 40 L560 236" stroke="#f2e5d2" stroke-opacity=".24" stroke-width="4"/>
+</g>
+<ellipse cx="600" cy="794" rx="330" ry="33" fill="#4b3d2d" opacity=".2" filter="url(#soft)"/>
+
+<!-- hand cream tube -->
+<g transform="translate(380,242) rotate(-22 230 260)" filter="url(#shadow-lg)">
+  <path d="M112 46 C212 30 360 38 420 60 C446 70 452 112 440 170 L420 548 C292 582 152 568 86 526 L104 154 C104 112 106 76 112 46Z" fill="url(#tube)" stroke="#727265" stroke-opacity=".4" stroke-width="3"/>
+  <path d="M86 526 L64 590 C152 622 328 626 414 596 L420 548 C292 582 152 568 86 526Z" fill="#a9a798" stroke="#6e6e62" stroke-opacity=".35" stroke-width="2"/>
+  <g stroke="#848478" stroke-opacity=".34" stroke-width="2">
+    <path d="M70 560 L374 554 M74 574 L372 568 M78 586 L370 580"/>
+  </g>
+  <path d="M156 190 C258 168 340 176 418 196 L410 380 C322 398 214 394 130 374Z" fill="url(#label)" stroke="#b6a185" stroke-opacity=".35" stroke-width="2"/>
+  <path d="M214 256 C244 224 278 218 306 240 C338 262 338 306 308 332 C272 346 228 330 212 300 C204 282 204 268 214 256Z" fill="#738065" opacity=".8"/>
+  <path d="M260 242 C260 288 258 320 264 340" stroke="#d5d8c5" stroke-opacity=".58" stroke-width="3"/>
+  <path d="M268 290 C286 272 306 268 326 280 M250 310 C230 288 210 284 194 290" stroke="#d5d8c5" stroke-opacity=".45" stroke-width="2" fill="none"/>
+  <path d="M120 76 C218 56 330 62 414 82" fill="none" stroke="#f1f0e6" stroke-opacity=".27" stroke-width="4"/>
+  <path d="M116 104 C232 84 356 88 430 108" fill="none" stroke="#69695e" stroke-opacity=".1" stroke-width="2"/>
+  <path d="M438 86 C476 86 490 106 486 132 L470 142 C460 120 454 104 438 86Z" fill="#a7a293"/>
+  <path d="M466 44 C510 44 534 76 526 118 L514 164 L456 154 L464 98 C466 74 462 58 466 44Z" fill="url(#cap)" stroke="#65655a" stroke-opacity=".35" stroke-width="2"/>
+  <g stroke="#7f7f72" stroke-opacity=".3" stroke-width="2">
+    <path d="M472 76 L516 82 M468 94 L520 100 M464 112 L516 118 M460 130 L512 136"/>
+  </g>
+</g>
+
+<!-- flower -->
+<g transform="translate(742,376)" filter="url(#shadow)">
+  <path d="M0 156 C20 254 12 342 72 430 C118 396 152 324 146 252" fill="none" stroke="#677457" stroke-width="7"/>
+  <g fill="url(#leaf)" stroke="#5e6b54" stroke-opacity=".4" stroke-width="2">
+    <ellipse cx="42" cy="234" rx="94" ry="27" transform="rotate(-34 42 234)"/>
+    <ellipse cx="118" cy="316" rx="86" ry="25" transform="rotate(26 118 316)"/>
+  </g>
+  <path d="M12 266 C44 246 86 252 120 284 M86 330 C110 306 144 300 172 312" fill="none" stroke="#e5e8d4" stroke-opacity=".35" stroke-width="2"/>
+  <g transform="translate(112,72)">
+    <g fill="#f2eee3" stroke="#c6beac" stroke-width="2">
+      <ellipse cx="0" cy="-64" rx="66" ry="66" transform="rotate(0 0 0)"/>
+      <ellipse cx="54" cy="-26" rx="66" ry="58" transform="rotate(48 0 0)"/>
+      <ellipse cx="42" cy="48" rx="64" ry="56" transform="rotate(104 0 0)"/>
+      <ellipse cx="-32" cy="56" rx="64" ry="56" transform="rotate(156 0 0)"/>
+      <ellipse cx="-58" cy="-22" rx="62" ry="55" transform="rotate(212 0 0)"/>
+      <ellipse cx="-10" cy="-4" rx="48" ry="44" transform="rotate(280 0 0)"/>
+    </g>
+    <circle cx="0" cy="0" r="26" fill="#e7ca80"/>
+    <g fill="#b8984e">
+      <circle cx="-14" cy="-10" r="4"/><circle cx="0" cy="-16" r="4"/><circle cx="14" cy="-8" r="4"/><circle cx="12" cy="9" r="4"/><circle cx="-5" cy="15" r="4"/><circle cx="-17" cy="5" r="4"/>
+    </g>
+    <path d="M-28 -46 C-8 -70 24 -72 44 -48" fill="none" stroke="#fffdf4" stroke-opacity=".55" stroke-width="4"/>
+  </g>
+</g>
+
+<!-- cream pearl & bowl -->
+<g transform="translate(738,648)">
+  <path d="M0 54 C24 16 88 6 138 28 C174 44 184 82 154 106 C114 132 34 120 8 90 C-8 74 -10 66 0 54Z" fill="#ded6c7" stroke="#7b705e" stroke-opacity=".25" stroke-width="2"/>
+  <ellipse cx="82" cy="52" rx="56" ry="16" fill="#c6bcaa"/>
+  <path d="M46 46 C58 20 100 8 126 30 C138 42 126 56 106 58 C84 60 62 56 46 46Z" fill="#f5eee2" stroke="#d1c4b0" stroke-opacity=".5" stroke-width="2"/>
+  <path d="M62 42 C78 24 104 24 118 38 C106 50 86 52 62 42Z" fill="#fffaf0" opacity=".7"/>
+</g>
+<g transform="translate(884,240)">
+  <path d="M0 0 C42 24 62 64 54 120" stroke="#6b5a43" stroke-width="4" fill="none"/>
+  <ellipse cx="14" cy="24" rx="34" ry="10" transform="rotate(32 14 24)" fill="#77826a" opacity=".7"/>
+</g>
+<g fill="#f8eddc" opacity=".35">
+  <circle cx="270" cy="208" r="3"/><circle cx="1046" cy="150" r="2"/><circle cx="916" cy="524" r="2.4"/>
+</g>
+<rect width="1200" height="900" fill="url(#stoneGrain)" opacity=".7"/>
+<rect width="1200" height="900" fill="url(#vignette)" opacity="0.48"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity="0.43"/>
+</svg>

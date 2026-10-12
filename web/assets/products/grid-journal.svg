@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="art-title art-desc">
+<title id="art-title">方格线装手账桌面插画</title>
+<desc id="art-desc">木桌上摊开的苔绿方格手账，浅淡格线、铅笔、茶杯与一枚黄铜书签在斜光里排开。</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2=".72" y2="1">
+      <stop offset="0" stop-color="#d4b78f"/><stop offset="1" stop-color="#a9845e"/>
+    </linearGradient>
+    <radialGradient id="light" gradientUnits="userSpaceOnUse" cx="250" cy="170" r="760">
+      <stop offset="0" stop-color="#fff7e7" stop-opacity=".82"/>
+      <stop offset=".52" stop-color="#fff5e3" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#fff5e3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" gradientUnits="userSpaceOnUse" cx="600" cy="410" r="760">
+      <stop offset=".55" stop-color="#2d2117" stop-opacity="0"/>
+      <stop offset="1" stop-color="#2d2117" stop-opacity=".24"/>
+    </radialGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="2" seed="63" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .11"/></feComponentTransfer>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="28"/></filter>
+    <filter id="soft-s" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="11"/></filter>
+    <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#3c2a1d" flood-opacity=".26"/>
+    </filter>
+    <filter id="shadow-lg" x="-40%" y="-40%" width="190%" height="200%">
+      <feDropShadow dx="0" dy="28" stdDeviation="26" flood-color="#312116" flood-opacity=".3"/>
+    </filter>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="30"/>
+    </filter>
+
+
+<linearGradient id="desk" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c5a57d"/><stop offset=".55" stop-color="#b58e65"/><stop offset="1" stop-color="#96704d"/></linearGradient>
+<pattern id="paperGrid" width="26" height="26" patternUnits="userSpaceOnUse">
+  <path d="M0 0 H26 M0 0 V26" stroke="#9d9b8a" stroke-opacity=".22" stroke-width="1"/>
+  <path d="M13 0 V26 M0 13 H26" stroke="#a3a08f" stroke-opacity=".06" stroke-width="1"/>
+</pattern>
+<pattern id="journalGrain" width="30" height="28" patternUnits="userSpaceOnUse">
+  <path d="M2 8 C10 3 18 12 28 5" stroke="#fbf0de" stroke-opacity=".11" stroke-width="1.2" fill="none"/>
+  <circle cx="20" cy="20" r="1" fill="#5f4a33" opacity=".07"/>
+</pattern>
+
+</defs>
+<rect width="1200" height="900" fill="url(#bg)"/>
+<rect width="1200" height="900" fill="url(#light)"/>
+
+<path d="M0 0 H1200 V900 H0Z" fill="url(#desk)"/>
+<g opacity=".26" stroke="#5f4932" stroke-width="2">
+  <path d="M0 90 C210 58 380 94 572 74 C784 52 970 88 1200 62"/>
+  <path d="M0 274 C206 242 406 280 618 254 C838 228 1020 266 1200 236"/>
+  <path d="M0 724 C218 692 406 728 618 702 C832 676 1030 714 1200 684"/>
+</g>
+<path d="M0 0 L472 0 L794 900 L296 900Z" fill="#fff2da" opacity=".13" filter="url(#soft-s)"/>
+<path d="M744 0 L886 0 L1122 900 L988 900Z" fill="#fff4df" opacity=".09"/>
+<g transform="translate(222,54) rotate(-4 390 400)" filter="url(#shadow-lg)">
+  <rect x="30" y="112" width="774" height="640" rx="16" fill="#687258" stroke="#4e5541" stroke-opacity=".4" stroke-width="3"/>
+  <rect x="66" y="142" width="700" height="568" rx="8" fill="#f2eadb" stroke="#9c8a70" stroke-opacity=".28" stroke-width="2"/>
+  <path d="M382 142 H450 V710 H382Z" fill="#d6c8b2"/>
+  <path d="M416 142 V710" stroke="#6f6656" stroke-opacity=".4" stroke-width="3" stroke-dasharray="6 7"/>
+  <rect x="86" y="160" width="296" height="526" fill="url(#paperGrid)"/>
+  <rect x="450" y="160" width="296" height="526" fill="url(#paperGrid)"/>
+  <path d="M86 160 C146 150 232 154 292 164 L292 684 C216 694 148 690 86 680Z" fill="none" stroke="#d5c8b4" stroke-opacity=".5" stroke-width="2"/>
+  <path d="M450 162 C522 152 602 154 746 166 L746 686 C642 696 534 696 450 684Z" fill="none" stroke="#ded2c0" stroke-opacity=".55" stroke-width="2"/>
+  <path d="M76 672 C216 686 336 684 380 678 M454 678 C564 688 660 688 756 672" fill="none" stroke="#ae9d86" stroke-opacity=".4" stroke-width="3"/>
+  <g stroke="#c5b8a5" stroke-width="2">
+    <path d="M92 166 V684 M84 172 V684 M456 168 V688 M464 168 V688"/>
+  </g>
+  <g transform="translate(422,306)">
+    <path d="M0 0 L158 8" stroke="#8b6c46" stroke-width="5" stroke-linecap="round"/>
+    <path d="M-8 -8 L168 2" stroke="#f3dfb5" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <path d="M782 380 C826 376 836 424 798 436 C770 442 756 414 770 394Z" fill="#b4915e" opacity=".9" transform="rotate(10 782 380)"/>
+</g>
+<g opacity=".65" fill="#e8dcc9" stroke="#75634e" stroke-opacity=".2" stroke-width="1.5">
+  <path d="M884 92 C938 74 1012 84 1048 112 L1032 124 C990 104 928 106 892 118Z"/>
+</g>
+<g transform="translate(842,590)" filter="url(#shadow)">
+  <path d="M0 46 C26 14 88 4 140 24 C172 38 178 74 150 96 C110 126 34 116 4 88 C-12 74 -12 58 0 46Z" fill="#d9cdbb" stroke="#796954" stroke-opacity=".3" stroke-width="2"/>
+  <ellipse cx="82" cy="48" rx="68" ry="16" fill="#b7a78f"/>
+  <ellipse cx="82" cy="48" rx="50" ry="10" fill="#6e4c36"/>
+  <path d="M52 34 C62 12 96 4 120 18 C104 28 94 36 86 50" fill="#fff4e4" opacity=".3" filter="url(#soft-s)"/>
+</g>
+<g transform="translate(120,666) rotate(-26)" filter="url(#shadow)">
+  <path d="M0 24 L348 0 L362 18 L16 50Z" fill="#d2a76a"/>
+  <path d="M348 0 L382 -8 L390 2 L362 18Z" fill="#78573b"/>
+  <path d="M8 34 L338 12" stroke="#f2d6a1" stroke-opacity=".35" stroke-width="2"/>
+</g>
+<g transform="translate(122,98) rotate(8)">
+  <path d="M0 0 C52 12 88 54 92 110" fill="none" stroke="#6f573e" stroke-width="3"/>
+  <ellipse cx="18" cy="38" rx="38" ry="10" transform="rotate(24 18 38)" fill="#7b8264"/>
+  <ellipse cx="62" cy="76" rx="32" ry="9" transform="rotate(-22 62 76)" fill="#667055"/>
+</g>
+<g fill="#f8ebd6" opacity=".3">
+  <circle cx="1060" cy="210" r="3"/><circle cx="1102" cy="704" r="2"/><circle cx="348" cy="796" r="2.2"/>
+</g>
+<rect width="1200" height="900" fill="url(#journalGrain)" opacity=".5"/>
+<rect width="1200" height="900" fill="url(#vignette)" opacity="0.5"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity="0.47"/>
+</svg>

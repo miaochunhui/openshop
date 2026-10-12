@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="art-title art-desc">
+<title id="art-title">循环扇格栅与扇叶细节插画</title>
+<desc id="art-desc">循环扇圆形格栅的近景，深绿色扇叶藏在细密网圈后，木地板与暖光在边缘留下一圈金色。</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2=".72" y2="1">
+      <stop offset="0" stop-color="#b3a287"/><stop offset="1" stop-color="#e7d9c4"/>
+    </linearGradient>
+    <radialGradient id="light" gradientUnits="userSpaceOnUse" cx="260" cy="180" r="760">
+      <stop offset="0" stop-color="#fff7e7" stop-opacity=".82"/>
+      <stop offset=".52" stop-color="#fff5e3" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#fff5e3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" gradientUnits="userSpaceOnUse" cx="600" cy="410" r="760">
+      <stop offset=".55" stop-color="#2d2117" stop-opacity="0"/>
+      <stop offset="1" stop-color="#2d2117" stop-opacity=".24"/>
+    </radialGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="2" seed="18" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .11"/></feComponentTransfer>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="28"/></filter>
+    <filter id="soft-s" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="11"/></filter>
+    <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#3c2a1d" flood-opacity=".26"/>
+    </filter>
+    <filter id="shadow-lg" x="-40%" y="-40%" width="190%" height="200%">
+      <feDropShadow dx="0" dy="28" stdDeviation="26" flood-color="#312116" flood-opacity=".3"/>
+    </filter>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="30"/>
+    </filter>
+
+
+<linearGradient id="fanBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a8977d"/><stop offset=".5" stop-color="#d2c1a8"/><stop offset="1" stop-color="#f0e4d2"/></linearGradient>
+<radialGradient id="shellMacro" cx=".38" cy=".3" r=".82"><stop stop-color="#f1ebdf"/><stop offset=".62" stop-color="#ddd5c5"/><stop offset="1" stop-color="#bdb5a4"/></radialGradient>
+<radialGradient id="hub" cx=".35" cy=".3" r=".8"><stop stop-color="#e6decd"/><stop offset=".65" stop-color="#b8b09e"/><stop offset="1" stop-color="#8f8878"/></radialGradient>
+<pattern id="fanGrain" width="30" height="24" patternUnits="userSpaceOnUse">
+  <circle cx="8" cy="8" r="1" fill="#726b5c" opacity=".09"/>
+  <path d="M0 16 C8 11 16 19 30 12" stroke="#fff8e9" stroke-opacity=".13" stroke-width="1" fill="none"/>
+</pattern>
+
+</defs>
+<rect width="1200" height="900" fill="url(#bg)"/>
+<rect width="1200" height="900" fill="url(#light)"/>
+
+<rect width="1200" height="900" fill="url(#fanBg)"/>
+<path d="M0 0 L560 0 L188 900 L0 900Z" fill="#fff2da" opacity=".13" filter="url(#soft-s)"/>
+<g transform="translate(-38,24)">
+  <circle cx="638" cy="408" r="516" fill="url(#shellMacro)" stroke="#645f51" stroke-opacity=".42" stroke-width="4"/>
+  <circle cx="638" cy="408" r="488" fill="#e9e3d6"/>
+  <g fill="#435346" opacity=".92">
+    <path d="M638 426 C580 340 586 232 646 154 C712 208 728 306 686 400Z"/>
+    <path d="M654 430 C744 386 842 414 888 486 C820 544 720 550 650 496Z"/>
+    <path d="M620 444 C628 544 584 630 516 662 C492 582 514 494 570 436Z"/>
+    <path d="M598 414 C532 360 498 276 518 208 C586 230 626 306 630 382Z"/>
+    <path d="M618 402 C678 348 746 352 786 394 C740 450 674 462 626 436Z" opacity=".84"/>
+  </g>
+  <g fill="none" stroke="#7d786a" stroke-opacity=".55">
+    <circle cx="638" cy="408" r="458" stroke-width="3"/>
+    <circle cx="638" cy="408" r="414" stroke-width="3"/>
+    <circle cx="638" cy="408" r="368" stroke-width="3"/>
+    <circle cx="638" cy="408" r="318" stroke-width="3"/>
+    <circle cx="638" cy="408" r="262" stroke-width="3"/>
+    <circle cx="638" cy="408" r="198" stroke-width="3"/>
+    <path d="M638 92 V724 M322 408 H954 M414 184 L862 632 M414 632 L862 184 M508 116 L768 700 M508 700 L768 116"/>
+  </g>
+  <circle cx="638" cy="408" r="112" fill="url(#hub)" stroke="#615d51" stroke-opacity=".5" stroke-width="3"/>
+  <circle cx="638" cy="408" r="56" fill="#c8c0ae"/>
+  <circle cx="638" cy="408" r="17" fill="#5c5a4f"/>
+  <path d="M350 108 C470 40 626 28 752 72" fill="none" stroke="#fff7e7" stroke-opacity=".28" stroke-width="9" stroke-linecap="round"/>
+  <path d="M884 670 C956 620 990 546 986 470" fill="none" stroke="#f5ead5" stroke-opacity=".18" stroke-width="7" stroke-linecap="round"/>
+  <path d="M900 828 C980 806 1052 768 1114 710" fill="none" stroke="#918b7c" stroke-width="3" stroke-dasharray="3 9"/>
+</g>
+<g transform="translate(842,704)">
+  <ellipse cx="138" cy="86" rx="184" ry="42" fill="#c6bda9" stroke="#6e6859" stroke-opacity=".3" stroke-width="2"/>
+  <ellipse cx="138" cy="80" rx="156" ry="29" fill="#e0d7c5" opacity=".75"/>
+  <circle cx="184" cy="80" r="21" fill="#8c8777" stroke="#595649" stroke-width="2"/>
+  <circle cx="184" cy="80" r="8" fill="#d4b87f"/>
+  <path d="M216 80 C248 82 258 106 238 122" fill="none" stroke="#f7edda" stroke-opacity=".3" stroke-width="4"/>
+</g>
+<g fill="#f9edda" opacity=".3">
+  <circle cx="1000" cy="166" r="3"/><circle cx="1092" cy="266" r="2"/><circle cx="194" cy="750" r="2.4"/>
+</g>
+<g stroke="#fff4df" stroke-width="2" opacity=".18" fill="none">
+  <path d="M86 110 C196 74 306 78 404 108 M820 842 C920 816 1014 822 1102 846"/>
+</g>
+<rect width="1200" height="900" fill="url(#fanGrain)" opacity=".45"/>
+<rect width="1200" height="900" fill="url(#vignette)" opacity="0.47"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity="0.44"/>
+</svg>

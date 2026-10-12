@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="art-title art-desc">
+<title id="art-title">环流循环扇窗边插画</title>
+<desc id="art-desc">午后的窗光里，一台米白色循环扇立在木地板上，窗帘被风轻轻鼓起，桌面只留一只陶杯。</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2=".72" y2="1">
+      <stop offset="0" stop-color="#eee3d1"/><stop offset="1" stop-color="#cdb99e"/>
+    </linearGradient>
+    <radialGradient id="light" gradientUnits="userSpaceOnUse" cx="220" cy="170" r="760">
+      <stop offset="0" stop-color="#fff7e7" stop-opacity=".82"/>
+      <stop offset=".52" stop-color="#fff5e3" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#fff5e3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" gradientUnits="userSpaceOnUse" cx="600" cy="410" r="760">
+      <stop offset=".55" stop-color="#2d2117" stop-opacity="0"/>
+      <stop offset="1" stop-color="#2d2117" stop-opacity=".24"/>
+    </radialGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="2" seed="57" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .11"/></feComponentTransfer>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="28"/></filter>
+    <filter id="soft-s" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="11"/></filter>
+    <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#3c2a1d" flood-opacity=".26"/>
+    </filter>
+    <filter id="shadow-lg" x="-40%" y="-40%" width="190%" height="200%">
+      <feDropShadow dx="0" dy="28" stdDeviation="26" flood-color="#312116" flood-opacity=".3"/>
+    </filter>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="30"/>
+    </filter>
+
+
+<linearGradient id="room" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eee4d4"/><stop offset=".62" stop-color="#e1d3bf"/><stop offset="1" stop-color="#c9b79f"/></linearGradient>
+<linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#c8aa85"/><stop offset="1" stop-color="#a98460"/></linearGradient>
+<radialGradient id="fanBase" cx=".45" cy=".3" r=".8"><stop stop-color="#e9e2d4"/><stop offset="1" stop-color="#b9b3a4"/></radialGradient>
+<radialGradient id="fanShell" cx=".35" cy=".3" r=".8"><stop stop-color="#f0eadd"/><stop offset=".6" stop-color="#d8d1c1"/><stop offset="1" stop-color="#b4ad9b"/></radialGradient>
+<pattern id="woodFloor" width="130" height="26" patternUnits="userSpaceOnUse">
+  <path d="M0 24 H130" stroke="#6e543c" stroke-opacity=".18" stroke-width="2"/>
+  <path d="M0 4 C36 0 82 9 130 3" stroke="#f8ead1" stroke-opacity=".12" stroke-width="1.4" fill="none"/>
+</pattern>
+
+</defs>
+<rect width="1200" height="900" fill="url(#bg)"/>
+<rect width="1200" height="900" fill="url(#light)"/>
+
+<rect width="1200" height="900" fill="url(#room)"/>
+<path d="M0 604 H1200 V900 H0Z" fill="url(#floor)"/>
+<path d="M0 604 H1200" stroke="#72593f" stroke-opacity=".25" stroke-width="2"/>
+<g opacity=".22" fill="#fff4dd">
+  <path d="M0 0 L350 0 L764 900 L368 900Z"/>
+  <path d="M452 0 L568 0 L916 900 L752 900Z"/>
+</g>
+<g transform="translate(54,64)">
+  <path d="M0 0 C-10 160 8 344 70 524 C174 496 250 420 274 310 C196 300 176 220 222 140 C148 128 92 76 78 0Z" fill="#eae1d1" opacity=".6"/>
+  <path d="M92 0 C86 150 102 318 158 464" fill="none" stroke="#fff9ec" stroke-opacity=".3" stroke-width="5"/>
+</g>
+<path d="M570 76 C600 286 574 470 500 604" stroke="#79644b" stroke-opacity=".2" stroke-width="3" fill="none"/>
+<path d="M1054 90 C1038 278 1058 474 1124 604" stroke="#79644b" stroke-opacity=".2" stroke-width="3" fill="none"/>
+<g opacity=".16" stroke="#738063" stroke-width="4" fill="none">
+  <path d="M938 0 C874 154 882 332 982 514"/>
+  <path d="M982 514 C894 528 830 582 806 650"/>
+</g>
+<ellipse cx="610" cy="724" rx="286" ry="56" fill="#4b3d2b" opacity=".18" filter="url(#soft)"/>
+<g filter="url(#shadow-lg)">
+  <ellipse cx="620" cy="748" rx="144" ry="33" fill="url(#fanBase)" stroke="#605c4c" stroke-opacity=".3" stroke-width="2"/>
+  <path d="M592 720 C594 666 600 636 610 608 M648 720 C644 668 638 638 628 608" stroke="#8e8b7b" stroke-width="22" stroke-linecap="round"/>
+  <path d="M606 722 C622 716 642 716 654 724" fill="none" stroke="#e8dfcd" stroke-opacity=".32" stroke-width="4"/>
+  <circle cx="620" cy="446" r="245" fill="url(#fanShell)" stroke="#6c6758" stroke-opacity=".4" stroke-width="3"/>
+  <circle cx="620" cy="446" r="220" fill="#e6e0d3" stroke="#b6b09f" stroke-opacity=".4" stroke-width="2"/>
+  <g fill="none" stroke="#797568" stroke-opacity=".5">
+    <circle cx="620" cy="446" r="196" stroke-width="2"/>
+    <circle cx="620" cy="446" r="166" stroke-width="2"/>
+    <circle cx="620" cy="446" r="132" stroke-width="2"/>
+    <circle cx="620" cy="446" r="96" stroke-width="2"/>
+    <path d="M620 226 V666 M400 446 H840 M464 290 L776 602 M464 602 L776 290 M530 238 L710 654 M530 654 L710 238"/>
+  </g>
+  <g fill="#425345" opacity=".9">
+    <path d="M620 456 C580 402 586 338 624 286 C668 322 676 382 650 438Z"/>
+    <path d="M630 458 C690 430 744 444 780 484 C742 518 682 522 640 494Z"/>
+    <path d="M614 464 C620 528 592 584 548 606 C534 558 550 498 586 462Z"/>
+    <path d="M606 452 C560 414 540 364 552 318 C598 334 624 382 626 432Z"/>
+  </g>
+  <circle cx="620" cy="446" r="52" fill="#7c7a6c" stroke="#5d5c50" stroke-width="2"/>
+  <circle cx="620" cy="446" r="31" fill="#cbc3b1"/>
+  <circle cx="620" cy="446" r="10" fill="#5f5e52"/>
+  <path d="M402 620 L392 730 M840 620 L850 730" stroke="#928e7e" stroke-width="7" stroke-linecap="round" opacity=".45"/>
+  <circle cx="816" cy="700" r="13" fill="#c0a875" stroke="#69563b" stroke-width="2"/>
+  <path d="M770 610 C798 614 810 630 806 648" fill="none" stroke="#e9dfcc" stroke-opacity=".24" stroke-width="4"/>
+</g>
+<g opacity=".35" stroke="#fff3da" stroke-width="2" fill="none">
+  <path d="M290 690 C224 604 192 510 198 426 M946 426 C962 520 958 604 932 688"/>
+  <path d="M344 654 C292 582 270 512 276 450 M896 454 C920 532 920 592 906 654"/>
+</g>
+<g transform="translate(1026,600)">
+  <path d="M0 96 C22 58 76 48 112 72 C138 90 142 124 118 146 C86 170 32 160 6 132Z" fill="#b8a88e" stroke="#746453" stroke-opacity=".3" stroke-width="2"/>
+  <ellipse cx="62" cy="94" rx="50" ry="14" fill="#8e775b" opacity=".8"/>
+  <path d="M54 72 C66 58 82 58 92 70" fill="none" stroke="#fff4df" stroke-opacity=".28" stroke-width="4"/>
+</g>
+<g fill="#f8ead2" opacity=".32">
+  <circle cx="1014" cy="188" r="2.4"/><circle cx="926" cy="342" r="1.8"/><circle cx="344" cy="522" r="2"/>
+</g>
+<rect width="1200" height="900" fill="url(#woodFloor)" opacity=".4"/>
+<rect width="1200" height="900" fill="url(#vignette)" opacity="0.5"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity="0.44"/>
+</svg>

@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="art-title art-desc">
+<title id="art-title">线装手账书脊与方格纸细节插画</title>
+<desc id="art-desc">手账裸脊锁线的近景，露出书脊的棉线、层叠纸边、浅灰方格与一枚黄铜书签。</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2=".72" y2="1">
+      <stop offset="0" stop-color="#9c7e5a"/><stop offset="1" stop-color="#e4d4ba"/>
+    </linearGradient>
+    <radialGradient id="light" gradientUnits="userSpaceOnUse" cx="260" cy="160" r="760">
+      <stop offset="0" stop-color="#fff7e7" stop-opacity=".82"/>
+      <stop offset=".52" stop-color="#fff5e3" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#fff5e3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" gradientUnits="userSpaceOnUse" cx="600" cy="410" r="760">
+      <stop offset=".55" stop-color="#2d2117" stop-opacity="0"/>
+      <stop offset="1" stop-color="#2d2117" stop-opacity=".24"/>
+    </radialGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="2" seed="22" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .11"/></feComponentTransfer>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="28"/></filter>
+    <filter id="soft-s" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="11"/></filter>
+    <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#3c2a1d" flood-opacity=".26"/>
+    </filter>
+    <filter id="shadow-lg" x="-40%" y="-40%" width="190%" height="200%">
+      <feDropShadow dx="0" dy="28" stdDeviation="26" flood-color="#312116" flood-opacity=".3"/>
+    </filter>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="30"/>
+    </filter>
+
+
+<linearGradient id="closeBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8c6f4d"/><stop offset=".5" stop-color="#c2a57c"/><stop offset="1" stop-color="#e3d3ba"/></linearGradient>
+<pattern id="gridPage" width="32" height="32" patternUnits="userSpaceOnUse">
+  <rect width="32" height="32" fill="#f2eadb"/>
+  <path d="M0 0 H32 M0 0 V32" stroke="#9a9786" stroke-opacity=".3" stroke-width="1"/>
+  <path d="M16 0 V32 M0 16 H32" stroke="#a3a08f" stroke-opacity=".07" stroke-width="1"/>
+</pattern>
+<pattern id="bookcloth" width="26" height="24" patternUnits="userSpaceOnUse">
+  <path d="M0 7 H26 M0 17 H26" stroke="#3e4834" stroke-opacity=".2" stroke-width="1.4"/>
+  <path d="M7 0 V24 M18 0 V24" stroke="#c9c9a9" stroke-opacity=".07" stroke-width="1"/>
+</pattern>
+
+</defs>
+<rect width="1200" height="900" fill="url(#bg)"/>
+<rect width="1200" height="900" fill="url(#light)"/>
+
+<rect width="1200" height="900" fill="url(#closeBg)"/>
+<path d="M0 0 L500 0 L178 900 L0 900Z" fill="#fff2dc" opacity=".14" filter="url(#soft-s)"/>
+<g transform="rotate(-9 600 450)" filter="url(#shadow-lg)">
+  <rect x="-40" y="86" width="1278" height="720" rx="30" fill="#687258" stroke="#4d5540" stroke-opacity=".38" stroke-width="4"/>
+  <rect x="20" y="130" width="1176" height="624" fill="url(#gridPage)"/>
+  <g stroke="#d4c7b4" stroke-opacity=".55" stroke-width="3">
+    <path d="M20 704 C226 724 396 724 560 712 M652 712 C826 724 1006 722 1196 702"/>
+    <path d="M6 674 C234 694 426 696 562 686 M648 684 C824 696 1020 690 1208 668"/>
+    <path d="M0 640 C240 662 430 664 576 654 M636 654 C816 664 1020 658 1210 634"/>
+  </g>
+  <path d="M558 132 H660 V752 H558Z" fill="#e2d7c6"/>
+  <path d="M578 134 V752 M628 134 V752" stroke="#a59178" stroke-opacity=".6" stroke-width="3"/>
+  <g stroke="#7d6c58" stroke-width="3" fill="none">
+    <path d="M578 178 C612 194 614 234 578 252 C542 270 540 310 578 328 C614 346 616 386 578 404 C542 422 540 462 578 480 C614 498 616 538 578 556 C542 574 540 614 578 632 C612 650 614 690 578 708"/>
+    <path d="M628 178 C594 194 592 234 628 252 C664 270 666 310 628 328 C592 346 590 386 628 404 C664 422 666 462 628 480 C592 498 590 538 628 556 C664 574 666 614 628 632 C592 650 590 690 628 708"/>
+  </g>
+  <g stroke="#8f7a60" stroke-opacity=".5" stroke-width="2">
+    <path d="M30 160 H536 M664 160 H1176 M30 700 H536 M664 700 H1176"/>
+  </g>
+  <g transform="translate(948,66)">
+    <path d="M0 0 H156 L144 416 C102 434 48 430 14 414Z" fill="#bc9557" stroke="#6c5436" stroke-opacity=".4" stroke-width="2"/>
+    <path d="M22 382 L130 16" stroke="#f0d7a5" stroke-opacity=".3" stroke-width="4"/>
+  </g>
+</g>
+<g transform="translate(50,752) rotate(-3)">
+  <path d="M0 0 H326" stroke="#876b4d" stroke-width="4"/>
+  <path d="M16 0 C126 18 234 16 302 -2" stroke="#f2e2c9" stroke-opacity=".2" stroke-width="4" fill="none"/>
+</g>
+<g fill="#f8ecda" opacity=".3">
+  <circle cx="1006" cy="174" r="3"/><circle cx="930" cy="806" r="2"/><circle cx="236" cy="214" r="2.4"/>
+</g>
+<g stroke="#fff4e1" stroke-width="2" opacity=".17" fill="none">
+  <path d="M96 86 C224 52 348 58 460 88 M810 838 C916 812 1016 818 1110 846"/>
+</g>
+<rect width="1200" height="900" fill="url(#bookcloth)" opacity=".35"/>
+<rect width="1200" height="900" fill="url(#vignette)" opacity="0.45"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity="0.48"/>
+</svg>

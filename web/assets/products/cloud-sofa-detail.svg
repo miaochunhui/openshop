@@ -1,27 +1,118 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="art-title art-desc">
+<title id="art-title">云朵沙发圈绒细节插画</title>
+<desc id="art-desc">近距离的米白羊羔圈绒沙发，砖红亚麻靠枕与驼色针织毯叠在一起，木沙发脚和地毯在斜光中留下深影。</desc>
 <defs>
-  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d8c4ad"/><stop offset="1" stop-color="#e8d9c3"/></linearGradient>
-  <radialGradient id="glow" cx="50%" cy="32%" r="70%"><stop stop-color="#fff7e8" stop-opacity=".95"/><stop offset="1" stop-color="#fff7e8" stop-opacity="0"/></radialGradient>
-  <filter id="soft"><feGaussianBlur stdDeviation="22"/></filter>
-  <filter id="shadow"><feDropShadow dx="0" dy="26" stdDeviation="22" flood-color="#5b3c25" flood-opacity=".23"/></filter>
-  <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="table" tableValues="0 .09"/></feComponentTransfer></filter>
+<linearGradient id="bg" x1="0" y1="0" x2=".72" y2="1">
+      <stop offset="0" stop-color="#c7b197"/><stop offset="1" stop-color="#e9ddcb"/>
+    </linearGradient>
+    <radialGradient id="light" gradientUnits="userSpaceOnUse" cx="280" cy="170" r="780">
+      <stop offset="0" stop-color="#fff7e7" stop-opacity=".82"/>
+      <stop offset=".52" stop-color="#fff5e3" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#fff5e3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" gradientUnits="userSpaceOnUse" cx="600" cy="410" r="760">
+      <stop offset=".55" stop-color="#2d2117" stop-opacity="0"/>
+      <stop offset="1" stop-color="#2d2117" stop-opacity=".24"/>
+    </radialGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="2" seed="73" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .11"/></feComponentTransfer>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="28"/></filter>
+    <filter id="soft-s" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="11"/></filter>
+    <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#3c2a1d" flood-opacity=".26"/>
+    </filter>
+    <filter id="shadow-lg" x="-40%" y="-40%" width="190%" height="200%">
+      <feDropShadow dx="0" dy="28" stdDeviation="26" flood-color="#312116" flood-opacity=".3"/>
+    </filter>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="30"/>
+    </filter>
+
+
+<linearGradient id="room" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b59d82"/><stop offset=".5" stop-color="#d9c8b2"/><stop offset="1" stop-color="#eadfce"/></linearGradient>
+<linearGradient id="floorMacro" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ac8c69"/><stop offset="1" stop-color="#8c6d4d"/></linearGradient>
+<linearGradient id="seatCloth" x1="0" y1="0" x2=".7" y2="1"><stop stop-color="#f2e9dc"/><stop offset=".6" stop-color="#e5d8c6"/><stop offset="1" stop-color="#d2c0a9"/></linearGradient>
+<linearGradient id="armCloth" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#eee3d4"/><stop offset=".7" stop-color="#dac9b4"/><stop offset="1" stop-color="#bda98f"/></linearGradient>
+<radialGradient id="rustCushion" cx=".35" cy=".28" r=".82"><stop stop-color="#c98563"/><stop offset=".6" stop-color="#b4684b"/><stop offset="1" stop-color="#925039"/></radialGradient>
+<linearGradient id="throwKnit" x1="0" y1="0" x2=".6" y2="1"><stop stop-color="#c8a678"/><stop offset=".55" stop-color="#b58f63"/><stop offset="1" stop-color="#977248"/></linearGradient>
+<linearGradient id="legWood" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#60462f"/><stop offset=".5" stop-color="#8b6847"/><stop offset="1" stop-color="#4d3828"/></linearGradient>
+<pattern id="boucleClose" width="17" height="17" patternUnits="userSpaceOnUse">
+  <circle cx="4" cy="5" r="1.5" fill="#fffaf1" opacity=".5"/>
+  <circle cx="12" cy="11" r="2" fill="#8e7a62" opacity=".1"/>
+  <path d="M7 3 C10 5 11 8 9 11 M1 14 C4 12 7 14 9 16" stroke="#8e7a62" stroke-opacity=".17" stroke-width="1.2" fill="none"/>
+</pattern>
+<pattern id="linenCushion" width="21" height="18" patternUnits="userSpaceOnUse">
+  <path d="M0 6 H21 M0 14 H21" stroke="#a7826b" stroke-opacity=".12" stroke-width="1"/>
+  <path d="M7 0 V18 M15 0 V18" stroke="#fff5e8" stroke-opacity=".14" stroke-width="1"/>
+</pattern>
+<clipPath id="seatClip"><path d="M-80 278 C208 168 678 146 1004 224 C1194 270 1280 430 1240 590 C1188 790 822 878 376 842 C86 818 -122 698 -96 534 C-86 450 -114 354 -80 278Z"/></clipPath><clipPath id="cushionClip"><path d="M170 286 C242 246 402 252 464 306 C510 348 514 472 468 526 C410 570 250 564 184 516 C146 480 132 336 170 286Z"/></clipPath>
 </defs>
 <rect width="1200" height="900" fill="url(#bg)"/>
-<ellipse cx="600" cy="300" rx="620" ry="430" fill="url(#glow)"/>
+<rect width="1200" height="900" fill="url(#light)"/>
 
-<g transform="translate(90,80) rotate(-5 500 400)" filter="url(#shadow)">
-  <rect x="120" y="200" width="900" height="480" rx="90" fill="#e8ddce"/>
-  <rect x="180" y="260" width="780" height="300" rx="80" fill="#d8c6b1"/>
-  <path d="M210 330 C360 280 580 280 760 350 C620 430 380 440 210 330Z" fill="#eee5d8" opacity=".8"/>
-  <path d="M300 300 C400 340 520 350 630 325" stroke="#b9a288" fill="none" stroke-width="3" opacity=".55"/>
-  <path d="M340 400 C420 370 510 380 610 430" stroke="#c7b49e" fill="none" stroke-width="3" opacity=".45"/>
-</g>
-<g opacity=".55" stroke="#f7efe2" stroke-width="2">
-  <path d="M120 770 C260 690 450 800 610 720 C780 635 930 720 1080 650"/>
-  <path d="M120 800 C300 720 430 825 620 750 C820 670 950 750 1080 690"/>
-</g>
-<circle cx="1020" cy="180" r="110" fill="#d6a55f" opacity=".45"/>
-<path d="M740 720 l70 0 l35 75 l-140 0z" fill="#8f7458" opacity=".55"/>
+<path d="M0 0 H1200 V900 H0Z" fill="url(#room)"/>
+<path d="M0 0 L520 0 L190 900 L0 900Z" fill="#fff4df" opacity=".14" filter="url(#soft-s)"/>
+<path d="M0 636 H1200 V900 H0Z" fill="url(#floorMacro)"/>
+<path d="M0 636 H1200" stroke="#67523e" stroke-opacity=".25" stroke-width="2"/>
+<path d="M130 700 C340 610 680 606 1060 714" fill="none" stroke="#fff4df" stroke-opacity=".16" stroke-width="34" filter="url(#soft-s)"/>
 
-<rect width="1200" height="900" filter="url(#grain)" opacity=".5"/>
+<!-- rug -->
+<ellipse cx="566" cy="806" rx="554" ry="94" fill="#d7c4ab" opacity=".56"/>
+<g fill="none" stroke="#b39b7e" stroke-opacity=".22" stroke-width="2">
+  <path d="M66 806 C266 768 438 770 598 790 C790 814 978 802 1128 766"/>
+  <path d="M116 840 C314 808 472 810 624 828 C802 850 984 838 1094 814"/>
+</g>
+
+<!-- sofa close-up -->
+<g transform="rotate(-6 600 450)" filter="url(#shadow-lg)">
+  <path d="M-80 278 C208 168 678 146 1004 224 C1194 270 1280 430 1240 590 C1188 790 822 878 376 842 C86 818 -122 698 -96 534 C-86 450 -114 354 -80 278Z" fill="url(#seatCloth)" stroke="#75614c" stroke-opacity=".3" stroke-width="3"/>
+  <path d="M-64 406 C242 294 708 280 1088 374 C1184 398 1232 452 1248 522" fill="none" stroke="#f6eddf" stroke-opacity=".4" stroke-width="4"/>
+  <path d="M-62 440 C236 330 704 318 1082 408 C1180 432 1232 486 1248 556" fill="none" stroke="#a08a71" stroke-opacity=".5" stroke-width="4"/>
+  <path d="M-78 478 C212 372 686 358 1070 446 C1176 470 1228 522 1244 592" fill="none" stroke="#857059" stroke-opacity=".34" stroke-width="3" stroke-dasharray="3 9"/>
+  <path d="M-320 516 C118 416 642 404 1088 472 C1224 492 1294 572 1272 704 C1242 846 868 918 452 880 C104 848 -152 746 -228 646Z" fill="url(#armCloth)" stroke="#6b5743" stroke-opacity=".25" stroke-width="3"/>
+  <path d="M-288 586 C120 500 576 490 976 546" fill="none" stroke="#fff7e9" stroke-opacity=".28" stroke-width="5"/>
+  <path d="M-174 330 C206 238 660 220 1046 290 C1170 312 1234 366 1264 438" fill="none" stroke="#d9c7b2" stroke-opacity=".45" stroke-width="3"/>
+</g>
+
+<!-- cushion -->
+<g transform="rotate(-9 346 414)" filter="url(#shadow)">
+  <path d="M170 286 C242 246 402 252 464 306 C510 348 514 472 468 526 C410 570 250 564 184 516 C146 480 132 336 170 286Z" fill="url(#rustCushion)" stroke="#86503b" stroke-opacity=".35" stroke-width="3"/>
+  <path d="M190 306 C262 270 382 276 436 320 C468 348 474 452 438 496 C388 532 258 526 204 492 C174 466 164 342 190 306Z" fill="none" stroke="#f0c7b2" stroke-opacity=".24" stroke-width="4"/>
+  <path d="M214 350 C278 320 368 322 420 352" fill="none" stroke="#efc4ae" stroke-opacity=".32" stroke-width="3"/>
+  <path d="M240 494 C300 468 378 468 424 486" fill="none" stroke="#753c2a" stroke-opacity=".24" stroke-width="3"/>
+  <path d="M208 424 C290 404 378 410 446 438" fill="none" stroke="#6e3928" stroke-opacity=".2" stroke-width="2"/>
+  <path d="M182 300 C184 378 184 468 198 540" fill="none" stroke="#fff1df" stroke-opacity=".12" stroke-width="5"/>
+</g>
+
+<!-- folded knit throw -->
+<g transform="rotate(7 942 532)" filter="url(#shadow)">
+  <path d="M786 420 C892 386 1068 398 1160 458 L1190 700 C1078 760 892 752 800 690Z" fill="url(#throwKnit)" stroke="#775b3e" stroke-opacity=".3" stroke-width="3"/>
+  <g stroke="#ead7b7" stroke-opacity=".25" stroke-width="3" fill="none">
+    <path d="M820 456 C924 424 1066 432 1144 474"/>
+    <path d="M812 496 C918 462 1070 472 1152 516"/>
+    <path d="M806 536 C920 502 1072 512 1158 558"/>
+    <path d="M802 576 C914 544 1074 554 1162 600"/>
+    <path d="M800 616 C916 584 1074 596 1168 640"/>
+  </g>
+  <path d="M806 690 l-6 34 M832 700 l-4 32 M860 706 l0 32 M888 710 l2 32 M918 712 l6 30 M948 710 l10 28 M978 706 l12 26 M1008 700 l16 24 M1040 692 l18 22 M1072 682 l20 18 M1102 670 l18 16 M1132 654 l16 14 M1160 636 l10 12" stroke="#8d6c4a" stroke-opacity=".55" stroke-width="2"/>
+</g>
+
+<!-- wooden leg -->
+<g filter="url(#shadow)">
+  <path d="M762 790 C792 774 842 774 868 790 L852 886 L780 886Z" fill="url(#legWood)" stroke="#4e3a2b" stroke-opacity=".34" stroke-width="2"/>
+  <path d="M780 812 C806 802 830 802 850 810" fill="none" stroke="#f1ddbd" stroke-opacity=".2" stroke-width="3"/>
+</g>
+<g transform="translate(912,150)" opacity=".8">
+  <path d="M0 246 C42 178 28 112 70 42" fill="none" stroke="#5e6450" stroke-width="4"/>
+  <ellipse cx="24" cy="176" rx="44" ry="13" transform="rotate(-32 24 176)" fill="#737a5f"/>
+  <ellipse cx="64" cy="94" rx="38" ry="11" transform="rotate(26 64 94)" fill="#667056"/>
+</g>
+<circle cx="182" cy="178" r="8" fill="#fff4df" opacity=".28" filter="url(#soft-s)"/>
+<circle cx="1016" cy="356" r="4" fill="#fff4df" opacity=".2"/>
+<g transform="rotate(-6 600 450)" clip-path="url(#seatClip)"><rect x="-80" y="260" width="1360" height="610" fill="url(#boucleClose)" opacity=".5"/></g><g transform="rotate(-9 346 414)" clip-path="url(#cushionClip)"><rect x="160" y="270" width="360" height="310" fill="url(#linenCushion)" opacity=".55"/></g>
+<rect width="1200" height="900" fill="url(#vignette)" opacity="0.46"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity="0.5"/>
 </svg>

@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0-base",
+  "version": "1.0.0",
   "currency": "CNY",
   "categories": [
     {
@@ -65,7 +65,7 @@
       "name": "OpenShop 自营",
       "kind": "self",
       "tagline": "官方选品，仓配直达",
-      "story": "从源头到包装，每件商品都经过自己的质检台。",
+      "story": "自营选品从材料、做工与日常使用三个角度过一遍，入仓前再做抽检。上海嘉定仓发出，售后由开集客服直接处理。",
       "rating": 4.9,
       "followers_count": 18230,
       "since": "2021",
@@ -78,7 +78,7 @@
       "name": "山雾家居旗舰店",
       "kind": "brand",
       "tagline": "把山里的慢，带回家",
-      "story": "山雾是一间做木与织物的小工作室，相信家具可以慢慢用很多年。",
+      "story": "山雾在杭州做木与织物的家具，打样时间常常比销售周期还长。沙发、灯具与小件共用一条质检线，每批只做少量。",
       "rating": 4.8,
       "followers_count": 9360,
       "since": "2019",
@@ -90,8 +90,8 @@
       "slug": "direct-craft",
       "name": "直造生活工厂店",
       "kind": "factory",
-      "tagline": "没有中间商，只有本来的价格",
-      "story": "自有工厂，按需生产，把省下来的每一道加价还给使用者。",
+      "tagline": "同样的材料，去掉多余加价",
+      "story": "直造在佛山有木作、五金与织物三条小线，也为独立品牌代工。工厂店按批次卖标准款，交期通常比品牌线多两三天。",
       "rating": 4.7,
       "followers_count": 25800,
       "since": "2020",
@@ -104,13 +104,91 @@
       "name": "回声影音专营店",
       "kind": "brand",
       "tagline": "给耳朵一间安静的房",
-      "story": "专注个人声学与阅读设备的小团队，做能长久使用的东西。",
+      "story": "回声在苏州做个人声学设备，调音师会带着样机坐完一整段地铁。耳罩和固件都保留可更换、可更新的余地。",
       "rating": 4.8,
       "followers_count": 7610,
       "since": "2022",
       "verified": true,
       "response_rate": "99.1%",
       "ship_from": "江苏 · 苏州"
+    },
+    {
+      "slug": "northisle-outdoor",
+      "name": "北屿户外旗舰店",
+      "kind": "brand",
+      "tagline": "把周末过成一次远行",
+      "story": "北屿从宁波出发，做能装进后备箱的轻量桌椅与背包。设计团队每年沿东海走一段长线，回来改一次结构。",
+      "rating": 4.8,
+      "followers_count": 11280,
+      "since": "2018",
+      "verified": true,
+      "response_rate": "98.7%",
+      "ship_from": "浙江 · 宁波"
+    },
+    {
+      "slug": "wayline-kitchen",
+      "name": "未行厨房旗舰店",
+      "kind": "brand",
+      "tagline": "慢火与好器",
+      "story": "未行在金华做厨房器物，和几家小窑口、铸锅作坊长期合作。需要手工修整的壶嘴和锅沿，我们都留着手作的余地。",
+      "rating": 4.8,
+      "followers_count": 6840,
+      "since": "2020",
+      "verified": true,
+      "response_rate": "98.2%",
+      "ship_from": "浙江 · 金华"
+    },
+    {
+      "slug": "suzhi-atelier",
+      "name": "素织衣着工作室",
+      "kind": "brand",
+      "tagline": "穿得像自己，穿得久一点",
+      "story": "素织在南通做小批量成衣。每一季只加少数几个版型，用可以反复水洗的棉麻，把尺码与布料克重写清楚。",
+      "rating": 4.7,
+      "followers_count": 5260,
+      "since": "2021",
+      "verified": true,
+      "response_rate": "97.9%",
+      "ship_from": "江苏 · 南通"
+    },
+    {
+      "slug": "qingwu-care",
+      "name": "青芜个护旗舰店",
+      "kind": "brand",
+      "tagline": "照顾日常，不必费力",
+      "story": "青芜在湖州做小批量个护与日用器物，香精用量克制，包装尽量可回收。客服会把成分与使用方法讲明白。",
+      "rating": 4.8,
+      "followers_count": 8930,
+      "since": "2022",
+      "verified": true,
+      "response_rate": "99.3%",
+      "ship_from": "浙江 · 湖州"
+    },
+    {
+      "slug": "xiaoman-electric",
+      "name": "小满电器旗舰店",
+      "kind": "brand",
+      "tagline": "把家务做轻一点",
+      "story": "小满在顺德做安静的小家电。风扇与加湿器都以可拆洗、低噪声为目标，说明书里直接写明耗材与保养方式。",
+      "rating": 4.7,
+      "followers_count": 14760,
+      "since": "2019",
+      "verified": true,
+      "response_rate": "98.5%",
+      "ship_from": "广东 · 顺德"
+    },
+    {
+      "slug": "zhijian-gift",
+      "name": "纸间礼物店",
+      "kind": "brand",
+      "tagline": "给心意一个合适的大小",
+      "story": "纸间在上海松江做纸品与木作小物，和独立印厂、木工房一起开发。包装尽量只留一层，把可以留用的部分留给收礼的人。",
+      "rating": 4.9,
+      "followers_count": 4320,
+      "since": "2023",
+      "verified": true,
+      "response_rate": "99.4%",
+      "ship_from": "上海 · 松江"
     }
   ],
   "users": [
@@ -213,7 +291,7 @@
       "subtitle": "可组合的松弛角落",
       "brand": "山雾 SHANWU",
       "category": "home",
-      "description": "更深的坐深，更慢的回弹。一张愿意让人多坐一会儿的沙发。",
+      "description": "更深的坐深，更慢的回弹。双人位可以拆成单人椅，也能加购贵妃位，把客厅留给真正的生活。",
       "story": "我们花了很多时间推翻扶手。最后留下一个刚好能靠住的弧度，也给客厅留出呼吸的空白。",
       "tags": [
         "模块化",
@@ -227,15 +305,15 @@
       ],
       "art": {
         "cover": "/web/assets/products/cloud-sofa.svg",
-        "cover_alt": "米白色模块沙发与落地灯组成的暖色客厅场景",
+        "cover_alt": "暖灰模块沙发、纸灯与午后窗光组成的客厅插画",
         "images": [
           {
             "src": "/web/assets/products/cloud-sofa.svg",
-            "alt": "云朵模块沙发客厅场景"
+            "alt": "暖灰模块沙发、纸灯与午后窗光组成的客厅插画"
           },
           {
             "src": "/web/assets/products/cloud-sofa-detail.svg",
-            "alt": "圈绒面料与坐垫细节"
+            "alt": "圈绒座面、缝线与白蜡木沙发脚的特写插画"
           }
         ]
       },
@@ -366,7 +444,7 @@
           "shipping_fee_cents": 0,
           "stock": 18,
           "delivery_eta_days": 4,
-          "delivery_note": "品牌仓直发 · 预约配送",
+          "delivery_note": "杭州品牌仓 · 预约配送",
           "services": [
             "品牌直营",
             "7天无理由",
@@ -383,7 +461,7 @@
           "shipping_fee_cents": 0,
           "stock": 41,
           "delivery_eta_days": 6,
-          "delivery_note": "工厂集单 · 预计 6 天发货",
+          "delivery_note": "佛山工厂 · 集单发货",
           "services": [
             "源头直供",
             "7天无理由"
@@ -439,13 +517,443 @@
       ]
     },
     {
+      "slug": "paper-lantern",
+      "title": "薄暮纸罩台灯",
+      "subtitle": "让一张纸把光收住",
+      "brand": "山雾 SHANWU",
+      "category": "home",
+      "description": "三档旋钮调光，2700K 暖光从手工皱纸里透出来。灯罩可单独取下，底座是一整块白蜡木。",
+      "story": "做灯罩的师傅把构树皮纸一张张揉皱，再顺着折痕贴回竹骨。每盏灯的纹理都不一样，这是材料留下的记号。",
+      "tags": [
+        "手工纸",
+        "暖光",
+        "可调光",
+        "床头灯"
+      ],
+      "badges": [
+        "手工皱纸",
+        "三档调光"
+      ],
+      "art": {
+        "cover": "/web/assets/products/paper-lantern.svg",
+        "cover_alt": "床头亮着的皱纸台灯、翻开的书与陶杯组成的暖色插画",
+        "images": [
+          {
+            "src": "/web/assets/products/paper-lantern.svg",
+            "alt": "床头亮着的皱纸台灯、翻开的书与陶杯组成的暖色插画"
+          },
+          {
+            "src": "/web/assets/products/paper-lantern-detail.svg",
+            "alt": "手工皱纸灯罩、白蜡木底座与旋钮的特写插画"
+          }
+        ]
+      },
+      "flags": {
+        "hero": false,
+        "featured": true,
+        "new": true
+      },
+      "sold_count": 74,
+      "highlights": [
+        {
+          "title": "纸把光收柔了",
+          "body": "双层构树皮纸留住灯泡的眩光，2700K 的暖光适合睡前阅读与收拾。"
+        },
+        {
+          "title": "伸手就能调暗",
+          "body": "灯座旋钮分夜灯、阅读、清扫三档，再次开灯会停在上一次的亮度。"
+        },
+        {
+          "title": "底座只占一只杯子",
+          "body": "直径 16cm 的白蜡木底座，放在 45cm 宽的床头柜上也不显拥挤。"
+        }
+      ],
+      "specs": [
+        {
+          "title": "尺寸与光源",
+          "items": [
+            {
+              "label": "灯罩",
+              "value": "手工构树皮纸与竹骨"
+            },
+            {
+              "label": "底座",
+              "value": "白蜡木，直径 16cm"
+            },
+            {
+              "label": "高度",
+              "value": "小号 38cm / 大号 52cm"
+            },
+            {
+              "label": "光源",
+              "value": "随灯附 5W E27 暖光灯泡"
+            }
+          ]
+        },
+        {
+          "title": "使用",
+          "items": [
+            {
+              "label": "调光",
+              "value": "旋钮三档"
+            },
+            {
+              "label": "色温",
+              "value": "2700K"
+            },
+            {
+              "label": "电源",
+              "value": "1.8m 编织线，插电使用"
+            }
+          ]
+        }
+      ],
+      "detail_sections": [
+        {
+          "title": "慢一点亮起来",
+          "body": "旋钮从低到高依次经过夜灯、阅读与清扫三个亮度。关掉再开，它会停在离开时的光里，不必重新适应黑暗。"
+        }
+      ],
+      "faq": [
+        {
+          "q": "灯罩脏了怎么办？",
+          "a": "关灯冷却后用软毛刷或吹风机冷风除尘，不要水洗。纸面留下手印时，用干净棉布轻轻按压即可。"
+        },
+        {
+          "q": "可以换灯泡吗？",
+          "a": "可以更换 E27 螺口 LED 灯泡，建议功率不超过 7W，不要使用靠近纸罩会持续发烫的灯泡。"
+        }
+      ],
+      "skus": [
+        {
+          "name": "原色 / 小号",
+          "options": {
+            "颜色": "原色",
+            "尺寸": "小号"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "烟茶 / 小号",
+          "options": {
+            "颜色": "烟茶",
+            "尺寸": "小号"
+          },
+          "price_delta_cents": 3000
+        },
+        {
+          "name": "原色 / 大号",
+          "options": {
+            "颜色": "原色",
+            "尺寸": "大号"
+          },
+          "price_delta_cents": 12000
+        }
+      ],
+      "offers": [
+        {
+          "shop": "openshop-self",
+          "kind": "self",
+          "name": "官方自营 · 原色小号",
+          "price_cents": 39800,
+          "market_price_cents": 49900,
+          "shipping_fee_cents": 0,
+          "stock": 36,
+          "delivery_eta_days": 2,
+          "delivery_note": "上海仓直发 · 含 5W 暖光灯泡",
+          "services": [
+            "正品保障",
+            "7天无理由",
+            "一年质保"
+          ],
+          "is_primary": true,
+          "group_size": 2,
+          "group_price_cents": 35800
+        },
+        {
+          "shop": "shanwu-home",
+          "kind": "brand",
+          "name": "品牌旗舰 · 含手工灯罩",
+          "price_cents": 42800,
+          "market_price_cents": 49900,
+          "shipping_fee_cents": 0,
+          "stock": 18,
+          "delivery_eta_days": 4,
+          "delivery_note": "杭州工作室 · 预约发出",
+          "services": [
+            "品牌直营",
+            "7天无理由",
+            "一年质保"
+          ],
+          "is_primary": false
+        }
+      ],
+      "reviews": [
+        {
+          "author": "陶**",
+          "rating": 5,
+          "title": "光落在墙上很安静",
+          "body": "纸罩不是均匀的白，能看见细细的纤维和折痕。晚上只开低档也不刺眼，看完一章书刚好入睡。",
+          "tags": [
+            "光线柔和",
+            "手作质感"
+          ],
+          "verified": true,
+          "helpful_count": 12,
+          "days_ago": 5,
+          "sku_name": "原色 / 小号"
+        },
+        {
+          "author": "谷**",
+          "rating": 4,
+          "title": "档位比想象中实用",
+          "body": "低档当晚灯，中档看书，高档用来找掉在床底的东西。灯罩不能水洗，但用吹风机冷风吹灰挺方便。",
+          "tags": [
+            "三档可调",
+            "好打理"
+          ],
+          "verified": true,
+          "helpful_count": 6,
+          "days_ago": 13,
+          "sku_name": "烟茶 / 小号"
+        },
+        {
+          "author": "尹**",
+          "rating": 4,
+          "title": "底座小，灯罩大",
+          "body": "大号灯罩的直径接近 30cm，放在窄床头柜上有点满。木质底座打磨得很细，线材颜色也和家具接近。",
+          "tags": [
+            "手作质感",
+            "占位明显"
+          ],
+          "verified": true,
+          "helpful_count": 3,
+          "days_ago": 25,
+          "sku_name": "原色 / 大号"
+        }
+      ]
+    },
+    {
+      "slug": "grain-basket",
+      "title": "芦编提手收纳筐",
+      "subtitle": "把散落的东西放回原处",
+      "brand": "直造 ZAO",
+      "category": "home",
+      "description": "蒲草手工编织，内衬可以拆下来洗。两只叠放是脏衣篮，单只放在玄关，刚好装下帽子和帆布袋。",
+      "story": "编筐的阿姨说，收口要留一点不均匀，手感才不会硬。我们接受了这些细小的偏差，也保留了每只筐晒足三天的时间。",
+      "tags": [
+        "手工编织",
+        "可拆内衬",
+        "玄关收纳",
+        "可叠放"
+      ],
+      "badges": [
+        "手工收口",
+        "水洗棉衬"
+      ],
+      "art": {
+        "cover": "/web/assets/products/grain-basket.svg",
+        "cover_alt": "两只蒲草收纳筐与折叠木凳组成的玄关场景插画",
+        "images": [
+          {
+            "src": "/web/assets/products/grain-basket.svg",
+            "alt": "两只蒲草收纳筐与折叠木凳组成的玄关场景插画"
+          },
+          {
+            "src": "/web/assets/products/grain-basket-detail.svg",
+            "alt": "蒲草编织纹理与可拆棉布内衬的特写插画"
+          }
+        ]
+      },
+      "flags": {
+        "hero": false,
+        "featured": false,
+        "new": false
+      },
+      "sold_count": 96,
+      "highlights": [
+        {
+          "title": "看得见的手艺",
+          "body": "蒲草晒干后由手工编成筐身，每一圈的松紧会有细微差别，也让每只筐长得不太一样。"
+        },
+        {
+          "title": "内衬脏了直接洗",
+          "body": "棉布内衬用系带固定在筐口，拆下机洗、阴干后就能装回去，筐身不碰水。"
+        },
+        {
+          "title": "不用时叠起来",
+          "body": "同尺寸的两只筐可以套叠存放，换季时不占一块完整的地面。"
+        }
+      ],
+      "specs": [
+        {
+          "title": "材质与尺寸",
+          "items": [
+            {
+              "label": "筐身",
+              "value": "蒲草手工编织"
+            },
+            {
+              "label": "内衬",
+              "value": "水洗棉，可拆洗"
+            },
+            {
+              "label": "中号",
+              "value": "32 × 26 × 24cm"
+            },
+            {
+              "label": "大号",
+              "value": "38 × 32 × 30cm"
+            }
+          ]
+        },
+        {
+          "title": "使用与打理",
+          "items": [
+            {
+              "label": "建议承重",
+              "value": "6kg 以内"
+            },
+            {
+              "label": "内衬清洗",
+              "value": "冷水轻柔机洗，阴干"
+            },
+            {
+              "label": "筐身清洁",
+              "value": "干刷除尘，避免浸水"
+            }
+          ]
+        }
+      ],
+      "detail_sections": [
+        {
+          "title": "收口留一点软",
+          "body": "筐口没有藏进硬边，手伸进去取东西不会硌。提手与筐身之间多绕了四圈草绳，装满衣物时也不容易变形。"
+        }
+      ],
+      "faq": [
+        {
+          "q": "会掉草屑吗？",
+          "a": "新筐在运输中可能带出少量短草屑，拍掉即可。用久之后表面会更服帖，属于蒲草制品的正常状态。"
+        },
+        {
+          "q": "可以放在浴室吗？",
+          "a": "不建议长期放在潮湿环境，蒲草遇水容易发霉。短时放置后请移到通风处晾干。"
+        }
+      ],
+      "skus": [
+        {
+          "name": "中号 / 原藤色",
+          "options": {
+            "尺寸": "中号",
+            "颜色": "原藤色"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "大号 / 原藤色",
+          "options": {
+            "尺寸": "大号",
+            "颜色": "原藤色"
+          },
+          "price_delta_cents": 4000
+        },
+        {
+          "name": "中号 / 灰褐色",
+          "options": {
+            "尺寸": "中号",
+            "颜色": "灰褐色"
+          },
+          "price_delta_cents": 2000
+        }
+      ],
+      "offers": [
+        {
+          "shop": "openshop-self",
+          "kind": "self",
+          "name": "官方自营 · 含棉布内衬",
+          "price_cents": 12900,
+          "market_price_cents": 16900,
+          "shipping_fee_cents": 0,
+          "stock": 64,
+          "delivery_eta_days": 2,
+          "delivery_note": "上海仓直发 · 内衬随筐发出",
+          "services": [
+            "正品保障",
+            "7天无理由"
+          ],
+          "is_primary": true
+        },
+        {
+          "shop": "direct-craft",
+          "kind": "factory",
+          "name": "工厂批次 · 原藤色",
+          "price_cents": 11900,
+          "market_price_cents": 15900,
+          "shipping_fee_cents": 0,
+          "stock": 110,
+          "delivery_eta_days": 5,
+          "delivery_note": "佛山工厂 · 预计 5 天发出",
+          "services": [
+            "源头直供",
+            "7天无理由"
+          ],
+          "is_primary": false
+        }
+      ],
+      "reviews": [
+        {
+          "author": "沈**",
+          "rating": 5,
+          "title": "玄关的杂乱被收进去了",
+          "body": "中号装两顶帽子和一把折叠伞刚好，提手不勒手。内衬是系带固定的，拆下来洗比想象中容易。",
+          "tags": [
+            "容量合适",
+            "内衬可拆"
+          ],
+          "verified": true,
+          "helpful_count": 9,
+          "days_ago": 6,
+          "sku_name": "中号 / 原藤色"
+        },
+        {
+          "author": "顾**",
+          "rating": 4,
+          "title": "染色的比原色更沉",
+          "body": "灰褐色和家里的木地板更接近，但染色批次会有轻微色差。筐口收边偶尔有一两根草梗翘起，压一压就服帖。",
+          "tags": [
+            "颜色耐看",
+            "手工痕迹"
+          ],
+          "verified": true,
+          "helpful_count": 4,
+          "days_ago": 18,
+          "sku_name": "中号 / 灰褐色"
+        },
+        {
+          "author": "冯**",
+          "rating": 5,
+          "title": "大号当脏衣篮",
+          "body": "两只叠在一起发过来，大号装一周的换洗衣物差不多。棉布内衬透气，湿毛巾不要直接丢进去。",
+          "tags": [
+            "可叠放",
+            "内衬透气"
+          ],
+          "verified": true,
+          "helpful_count": 7,
+          "days_ago": 32,
+          "sku_name": "大号 / 原藤色"
+        }
+      ]
+    },
+    {
       "slug": "hush-headphones",
       "title": "静岛降噪耳机",
       "subtitle": "给耳朵一间安静的房",
       "brand": "回声 ECHOLAB",
       "category": "digital",
-      "description": "混合主动降噪与环境声透传，40 小时续航，重量只有 248 克。",
-      "story": "地铁、机场、开放式办公室。我们想做的不是让世界消失，而是把注意力还给你。",
+      "description": "混合主动降噪与环境声透传，40 小时续航，重量只有 248 克。耳罩与固件都保留更换和更新的余地。",
+      "story": "地铁、机场、开放式办公室。我们想做的不是让世界消失，而是把注意力还给你，同时保留站台广播那一声提醒。",
       "tags": [
         "头戴式",
         "主动降噪",
@@ -458,15 +966,15 @@
       ],
       "art": {
         "cover": "/web/assets/products/hush-headphones.svg",
-        "cover_alt": "深绿色背景上的降噪头戴耳机插画",
+        "cover_alt": "深绿背景下立在木架上的头戴降噪耳机插画",
         "images": [
           {
             "src": "/web/assets/products/hush-headphones.svg",
-            "alt": "静岛降噪耳机正面"
+            "alt": "深绿背景下立在木架上的头戴降噪耳机插画"
           },
           {
             "src": "/web/assets/products/hush-headphones-detail.svg",
-            "alt": "耳罩与金属转轴细节"
+            "alt": "耳机记忆棉耳罩、金属转轴与头梁缝线的特写插画"
           }
         ]
       },
@@ -595,7 +1103,7 @@
           "shipping_fee_cents": 0,
           "stock": 32,
           "delivery_eta_days": 3,
-          "delivery_note": "品牌仓直发",
+          "delivery_note": "苏州品牌仓 · 标准配送",
           "services": [
             "品牌直营",
             "一年质保",
@@ -650,13 +1158,230 @@
       ]
     },
     {
+      "slug": "reed-speaker",
+      "title": "苇声便携音箱",
+      "subtitle": "把一小片现场带着走",
+      "brand": "回声 ECHOLAB",
+      "category": "digital",
+      "description": "布面网罩包住 45mm 全频单元，12 小时续航。IPX5 防泼溅，两只可以配对成左右声道。",
+      "story": "我们去海边录了三天风。回苏州后，把那段风声留在调音里：人声不靠前，低频收一点，让它适合放在窗边，而不是舞台。",
+      "tags": [
+        "便携音箱",
+        "布面网罩",
+        "双机配对",
+        "防泼溅"
+      ],
+      "badges": [
+        "12 小时续航",
+        "IPX5 防泼溅"
+      ],
+      "art": {
+        "cover": "/web/assets/products/reed-speaker.svg",
+        "cover_alt": "窗边书堆上的苔绿布面音箱与干芦苇插画",
+        "images": [
+          {
+            "src": "/web/assets/products/reed-speaker.svg",
+            "alt": "窗边书堆上的苔绿布面音箱与干芦苇插画"
+          },
+          {
+            "src": "/web/assets/products/reed-speaker-detail.svg",
+            "alt": "音箱编织网罩、皮绳与音量键的特写插画"
+          }
+        ]
+      },
+      "flags": {
+        "hero": false,
+        "featured": true,
+        "new": true
+      },
+      "sold_count": 156,
+      "highlights": [
+        {
+          "title": "放在桌上不像个电器",
+          "body": "混色再生纱线网罩与哑光机身接在一起，低音量时几乎忘了它开着。"
+        },
+        {
+          "title": "两只才有立体声",
+          "body": "两台同时长按配对键即可分成左右声道，看电影时人声会从屏幕方向出来。"
+        },
+        {
+          "title": "带出门不心疼",
+          "body": "IPX5 防泼溅，厨房水花和小雨都能应付；充电口有橡胶盖，擦干再打开。"
+        }
+      ],
+      "specs": [
+        {
+          "title": "声学与连接",
+          "items": [
+            {
+              "label": "单元",
+              "value": "45mm 全频"
+            },
+            {
+              "label": "蓝牙",
+              "value": "5.3，支持双机配对"
+            },
+            {
+              "label": "编解码",
+              "value": "SBC / AAC"
+            }
+          ]
+        },
+        {
+          "title": "续航与防护",
+          "items": [
+            {
+              "label": "续航",
+              "value": "中等音量约 12 小时"
+            },
+            {
+              "label": "充电",
+              "value": "USB-C，2 小时充满"
+            },
+            {
+              "label": "防护",
+              "value": "IPX5 防泼溅"
+            },
+            {
+              "label": "重量",
+              "value": "410g"
+            }
+          ]
+        }
+      ],
+      "detail_sections": [
+        {
+          "title": "给房间留一点空气声",
+          "body": "它的声音不追求贴脸。放在书架第二层时，人声会在纸张和木板之间多反射一次，适合做饭、打扫和读完一本书的下午。"
+        }
+      ],
+      "faq": [
+        {
+          "q": "可以边充电边听吗？",
+          "a": "可以。充电口有防尘盖，充电前请擦干接口周围的水分。"
+        },
+        {
+          "q": "两台不同颜色的可以配对吗？",
+          "a": "可以，配对与颜色无关。首次配对需要让两台音箱相距 1 米以内。"
+        }
+      ],
+      "skus": [
+        {
+          "name": "苔绿 / 标准版",
+          "options": {
+            "颜色": "苔绿",
+            "版本": "标准版"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "沙白 / 标准版",
+          "options": {
+            "颜色": "沙白",
+            "版本": "标准版"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "苔绿 / 含皮绳挂带",
+          "options": {
+            "颜色": "苔绿",
+            "配件": "皮绳挂带"
+          },
+          "price_delta_cents": 6000
+        }
+      ],
+      "offers": [
+        {
+          "shop": "echo-lab",
+          "kind": "brand",
+          "name": "品牌直营 · 标准版",
+          "price_cents": 46900,
+          "market_price_cents": 59900,
+          "shipping_fee_cents": 0,
+          "stock": 52,
+          "delivery_eta_days": 3,
+          "delivery_note": "苏州声学仓 · 预计 3 天送达",
+          "services": [
+            "品牌直营",
+            "一年质保",
+            "7天无理由"
+          ],
+          "is_primary": true
+        },
+        {
+          "shop": "openshop-self",
+          "kind": "self",
+          "name": "官方自营 · 含挂绳",
+          "price_cents": 45900,
+          "market_price_cents": 57900,
+          "shipping_fee_cents": 0,
+          "stock": 40,
+          "delivery_eta_days": 1,
+          "delivery_note": "上海仓直发 · 次日达",
+          "services": [
+            "正品保障",
+            "一年质保",
+            "7天无理由"
+          ],
+          "is_primary": false,
+          "group_size": 3,
+          "group_price_cents": 39900
+        }
+      ],
+      "reviews": [
+        {
+          "author": "秦**",
+          "rating": 4,
+          "title": "挂在厨房也能听清",
+          "body": "音量到七成时人声仍然清楚，低频不轰。做饭时溅到水没事，擦干就可以。蓝牙从手机切回电脑会慢半拍。",
+          "tags": [
+            "人声清楚",
+            "切换稍慢"
+          ],
+          "verified": true,
+          "helpful_count": 11,
+          "days_ago": 3,
+          "sku_name": "苔绿 / 标准版"
+        },
+        {
+          "author": "罗**",
+          "rating": 5,
+          "title": "两只配对像换了一台",
+          "body": "后来又买一只配对放在书架两端，声音开阔不少。续航从周五听到周日还剩一格，充电口有胶盖。",
+          "tags": [
+            "双机配对",
+            "续航实在"
+          ],
+          "verified": true,
+          "helpful_count": 16,
+          "days_ago": 10,
+          "sku_name": "沙白 / 标准版"
+        },
+        {
+          "author": "裴**",
+          "rating": 4,
+          "title": "皮绳比想象中好用",
+          "body": "挂在背包带上去公园很方便。布面容易沾猫毛，用粘毛滚一滚就行。低音不会盖住播客的人声。",
+          "tags": [
+            "便携",
+            "布面需打理"
+          ],
+          "verified": true,
+          "helpful_count": 3,
+          "days_ago": 22,
+          "sku_name": "苔绿 / 含皮绳挂带"
+        }
+      ]
+    },
+    {
       "slug": "trail-pack",
       "title": "起风轻量登山包",
       "subtitle": "装下两天一夜",
       "brand": "北屿 NORTHISLE",
       "category": "outdoor",
-      "description": "32L 轻量徒步包，悬浮背网和可调背负，把重量分给髋部。",
-      "story": "从灵山到四姑娘山，起风不是坏天气，是让你听见山的呼吸。",
+      "description": "32L 轻量徒步包，悬浮背网和可调背负，把重量分给髋部。主仓、睡袋仓与双侧水壶袋分区明确。",
+      "story": "从灵山到四姑娘山，起风不是坏天气，是让你听见山的呼吸。背过一次长线之后，我们把肩带削薄了 3mm。",
       "tags": [
         "徒步",
         "轻量",
@@ -669,15 +1394,15 @@
       ],
       "art": {
         "cover": "/web/assets/products/trail-pack.svg",
-        "cover_alt": "苔绿色轻量登山包立在岩石与草丛间",
+        "cover_alt": "暮色山坡旁立着的苔绿轻量登山包插画",
         "images": [
           {
             "src": "/web/assets/products/trail-pack.svg",
-            "alt": "起风登山包侧面"
+            "alt": "暮色山坡旁立着的苔绿轻量登山包插画"
           },
           {
             "src": "/web/assets/products/trail-pack-detail.svg",
-            "alt": "背负系统与口袋细节"
+            "alt": "背包肩带、胸扣与悬浮背网结构的特写插画"
           }
         ]
       },
@@ -799,6 +1524,23 @@
           "group_price_cents": 42900
         },
         {
+          "shop": "northisle-outdoor",
+          "kind": "brand",
+          "name": "北屿旗舰 · 含防雨罩",
+          "price_cents": 50900,
+          "market_price_cents": 59900,
+          "shipping_fee_cents": 0,
+          "stock": 26,
+          "delivery_eta_days": 3,
+          "delivery_note": "宁波仓直发 · 含修补片",
+          "services": [
+            "品牌直营",
+            "7天无理由",
+            "一年质保"
+          ],
+          "is_primary": false
+        },
+        {
           "shop": "direct-craft",
           "kind": "factory",
           "name": "源头工厂 · 标准款",
@@ -807,7 +1549,7 @@
           "shipping_fee_cents": 0,
           "stock": 88,
           "delivery_eta_days": 5,
-          "delivery_note": "工厂集单 · 5 天发货",
+          "delivery_note": "佛山工厂 · 集单发货",
           "services": [
             "源头直供",
             "7天无理由"
@@ -845,6 +1587,252 @@
           "helpful_count": 4,
           "days_ago": 16,
           "sku_name": "岩灰 / 32L"
+        },
+        {
+          "author": "乔**",
+          "rating": 4,
+          "title": "雨罩藏在底部",
+          "body": "防雨罩是一体的，从底仓翻出来就能罩住整包。第一次用没找到拉链，建议在吊牌上写一句提示。",
+          "tags": [
+            "防雨罩",
+            "需要熟悉"
+          ],
+          "verified": true,
+          "helpful_count": 2,
+          "days_ago": 11,
+          "sku_name": "苔绿 / 32L"
+        }
+      ]
+    },
+    {
+      "slug": "camp-table",
+      "title": "折木轻量桌",
+      "subtitle": "一张说走就走的小桌子",
+      "brand": "北屿 NORTHISLE",
+      "category": "outdoor",
+      "description": "铝合金卷帘桌面配榉木支腿，整桌 1.9kg。展开 60×40×40cm，收纳后和一把折叠伞差不多长。",
+      "story": "在宁波的试装间里，我们把桌腿的卡扣改了七次。最后留下一个戴手套也能单手按开的版本，桌面接缝刚好容得下一杯晃动的咖啡。",
+      "tags": [
+        "折叠桌",
+        "轻量",
+        "露营",
+        "1.9kg"
+      ],
+      "badges": [
+        "1.9kg 轻量",
+        "单手展开"
+      ],
+      "art": {
+        "cover": "/web/assets/products/camp-table.svg",
+        "cover_alt": "草坡上展开的轻量折木桌、搪瓷杯与保温壶插画",
+        "images": [
+          {
+            "src": "/web/assets/products/camp-table.svg",
+            "alt": "草坡上展开的轻量折木桌、搪瓷杯与保温壶插画"
+          },
+          {
+            "src": "/web/assets/products/camp-table-detail.svg",
+            "alt": "卷帘桌面接缝与榉木桌腿卡扣的特写插画"
+          }
+        ]
+      },
+      "flags": {
+        "hero": false,
+        "featured": true,
+        "new": true
+      },
+      "sold_count": 63,
+      "highlights": [
+        {
+          "title": "半分钟支起来",
+          "body": "卷帘桌面沿两条尼龙导轨滑入，桌腿卡扣到位会有清楚的一声，不用蹲着研究说明书。"
+        },
+        {
+          "title": "草地不平也能找平",
+          "body": "四条桌腿末端各有 1.5cm 的旋拧调节，小坡和碎石地上能补掉高度差。"
+        },
+        {
+          "title": "收起来只占一个睡袋位",
+          "body": "收纳后 42cm 长，塞进后备箱侧面或背包顶袋都不碍事。"
+        }
+      ],
+      "specs": [
+        {
+          "title": "结构与尺寸",
+          "items": [
+            {
+              "label": "桌面",
+              "value": "铝合金卷帘"
+            },
+            {
+              "label": "桌腿",
+              "value": "榉木与铝合金关节"
+            },
+            {
+              "label": "展开",
+              "value": "60 × 40 × 40cm"
+            },
+            {
+              "label": "收纳",
+              "value": "42 × 14 × 10cm"
+            }
+          ]
+        },
+        {
+          "title": "重量与承重",
+          "items": [
+            {
+              "label": "净重",
+              "value": "1.9kg"
+            },
+            {
+              "label": "静置承重",
+              "value": "25kg"
+            },
+            {
+              "label": "附件",
+              "value": "600D 收纳袋"
+            }
+          ]
+        }
+      ],
+      "detail_sections": [
+        {
+          "title": "把卡扣做小一点",
+          "body": "桌腿的铝合金关节没有做成亮闪闪的金属件，而是收进木色里。折叠时不会夹手，展开后也不会晃出一声轻响。"
+        }
+      ],
+      "faq": [
+        {
+          "q": "桌面怕烫吗？",
+          "a": "热锅请使用隔热垫。卷帘桌面能放日常热饮，但长时间接触高温锅具会留下痕迹。"
+        },
+        {
+          "q": "桌腿能单独调平吗？",
+          "a": "每条腿末端有 1.5cm 的旋拧调节，草地或碎石地可以小幅找平。"
+        }
+      ],
+      "skus": [
+        {
+          "name": "原木色 / 60cm",
+          "options": {
+            "颜色": "原木色",
+            "长度": "60cm"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "烟熏木色 / 60cm",
+          "options": {
+            "颜色": "烟熏木色",
+            "长度": "60cm"
+          },
+          "price_delta_cents": 3000
+        },
+        {
+          "name": "原木色 / 80cm",
+          "options": {
+            "颜色": "原木色",
+            "长度": "80cm"
+          },
+          "price_delta_cents": 8000
+        }
+      ],
+      "offers": [
+        {
+          "shop": "openshop-self",
+          "kind": "self",
+          "name": "官方自营 · 含收纳袋",
+          "price_cents": 55900,
+          "market_price_cents": 69900,
+          "shipping_fee_cents": 0,
+          "stock": 34,
+          "delivery_eta_days": 2,
+          "delivery_note": "上海仓直发 · 收纳袋随桌发出",
+          "services": [
+            "正品保障",
+            "7天无理由"
+          ],
+          "is_primary": true,
+          "group_size": 2,
+          "group_price_cents": 49900
+        },
+        {
+          "shop": "northisle-outdoor",
+          "kind": "brand",
+          "name": "北屿旗舰 · 原木色",
+          "price_cents": 57900,
+          "market_price_cents": 69900,
+          "shipping_fee_cents": 0,
+          "stock": 22,
+          "delivery_eta_days": 4,
+          "delivery_note": "宁波仓直发 · 预计 4 天送达",
+          "services": [
+            "品牌直营",
+            "7天无理由",
+            "一年质保"
+          ],
+          "is_primary": false
+        },
+        {
+          "shop": "direct-craft",
+          "kind": "factory",
+          "name": "源头工厂 · 标准款",
+          "price_cents": 51900,
+          "market_price_cents": 62900,
+          "shipping_fee_cents": 0,
+          "stock": 58,
+          "delivery_eta_days": 6,
+          "delivery_note": "佛山工厂 · 预计 6 天发出",
+          "services": [
+            "源头直供",
+            "7天无理由"
+          ],
+          "is_primary": false
+        }
+      ],
+      "reviews": [
+        {
+          "author": "贺**",
+          "rating": 4,
+          "title": "支起来只要半分钟",
+          "body": "第一次用还在找卡扣，第二次就能单手撑开。桌面有一点回弹，放马克杯没问题，切菜还是换块案板。",
+          "tags": [
+            "展开快",
+            "桌面有回弹"
+          ],
+          "verified": true,
+          "helpful_count": 8,
+          "days_ago": 4,
+          "sku_name": "原木色 / 60cm"
+        },
+        {
+          "author": "蒋**",
+          "rating": 5,
+          "title": "草地不平也能稳",
+          "body": "桌腿能单独调高度，坡地上勉强找平。收进后备箱只占一个睡袋的位置，烟熏木色比照片更深一点。",
+          "tags": [
+            "桌腿可调",
+            "收纳省位"
+          ],
+          "verified": true,
+          "helpful_count": 12,
+          "days_ago": 12,
+          "sku_name": "烟熏木色 / 60cm"
+        },
+        {
+          "author": "岑**",
+          "rating": 3,
+          "title": "高度适合坐地上",
+          "body": "60cm 的桌子配月亮椅刚好，配普通露营椅就偏低，吃东西要弯着腰。桌面接缝会卡面包屑，需要带把小刷子。",
+          "tags": [
+            "适合低椅",
+            "高度挑椅子"
+          ],
+          "verified": true,
+          "helpful_count": 5,
+          "days_ago": 26,
+          "sku_name": "原木色 / 60cm"
         }
       ]
     },
@@ -854,8 +1842,8 @@
       "subtitle": "把水烧开，也把早晨慢下来",
       "brand": "未行 WAYLINE",
       "category": "kitchen",
-      "description": "细口手冲壶，均匀控流，明火与电磁炉两用。",
-      "story": "一杯好咖啡从等待水开开始。我们保留了珐琅微微挂着水汽的质感。",
+      "description": "细口手冲壶，均匀控流，明火与电磁炉两用。700ml 容量，正好两只杯子。",
+      "story": "一杯好咖啡从等待水开开始。我们保留了珐琅微微挂着水汽的质感，也保留了一点点手工上釉的厚度差。",
       "tags": [
         "手冲",
         "珐琅",
@@ -868,15 +1856,15 @@
       ],
       "art": {
         "cover": "/web/assets/products/morning-kettle.svg",
-        "cover_alt": "砖橙色珐琅手冲壶与咖啡杯的清晨场景",
+        "cover_alt": "清晨厨房里的砖橙珐琅手冲壶、咖啡杯与热气插画",
         "images": [
           {
             "src": "/web/assets/products/morning-kettle.svg",
-            "alt": "慢早手冲壶"
+            "alt": "清晨厨房里的砖橙珐琅手冲壶、咖啡杯与热气插画"
           },
           {
             "src": "/web/assets/products/morning-kettle-detail.svg",
-            "alt": "手柄与细口壶嘴细节"
+            "alt": "珐琅壶嘴、手柄铆钉与细密水汽的特写插画"
           }
         ]
       },
@@ -964,6 +1952,14 @@
             "容量": "700ml"
           },
           "price_delta_cents": 0
+        },
+        {
+          "name": "窑灰 / 700ml",
+          "options": {
+            "颜色": "窑灰",
+            "容量": "700ml"
+          },
+          "price_delta_cents": 0
         }
       ],
       "offers": [
@@ -981,8 +1977,23 @@
             "正品保障",
             "7天无理由"
           ],
-          "is_primary": true,
-          "group_size": 0
+          "is_primary": true
+        },
+        {
+          "shop": "wayline-kitchen",
+          "kind": "brand",
+          "name": "未行旗舰 · 700ml",
+          "price_cents": 27900,
+          "market_price_cents": 34900,
+          "shipping_fee_cents": 0,
+          "stock": 30,
+          "delivery_eta_days": 3,
+          "delivery_note": "金华仓直发 · 含壶嘴软刷",
+          "services": [
+            "品牌直营",
+            "7天无理由"
+          ],
+          "is_primary": false
         },
         {
           "shop": "direct-craft",
@@ -993,7 +2004,7 @@
           "shipping_fee_cents": 0,
           "stock": 120,
           "delivery_eta_days": 4,
-          "delivery_note": "工厂集单 · 4 天发货",
+          "delivery_note": "佛山工厂 · 集单发货",
           "services": [
             "源头直供",
             "7天无理由"
@@ -1031,6 +2042,2230 @@
           "helpful_count": 3,
           "days_ago": 14,
           "sku_name": "奶油白 / 700ml"
+        },
+        {
+          "author": "邵**",
+          "rating": 3,
+          "title": "好看，但要慢慢用",
+          "body": "珐琅壶身有一定重量，单手给两只杯子注水到后面会有点吃力。壶嘴控流确实细，清洗时要单独用软刷照顾接缝。",
+          "tags": [
+            "控流稳定",
+            "需要双手"
+          ],
+          "verified": true,
+          "helpful_count": 5,
+          "days_ago": 9,
+          "sku_name": "窑灰 / 700ml"
+        }
+      ]
+    },
+    {
+      "slug": "cast-pan",
+      "title": "黑石厚铁煎锅",
+      "subtitle": "一口锅接住三顿饭",
+      "brand": "未行 WAYLINE",
+      "category": "kitchen",
+      "description": "一体铸造的铸铁煎锅，预开锅处理，锅边留双导流口。蓄热比薄锅慢一点，但一旦热起来就很稳。",
+      "story": "锅型参照家里那口用了十几年的旧锅：弧度浅、锅沿宽，翻面时不容易把食材推到外面。我们只把重量减了 300g。",
+      "tags": [
+        "铸铁锅",
+        "煎炒",
+        "预开锅",
+        "可进烤箱"
+      ],
+      "badges": [
+        "一体铸造",
+        "预开锅"
+      ],
+      "art": {
+        "cover": "/web/assets/products/cast-pan.svg",
+        "cover_alt": "亚麻桌布上的黑色铸铁煎锅、木铲与陶盘插画",
+        "images": [
+          {
+            "src": "/web/assets/products/cast-pan.svg",
+            "alt": "亚麻桌布上的黑色铸铁煎锅、木铲与陶盘插画"
+          },
+          {
+            "src": "/web/assets/products/cast-pan-detail.svg",
+            "alt": "铸铁锅表面肌理、加宽锅沿与双导流口的特写插画"
+          }
+        ]
+      },
+      "flags": {
+        "hero": false,
+        "featured": false,
+        "new": false
+      },
+      "sold_count": 188,
+      "highlights": [
+        {
+          "title": "热得慢，凉得也慢",
+          "body": "厚底蓄热让食材下锅后温度不至于骤降，关火后的余温还能把边缘慢慢烘脆。"
+        },
+        {
+          "title": "两只手端得住",
+          "body": "28cm 口径，双导流口左右手都顺手；短柄设计减少占用灶台空间。"
+        },
+        {
+          "title": "养锅是日常的一部分",
+          "body": "随锅附一张养护卡：温水刷洗、烘干、薄薄涂一层食用油。不用洗洁精长时间浸泡。"
+        }
+      ],
+      "specs": [
+        {
+          "title": "口径与材质",
+          "items": [
+            {
+              "label": "口径",
+              "value": "28cm"
+            },
+            {
+              "label": "材质",
+              "value": "灰口铸铁"
+            },
+            {
+              "label": "净重",
+              "value": "1.9kg"
+            },
+            {
+              "label": "深度",
+              "value": "5cm"
+            }
+          ]
+        },
+        {
+          "title": "使用与养护",
+          "items": [
+            {
+              "label": "适用",
+              "value": "燃气灶 / 电磁炉 / 烤箱（手柄需隔热）"
+            },
+            {
+              "label": "出厂处理",
+              "value": "预开锅"
+            },
+            {
+              "label": "附件",
+              "value": "硅胶锅垫与养护卡"
+            }
+          ]
+        }
+      ],
+      "detail_sections": [
+        {
+          "title": "把锅边的弧度做浅",
+          "body": "浅弧锅底更容易用锅铲贴着滑动，适合煎蛋、煎豆腐与收汁。锅壁保留了铸造产生的小颗粒，用久后会慢慢变光滑。"
+        }
+      ],
+      "faq": [
+        {
+          "q": "会粘锅吗？",
+          "a": "铸铁锅需要充分预热并放适量油。按养护卡使用，前几次可能还会粘，锅面养成后会逐渐好转。"
+        },
+        {
+          "q": "可以直接进洗碗机吗？",
+          "a": "不建议。洗碗机会洗去锅面养护油层，建议用温水和软刷手洗，烘干后薄涂一层油。"
+        }
+      ],
+      "skus": [
+        {
+          "name": "26cm / 无盖",
+          "options": {
+            "口径": "26cm",
+            "附件": "无盖"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "28cm / 无盖",
+          "options": {
+            "口径": "28cm",
+            "附件": "无盖"
+          },
+          "price_delta_cents": 5000
+        },
+        {
+          "name": "28cm / 含玻璃盖",
+          "options": {
+            "口径": "28cm",
+            "附件": "含玻璃盖"
+          },
+          "price_delta_cents": 9000
+        }
+      ],
+      "offers": [
+        {
+          "shop": "openshop-self",
+          "kind": "self",
+          "name": "官方自营 · 28cm",
+          "price_cents": 43900,
+          "market_price_cents": 55900,
+          "shipping_fee_cents": 0,
+          "stock": 42,
+          "delivery_eta_days": 2,
+          "delivery_note": "上海仓直发 · 含锅垫与养护卡",
+          "services": [
+            "正品保障",
+            "7天无理由"
+          ],
+          "is_primary": true
+        },
+        {
+          "shop": "wayline-kitchen",
+          "kind": "brand",
+          "name": "未行旗舰 · 含养护卡",
+          "price_cents": 46900,
+          "market_price_cents": 55900,
+          "shipping_fee_cents": 0,
+          "stock": 26,
+          "delivery_eta_days": 4,
+          "delivery_note": "金华仓直发 · 预计 4 天送达",
+          "services": [
+            "品牌直营",
+            "7天无理由"
+          ],
+          "is_primary": false
+        },
+        {
+          "shop": "direct-craft",
+          "kind": "factory",
+          "name": "工厂直供 · 预开锅",
+          "price_cents": 38900,
+          "market_price_cents": 50900,
+          "shipping_fee_cents": 0,
+          "stock": 66,
+          "delivery_eta_days": 6,
+          "delivery_note": "佛山工厂 · 预计 6 天发出",
+          "services": [
+            "源头直供",
+            "7天无理由"
+          ],
+          "is_primary": false,
+          "group_size": 2,
+          "group_price_cents": 34900
+        }
+      ],
+      "reviews": [
+        {
+          "author": "钟**",
+          "rating": 5,
+          "title": "煎蛋不用急着翻",
+          "body": "预热到位后蛋边会自己离锅。比不粘锅重，但端着从灶台到餐桌还算稳。随锅的硅胶锅垫比想象中厚。",
+          "tags": [
+            "蓄热稳",
+            "偏重"
+          ],
+          "verified": true,
+          "helpful_count": 10,
+          "days_ago": 5,
+          "sku_name": "28cm / 无盖"
+        },
+        {
+          "author": "梁**",
+          "rating": 4,
+          "title": "第一次养锅有点手忙脚乱",
+          "body": "按养护卡烘干涂油，前两次还是有点黏。第三次开始顺手了，煎豆腐也不容易破。玻璃盖密封一般，炖煮会溢。",
+          "tags": [
+            "需要养锅",
+            "煎豆腐不破"
+          ],
+          "verified": true,
+          "helpful_count": 6,
+          "days_ago": 17,
+          "sku_name": "28cm / 含玻璃盖"
+        },
+        {
+          "author": "曾**",
+          "rating": 4,
+          "title": "两只手的活",
+          "body": "倒菜时单手握柄有点吃力，我一般两只手端。锅边导流口确实好用，汤汁不会顺着锅身流下去。",
+          "tags": [
+            "偏重",
+            "导流顺手"
+          ],
+          "verified": true,
+          "helpful_count": 3,
+          "days_ago": 29,
+          "sku_name": "28cm / 无盖"
+        }
+      ]
+    },
+    {
+      "slug": "linen-overshirt",
+      "title": "水洗亚麻罩衫",
+      "subtitle": "一件能从春天披到初秋",
+      "brand": "素织 SUZHI",
+      "category": "style",
+      "description": "55% 亚麻混 45% 棉，成衣水洗过一遍。直身版型、深侧缝口袋，前襟可以当薄外套敞开穿。",
+      "story": "我们不追每年一换的版型。罩衫的肩线改低 1cm，口袋加深到能放下手机，再洗一次才定样。",
+      "tags": [
+        "亚麻",
+        "宽松版型",
+        "侧缝口袋",
+        "可机洗"
+      ],
+      "badges": [
+        "成衣水洗",
+        "深侧缝口袋"
+      ],
+      "art": {
+        "cover": "/web/assets/products/linen-overshirt.svg",
+        "cover_alt": "挂在木衣架上的雾白色水洗亚麻罩衫插画",
+        "images": [
+          {
+            "src": "/web/assets/products/linen-overshirt.svg",
+            "alt": "挂在木衣架上的雾白色水洗亚麻罩衫插画"
+          },
+          {
+            "src": "/web/assets/products/linen-overshirt-detail.svg",
+            "alt": "亚麻布面纹理、侧缝口袋与纽扣的特写插画"
+          }
+        ]
+      },
+      "flags": {
+        "hero": false,
+        "featured": true,
+        "new": true
+      },
+      "sold_count": 142,
+      "highlights": [
+        {
+          "title": "有亚麻的筋骨，不扎",
+          "body": "亚麻与棉按 55/45 混纺，保留一点挺度，贴肤处又不会像纯亚麻那样粗。"
+        },
+        {
+          "title": "口袋真的能装",
+          "body": "两侧深口袋能平放手机，袋口略斜，手插进去时不会把衣摆拽变形。"
+        },
+        {
+          "title": "洗过才发货",
+          "body": "成衣先经过一次水洗，收到时已经过了最明显的缩率阶段；首洗仍建议冷水单独洗。"
+        }
+      ],
+      "specs": [
+        {
+          "title": "面料与版型",
+          "items": [
+            {
+              "label": "成分",
+              "value": "55% 亚麻 / 45% 棉"
+            },
+            {
+              "label": "克重",
+              "value": "190g/㎡"
+            },
+            {
+              "label": "版型",
+              "value": "直身微落肩，后摆略长"
+            },
+            {
+              "label": "尺码",
+              "value": "S / M / L"
+            }
+          ]
+        },
+        {
+          "title": "洗护",
+          "items": [
+            {
+              "label": "洗涤",
+              "value": "30℃ 轻柔机洗，与浅色同洗"
+            },
+            {
+              "label": "晾晒",
+              "value": "阴干，避免暴晒"
+            },
+            {
+              "label": "熨烫",
+              "value": "低温蒸汽，或接受亚麻自然褶皱"
+            }
+          ]
+        }
+      ],
+      "detail_sections": [
+        {
+          "title": "折痕不是缺点",
+          "body": "亚麻坐下再起身会留下褶皱，我们没有用大量树脂整理去抹平它。穿之前抖一抖，或者喷一点水，褶皱会松开一些。"
+        }
+      ],
+      "faq": [
+        {
+          "q": "会缩水吗？",
+          "a": "成衣已经水洗过一次，正常冷水洗护的缩率在 1-2cm 以内。烘干会明显增加缩率，不建议。"
+        },
+        {
+          "q": "版型偏大吗？",
+          "a": "直身版型肩线略低，衣身余量充足。喜欢合身效果可以选小一码，具体尺寸在规格里可对照。"
+        }
+      ],
+      "skus": [
+        {
+          "name": "雾白 / S",
+          "options": {
+            "颜色": "雾白",
+            "尺码": "S"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "雾白 / M",
+          "options": {
+            "颜色": "雾白",
+            "尺码": "M"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "茶棕 / M",
+          "options": {
+            "颜色": "茶棕",
+            "尺码": "M"
+          },
+          "price_delta_cents": 2000
+        },
+        {
+          "name": "青灰 / L",
+          "options": {
+            "颜色": "青灰",
+            "尺码": "L"
+          },
+          "price_delta_cents": 4000
+        }
+      ],
+      "offers": [
+        {
+          "shop": "openshop-self",
+          "kind": "self",
+          "name": "官方自营 · 含备用纽扣",
+          "price_cents": 32900,
+          "market_price_cents": 39900,
+          "shipping_fee_cents": 0,
+          "stock": 48,
+          "delivery_eta_days": 2,
+          "delivery_note": "上海仓直发 · 成衣水洗",
+          "services": [
+            "正品保障",
+            "7天无理由"
+          ],
+          "is_primary": true
+        },
+        {
+          "shop": "suzhi-atelier",
+          "kind": "brand",
+          "name": "工作室直发 · 亚麻罩衫",
+          "price_cents": 34900,
+          "market_price_cents": 41900,
+          "shipping_fee_cents": 0,
+          "stock": 30,
+          "delivery_eta_days": 3,
+          "delivery_note": "南通工作室 · 小批量现货",
+          "services": [
+            "品牌直营",
+            "7天无理由"
+          ],
+          "is_primary": false
+        }
+      ],
+      "reviews": [
+        {
+          "author": "范**",
+          "rating": 5,
+          "title": "当外套穿很合适",
+          "body": "里面搭一件白 T，前襟敞开刚好挡住早晚的风。下摆盖过胯骨，配直筒裤不显拖沓。洗过一次没有缩水。",
+          "tags": [
+            "版型宽松",
+            "水洗稳定"
+          ],
+          "verified": true,
+          "helpful_count": 12,
+          "days_ago": 3,
+          "sku_name": "雾白 / M"
+        },
+        {
+          "author": "夏**",
+          "rating": 4,
+          "title": "颜色比屏幕上灰",
+          "body": "青灰实际偏暖，在室内光下更像浅卡其。亚麻的褶皱明显，介意的人要先接受这点。口袋深，手机不会掉出来。",
+          "tags": [
+            "颜色偏暖",
+            "亚麻褶皱"
+          ],
+          "verified": true,
+          "helpful_count": 7,
+          "days_ago": 15,
+          "sku_name": "青灰 / L"
+        },
+        {
+          "author": "常**",
+          "rating": 3,
+          "title": "袖子对我来说偏长",
+          "body": "M 码衣身宽松，袖长盖住半个手背，需要挽两道。布料贴肤不扎，只是缝线处有一点硬，洗两次会软。",
+          "tags": [
+            "衣身宽松",
+            "袖子偏长"
+          ],
+          "verified": true,
+          "helpful_count": 4,
+          "days_ago": 28,
+          "sku_name": "茶棕 / M"
+        }
+      ]
+    },
+    {
+      "slug": "canvas-carry",
+      "title": "晨路帆布托特包",
+      "subtitle": "装电脑，也装一束菜",
+      "brand": "素织 SUZHI",
+      "category": "style",
+      "description": "16 安水洗帆布，提手内侧和底角做了双层补强。大号能放下 14 寸电脑，小号装得下午餐盒与一本书。",
+      "story": "这只包来自工作室里一块没舍得扔的样布。我们拿掉多余的隔层，只留下一只内袋，和一截可以挂钥匙的棉带。",
+      "tags": [
+        "帆布包",
+        "托特包",
+        "通勤",
+        "可机洗"
+      ],
+      "badges": [
+        "16安水洗帆布",
+        "双层提手"
+      ],
+      "art": {
+        "cover": "/web/assets/products/canvas-carry.svg",
+        "cover_alt": "晨光里靠在木椅旁的米白帆布托特包与书插画",
+        "images": [
+          {
+            "src": "/web/assets/products/canvas-carry.svg",
+            "alt": "晨光里靠在木椅旁的米白帆布托特包与书插画"
+          },
+          {
+            "src": "/web/assets/products/canvas-carry-detail.svg",
+            "alt": "帆布织纹、棉织带提手与铆钉的特写插画"
+          }
+        ]
+      },
+      "flags": {
+        "hero": false,
+        "featured": false,
+        "new": false
+      },
+      "sold_count": 221,
+      "highlights": [
+        {
+          "title": "袋口敞着，形状不垮",
+          "body": "16 安水洗帆布自带一点硬度，空包也能立住；没有拉链，拿东西少一道动作。"
+        },
+        {
+          "title": "提手不勒肩",
+          "body": "棉织带加宽到 2.5cm，内侧再缝一层，装满书时肩膀不会被勒出一条深印。"
+        },
+        {
+          "title": "可以整包机洗",
+          "body": "靛蓝款前两次会掉浮色，建议单独洗；原坯色用温和洗涤剂，洗后阴干就能恢复形状。"
+        }
+      ],
+      "specs": [
+        {
+          "title": "尺寸与容量",
+          "items": [
+            {
+              "label": "面料",
+              "value": "16 安水洗棉帆布"
+            },
+            {
+              "label": "小号",
+              "value": "32 × 26 × 12cm"
+            },
+            {
+              "label": "大号",
+              "value": "38 × 32 × 14cm"
+            },
+            {
+              "label": "内袋",
+              "value": "1 个，可放手机与卡包"
+            }
+          ]
+        },
+        {
+          "title": "洗护",
+          "items": [
+            {
+              "label": "洗涤",
+              "value": "冷水轻柔机洗，单独洗"
+            },
+            {
+              "label": "晾晒",
+              "value": "阴干，避免烘干"
+            },
+            {
+              "label": "提示",
+              "value": "无拉链设计，地铁上请留意包口"
+            }
+          ]
+        }
+      ],
+      "detail_sections": [
+        {
+          "title": "留一道自然的边",
+          "body": "包口没有硬挺的定型条，装少一点会自然往里收，装满时又会撑出一个利落的方形。帆布洗过之后颜色会更浅，这是它变化的一部分。"
+        }
+      ],
+      "faq": [
+        {
+          "q": "大号能放下多大电脑？",
+          "a": "可以竖放 14 寸笔记本电脑，建议再配一个内胆包。15.6 寸的机型需要斜放，包口无法完全合拢。"
+        },
+        {
+          "q": "会掉色吗？",
+          "a": "靛蓝款第一次下水会有轻微浮色，属于靛蓝染色的正常现象。请与浅色衣物分开洗。"
+        }
+      ],
+      "skus": [
+        {
+          "name": "小号 / 原坯色",
+          "options": {
+            "尺寸": "小号",
+            "颜色": "原坯色"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "大号 / 原坯色",
+          "options": {
+            "尺寸": "大号",
+            "颜色": "原坯色"
+          },
+          "price_delta_cents": 4000
+        },
+        {
+          "name": "大号 / 靛蓝",
+          "options": {
+            "尺寸": "大号",
+            "颜色": "靛蓝"
+          },
+          "price_delta_cents": 8000
+        }
+      ],
+      "offers": [
+        {
+          "shop": "openshop-self",
+          "kind": "self",
+          "name": "官方自营 · 小号",
+          "price_cents": 18900,
+          "market_price_cents": 23900,
+          "shipping_fee_cents": 0,
+          "stock": 76,
+          "delivery_eta_days": 2,
+          "delivery_note": "上海仓直发 · 独立防尘袋",
+          "services": [
+            "正品保障",
+            "7天无理由"
+          ],
+          "is_primary": true,
+          "group_size": 2,
+          "group_price_cents": 16900
+        },
+        {
+          "shop": "suzhi-atelier",
+          "kind": "brand",
+          "name": "工作室直发 · 含内袋",
+          "price_cents": 19900,
+          "market_price_cents": 24900,
+          "shipping_fee_cents": 0,
+          "stock": 44,
+          "delivery_eta_days": 3,
+          "delivery_note": "南通工作室 · 预计 3 天送达",
+          "services": [
+            "品牌直营",
+            "7天无理由"
+          ],
+          "is_primary": false
+        },
+        {
+          "shop": "direct-craft",
+          "kind": "factory",
+          "name": "工厂批次 · 基础款",
+          "price_cents": 17900,
+          "market_price_cents": 22900,
+          "shipping_fee_cents": 0,
+          "stock": 90,
+          "delivery_eta_days": 5,
+          "delivery_note": "佛山工厂 · 预计 5 天发出",
+          "services": [
+            "源头直供",
+            "7天无理由"
+          ],
+          "is_primary": false
+        }
+      ],
+      "reviews": [
+        {
+          "author": "樊**",
+          "rating": 5,
+          "title": "电脑和菜都装过",
+          "body": "大号能竖着塞进 14 寸电脑，外面还有空间放饭盒。没有拉链，地铁上会用手护一下。帆布挺括，不会软塌塌地贴腿。",
+          "tags": [
+            "能装",
+            "没有拉链"
+          ],
+          "verified": true,
+          "helpful_count": 18,
+          "days_ago": 2,
+          "sku_name": "大号 / 原坯色"
+        },
+        {
+          "author": "黎**",
+          "rating": 5,
+          "title": "越洗越软",
+          "body": "第一次下水掉了一点浮色，之后颜色很稳定。提手接缝处走线密，装两瓶牛奶也没有变形。内袋浅，钥匙容易滑出来。",
+          "tags": [
+            "耐洗",
+            "内袋偏浅"
+          ],
+          "verified": true,
+          "helpful_count": 9,
+          "days_ago": 12,
+          "sku_name": "大号 / 靛蓝"
+        },
+        {
+          "author": "温**",
+          "rating": 4,
+          "title": "小号适合周末",
+          "body": "装一本书、水杯和薄外套正好。原坯色容易蹭上牛仔裤的颜色，我会单独洗。底部有轻微压痕，摊一晚就平了。",
+          "tags": [
+            "轻便",
+            "浅色需打理"
+          ],
+          "verified": true,
+          "helpful_count": 5,
+          "days_ago": 21,
+          "sku_name": "小号 / 原坯色"
+        }
+      ]
+    },
+    {
+      "slug": "camellia-handcream",
+      "title": "山茶润手霜",
+      "subtitle": "洗手之后，留一点香气",
+      "brand": "青芜 QINGWU",
+      "category": "care",
+      "description": "乳木果油、山茶籽油与角鲨烷的轻盈乳霜，50ml 铝管。香气很淡，前调是苦橙叶，尾调只剩一点皂感。",
+      "story": "调香时删掉了最讨喜的甜味，只留下洗干净之后的干净气味。我们做过冬季与夏季两个黏度版本，最后选了更适合空调房的一版。",
+      "tags": [
+        "护手霜",
+        "铝管",
+        "淡香",
+        "不黏手"
+      ],
+      "badges": [
+        "50ml 铝管",
+        "低香配方"
+      ],
+      "art": {
+        "cover": "/web/assets/products/camellia-handcream.svg",
+        "cover_alt": "石盘上的山茶护手霜铝管与白色山茶花插画",
+        "images": [
+          {
+            "src": "/web/assets/products/camellia-handcream.svg",
+            "alt": "石盘上的山茶护手霜铝管与白色山茶花插画"
+          },
+          {
+            "src": "/web/assets/products/camellia-handcream-detail.svg",
+            "alt": "手霜乳霜质地、铝管旋盖与山茶叶片的特写插画"
+          }
+        ]
+      },
+      "flags": {
+        "hero": false,
+        "featured": true,
+        "new": true
+      },
+      "sold_count": 319,
+      "highlights": [
+        {
+          "title": "涂完能立刻敲键盘",
+          "body": "乳霜延展快，少量就能照顾双手；等待约半分钟再碰键盘，基本不留指纹。"
+        },
+        {
+          "title": "香味不占地方",
+          "body": "苦橙叶的青涩先出来，随后只剩淡淡皂感。办公室里靠近才闻得到，不会追着人走。"
+        },
+        {
+          "title": "铝管能挤到最后一角",
+          "body": "50ml 铝管比软塑包装更容易控制用量，用完可以从尾部卷起来，减少残留。"
+        }
+      ],
+      "specs": [
+        {
+          "title": "配方与规格",
+          "items": [
+            {
+              "label": "规格",
+              "value": "50ml 铝管"
+            },
+            {
+              "label": "主要成分",
+              "value": "水、乳木果油、山茶籽油、角鲨烷"
+            },
+            {
+              "label": "香型",
+              "value": "苦橙叶与皂感木质淡香"
+            },
+            {
+              "label": "包装",
+              "value": "铝管与纸盒，无外塑封"
+            }
+          ]
+        },
+        {
+          "title": "使用与保存",
+          "items": [
+            {
+              "label": "用法",
+              "value": "取少量涂开，重点照顾指缘"
+            },
+            {
+              "label": "保存",
+              "value": "阴凉避光，开封后建议 12 个月内用完"
+            },
+            {
+              "label": "提示",
+              "value": "对植物油脂或香精敏感者请先局部试用"
+            }
+          ]
+        }
+      ],
+      "detail_sections": [
+        {
+          "title": "把香味减到刚好",
+          "body": "我们不希望护手霜盖过咖啡或饭香。调香版本从三个减到一个，只保留苦橙叶的清与一点点木质尾调。白色山茶花只出现在插图里，配方里没有花瓣提取物。"
+        }
+      ],
+      "faq": [
+        {
+          "q": "敏感肌可以使用吗？",
+          "a": "每个人对香精与植物油脂的耐受不同，成分表已完整列出。首次使用前建议在手腕内侧小范围试用，出现不适请停止使用。"
+        },
+        {
+          "q": "可以带上飞机吗？",
+          "a": "50ml 包装通常可按随身携带液体规定处理，具体以所乘航司与机场要求为准。"
+        }
+      ],
+      "skus": [
+        {
+          "name": "单支 / 50ml",
+          "options": {
+            "规格": "50ml",
+            "数量": "单支"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "双支装 / 50ml×2",
+          "options": {
+            "规格": "50ml×2",
+            "数量": "双支"
+          },
+          "price_delta_cents": 6900
+        },
+        {
+          "name": "三支装 / 50ml×3",
+          "options": {
+            "规格": "50ml×3",
+            "数量": "三支"
+          },
+          "price_delta_cents": 12900
+        }
+      ],
+      "offers": [
+        {
+          "shop": "openshop-self",
+          "kind": "self",
+          "name": "官方自营 · 50ml",
+          "price_cents": 8900,
+          "market_price_cents": 11900,
+          "shipping_fee_cents": 0,
+          "stock": 160,
+          "delivery_eta_days": 2,
+          "delivery_note": "上海仓直发 · 纸盒包装",
+          "services": [
+            "正品保障",
+            "7天无理由"
+          ],
+          "is_primary": true,
+          "group_size": 2,
+          "group_price_cents": 7900
+        },
+        {
+          "shop": "qingwu-care",
+          "kind": "brand",
+          "name": "旗舰店 · 50ml",
+          "price_cents": 9900,
+          "market_price_cents": 11900,
+          "shipping_fee_cents": 0,
+          "stock": 84,
+          "delivery_eta_days": 3,
+          "delivery_note": "湖州仓直发 · 附成分卡",
+          "services": [
+            "品牌直营",
+            "7天无理由"
+          ],
+          "is_primary": false
+        }
+      ],
+      "reviews": [
+        {
+          "author": "贝**",
+          "rating": 5,
+          "title": "一管放在办公桌上",
+          "body": "挤出来不稀，涂完手心不油，马上敲键盘也不留印。味道很淡，靠近才闻到一点皂感，午后补涂不会打扰同事。",
+          "tags": [
+            "不黏手",
+            "淡香"
+          ],
+          "verified": true,
+          "helpful_count": 21,
+          "days_ago": 2,
+          "sku_name": "单支 / 50ml"
+        },
+        {
+          "author": "敖**",
+          "rating": 4,
+          "title": "铝管会留下折痕",
+          "body": "用到一半管身有折痕，不好看但能挤干净。双支装划算一些，送了一支给妈妈，她觉得香味偏中性。",
+          "tags": [
+            "用量好控",
+            "适合送人"
+          ],
+          "verified": true,
+          "helpful_count": 8,
+          "days_ago": 14,
+          "sku_name": "双支装 / 50ml×2"
+        },
+        {
+          "author": "怀**",
+          "rating": 5,
+          "title": "洗手后涂一点",
+          "body": "办公室空调风吹得手干，午休后涂一层，晚下班前不会觉得紧。盖子是旋盖，放在包里不会自己开。",
+          "tags": [
+            "滋润度合适",
+            "盖子稳"
+          ],
+          "verified": true,
+          "helpful_count": 6,
+          "days_ago": 30,
+          "sku_name": "三支装 / 50ml×3"
+        }
+      ]
+    },
+    {
+      "slug": "beech-toothbrush",
+      "title": "榉木软毛牙刷",
+      "subtitle": "握在手里的一小截木头",
+      "brand": "青芜 QINGWU",
+      "category": "care",
+      "description": "榉木手柄，刷颈细窄，中软毛刷丝。刷头可以单独更换，旧手柄留下来继续用。",
+      "story": "牙刷柄的弧度来自一次用橡皮泥做的压模。我们保留了木头的纹路，没有上厚漆；用久之后它会变深，那是手汗与时间的颜色。",
+      "tags": [
+        "软毛牙刷",
+        "榉木手柄",
+        "可换刷头",
+        "家庭日用"
+      ],
+      "badges": [
+        "细颈刷头",
+        "纸盒包装"
+      ],
+      "art": {
+        "cover": "/web/assets/products/beech-toothbrush.svg",
+        "cover_alt": "陶盘上的榉木牙刷、玻璃杯与绿枝插画",
+        "images": [
+          {
+            "src": "/web/assets/products/beech-toothbrush.svg",
+            "alt": "陶盘上的榉木牙刷、玻璃杯与绿枝插画"
+          },
+          {
+            "src": "/web/assets/products/beech-toothbrush-detail.svg",
+            "alt": "榉木手柄纹理与中软刷毛排列的特写插画"
+          }
+        ]
+      },
+      "flags": {
+        "hero": false,
+        "featured": false,
+        "new": false
+      },
+      "sold_count": 412,
+      "highlights": [
+        {
+          "title": "刷毛不硬碰硬",
+          "body": "中软 PBT 磨圆刷丝，刷颈收窄，够到后排牙齿时不会硬顶到嘴角。"
+        },
+        {
+          "title": "手柄不上厚漆",
+          "body": "榉木表面只做薄层植物油处理，保留摸得到木纹的触感，也不容易在湿手中打滑。"
+        },
+        {
+          "title": "刷头可以换",
+          "body": "刷头与手柄是螺纹连接，替换刷头可单独购买。手柄用旧了，留在漱口杯旁也不会突兀。"
+        }
+      ],
+      "specs": [
+        {
+          "title": "结构与尺寸",
+          "items": [
+            {
+              "label": "手柄",
+              "value": "榉木，植物油涂层"
+            },
+            {
+              "label": "刷丝",
+              "value": "中软 PBT 磨圆丝"
+            },
+            {
+              "label": "全长",
+              "value": "18.5cm"
+            },
+            {
+              "label": "连接",
+              "value": "可更换螺纹刷头"
+            }
+          ]
+        },
+        {
+          "title": "使用与保养",
+          "items": [
+            {
+              "label": "使用后",
+              "value": "冲净刷毛，甩干后立在通风处"
+            },
+            {
+              "label": "避免",
+              "value": "长时间泡水或放入洗碗机"
+            },
+            {
+              "label": "建议",
+              "value": "刷毛变形或散开时更换刷头"
+            }
+          ]
+        }
+      ],
+      "detail_sections": [
+        {
+          "title": "把木柄留给下一支刷头",
+          "body": "我们不想让一次性的塑料在漱口杯里站一整个季度。手柄拆下刷头后可以用温水擦拭，阴干继续使用；不过木头不是不锈钢，仍然怕长期浸泡。"
+        }
+      ],
+      "faq": [
+        {
+          "q": "替换刷头怎么买？",
+          "a": "替换刷头按两支一包出售，可与同系列榉木手柄配合使用。首批上架以整套商品为主，详情可咨询店铺。"
+        },
+        {
+          "q": "刷毛偏软吗？",
+          "a": "中软毛适合习惯软毛的人；旅行装为更软的刷毛。喜欢硬毛的刷牙手感可能需要适应。"
+        }
+      ],
+      "skus": [
+        {
+          "name": "单支 / 中软毛",
+          "options": {
+            "数量": "单支",
+            "刷毛": "中软毛"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "三支装 / 中软毛",
+          "options": {
+            "数量": "三支装",
+            "刷毛": "中软毛"
+          },
+          "price_delta_cents": 3900
+        },
+        {
+          "name": "旅行装 / 软毛 + 布套",
+          "options": {
+            "数量": "旅行装",
+            "刷毛": "软毛",
+            "附件": "布套"
+          },
+          "price_delta_cents": 1900
+        }
+      ],
+      "offers": [
+        {
+          "shop": "openshop-self",
+          "kind": "self",
+          "name": "官方自营 · 单支",
+          "price_cents": 2900,
+          "market_price_cents": 3900,
+          "shipping_fee_cents": 0,
+          "stock": 220,
+          "delivery_eta_days": 2,
+          "delivery_note": "上海仓直发 · 纸盒与棉纸内衬",
+          "services": [
+            "正品保障",
+            "7天无理由"
+          ],
+          "is_primary": true
+        },
+        {
+          "shop": "qingwu-care",
+          "kind": "brand",
+          "name": "旗舰店 · 中软毛",
+          "price_cents": 3200,
+          "market_price_cents": 3900,
+          "shipping_fee_cents": 0,
+          "stock": 96,
+          "delivery_eta_days": 3,
+          "delivery_note": "湖州仓直发 · 预计 3 天送达",
+          "services": [
+            "品牌直营",
+            "7天无理由"
+          ],
+          "is_primary": false
+        }
+      ],
+      "reviews": [
+        {
+          "author": "翟**",
+          "rating": 4,
+          "title": "刷头小，后排好刷",
+          "body": "刷颈细，伸到最里面不会碰到嘴角。木柄刚拿到有点木头味，通风放两天就散了。刷毛偏软，喜欢硬毛的可能不习惯。",
+          "tags": [
+            "刷头小",
+            "刷毛偏软"
+          ],
+          "verified": true,
+          "helpful_count": 12,
+          "days_ago": 4,
+          "sku_name": "单支 / 中软毛"
+        },
+        {
+          "author": "季**",
+          "rating": 5,
+          "title": "三支装够家里用一季",
+          "body": "每支的木头纹理不一样，放在同一个杯子里认得出来。刷完甩干立在通风处，手柄没有发黑。",
+          "tags": [
+            "木纹自然",
+            "好晾干"
+          ],
+          "verified": true,
+          "helpful_count": 9,
+          "days_ago": 16,
+          "sku_name": "三支装 / 中软毛"
+        },
+        {
+          "author": "柏**",
+          "rating": 4,
+          "title": "出差带着方便",
+          "body": "旅行装多一个棉布套，刷头有保护。套子湿了要拿出来晾，不然容易闷出味。刷毛用了一个月还比较挺。",
+          "tags": [
+            "便携",
+            "布套需晾干"
+          ],
+          "verified": true,
+          "helpful_count": 3,
+          "days_ago": 24,
+          "sku_name": "旅行装 / 软毛 + 布套"
+        }
+      ]
+    },
+    {
+      "slug": "loop-fan",
+      "title": "环流循环扇",
+      "subtitle": "让空气慢慢绕一圈",
+      "brand": "小满 XIAOMAN",
+      "category": "smart",
+      "description": "直流无刷电机，8 档风速，左右 90° 与上下 80° 摇头。前罩可拆洗，低档运行声约 26dB。",
+      "story": "测试时我们把风扇放在一张吱呀作响的旧餐桌上。任何共振都会被放大，于是底座加了四块软木脚垫。现在的风声像翻书，不像马达。",
+      "tags": [
+        "循环扇",
+        "低噪",
+        "可拆洗",
+        "8档风速"
+      ],
+      "badges": [
+        "8档风速",
+        "前罩可拆洗"
+      ],
+      "art": {
+        "cover": "/web/assets/products/loop-fan.svg",
+        "cover_alt": "窗帘边木地板上的米白色循环扇与光影插画",
+        "images": [
+          {
+            "src": "/web/assets/products/loop-fan.svg",
+            "alt": "窗帘边木地板上的米白色循环扇与光影插画"
+          },
+          {
+            "src": "/web/assets/products/loop-fan-detail.svg",
+            "alt": "循环扇同心前罩、扇叶与底座旋钮的特写插画"
+          }
+        ]
+      },
+      "flags": {
+        "hero": false,
+        "featured": true,
+        "new": true
+      },
+      "sold_count": 176,
+      "highlights": [
+        {
+          "title": "夜里只剩风声",
+          "body": "直流无刷电机把低档运行声压到约 26dB，比窗外的车声更轻；指示灯可以单独关闭。"
+        },
+        {
+          "title": "前罩一拧就下来",
+          "body": "前罩逆时针旋转即可取下，扇叶也能拆下冲洗，积灰不会在来年重新吹回房间。"
+        },
+        {
+          "title": "风会走，不只对着人",
+          "body": "左右 90° 与上下 80° 摇头可以组合开启，把冷气与暖气带到房间更远的角落。"
+        }
+      ],
+      "specs": [
+        {
+          "title": "风与声",
+          "items": [
+            {
+              "label": "风速",
+              "value": "8 档"
+            },
+            {
+              "label": "摇头",
+              "value": "左右 90° / 上下 80°"
+            },
+            {
+              "label": "运行声",
+              "value": "低档约 26dB（实验室半消音室）"
+            },
+            {
+              "label": "功率",
+              "value": "24W"
+            }
+          ]
+        },
+        {
+          "title": "结构与清洁",
+          "items": [
+            {
+              "label": "净重",
+              "value": "1.4kg"
+            },
+            {
+              "label": "电源",
+              "value": "1.6m 编织线，插电使用"
+            },
+            {
+              "label": "清洁",
+              "value": "前罩与扇叶可拆下冲洗"
+            },
+            {
+              "label": "附件",
+              "value": "软木脚垫 4 枚"
+            }
+          ]
+        }
+      ],
+      "detail_sections": [
+        {
+          "title": "把共振留在测试间",
+          "body": "扇头和底座之间用一圈软胶隔开，四角再垫上软木。我们没有把低档做得完全没有声音，因为气流本身也会有声音；目标只是让它不打扰睡眠。"
+        }
+      ],
+      "faq": [
+        {
+          "q": "可以整机水洗吗？",
+          "a": "不可以。断电后拆下前罩和扇叶清洗，机身与电机部分用干布或微湿布擦拭。"
+        },
+        {
+          "q": "遥控器是标配吗？",
+          "a": "标准版使用底座按钮，遥控器包含在单独 SKU 的套装中。遥控器使用纽扣电池，更换方式写在说明书里。"
+        }
+      ],
+      "skus": [
+        {
+          "name": "米白 / 标准版",
+          "options": {
+            "颜色": "米白",
+            "版本": "标准版"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "墨绿 / 标准版",
+          "options": {
+            "颜色": "墨绿",
+            "版本": "标准版"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "米白 / 含遥控器",
+          "options": {
+            "颜色": "米白",
+            "版本": "含遥控器"
+          },
+          "price_delta_cents": 6000
+        }
+      ],
+      "offers": [
+        {
+          "shop": "openshop-self",
+          "kind": "self",
+          "name": "官方自营 · 标准版",
+          "price_cents": 45900,
+          "market_price_cents": 56900,
+          "shipping_fee_cents": 0,
+          "stock": 52,
+          "delivery_eta_days": 2,
+          "delivery_note": "上海仓直发 · 软木脚垫随箱",
+          "services": [
+            "正品保障",
+            "一年质保",
+            "7天无理由"
+          ],
+          "is_primary": true,
+          "group_size": 2,
+          "group_price_cents": 41900
+        },
+        {
+          "shop": "xiaoman-electric",
+          "kind": "brand",
+          "name": "旗舰店 · 含延长线",
+          "price_cents": 47900,
+          "market_price_cents": 56900,
+          "shipping_fee_cents": 0,
+          "stock": 36,
+          "delivery_eta_days": 3,
+          "delivery_note": "顺德仓直发 · 预计 3 天送达",
+          "services": [
+            "品牌直营",
+            "一年质保",
+            "7天无理由"
+          ],
+          "is_primary": false
+        }
+      ],
+      "reviews": [
+        {
+          "author": "何**",
+          "rating": 5,
+          "title": "晚上开着也不吵",
+          "body": "最低档放在床边只听见很轻的风声，比旧风扇柔和。上下摇头不会咔哒响，前罩拆下来冲水很方便。",
+          "tags": [
+            "安静",
+            "前罩好拆"
+          ],
+          "verified": true,
+          "helpful_count": 17,
+          "days_ago": 3,
+          "sku_name": "米白 / 标准版"
+        },
+        {
+          "author": "逄**",
+          "rating": 4,
+          "title": "遥控器要单独买",
+          "body": "按钮在底座后面，弯腰才能看到档位灯。后来配了遥控器就顺手多了。左右摇头会把窗帘吹得贴在风扇上。",
+          "tags": [
+            "按钮偏后",
+            "建议配遥控"
+          ],
+          "verified": true,
+          "helpful_count": 6,
+          "days_ago": 13,
+          "sku_name": "米白 / 含遥控器"
+        },
+        {
+          "author": "路**",
+          "rating": 5,
+          "title": "墨绿比米白耐脏",
+          "body": "放在客厅角落和绿植很搭，落灰不太显。八档我通常只用二档，开高档时风会直直拍到脸上。电源线长度够绕到沙发后面。",
+          "tags": [
+            "颜色耐看",
+            "档位够用"
+          ],
+          "verified": true,
+          "helpful_count": 5,
+          "days_ago": 23,
+          "sku_name": "墨绿 / 标准版"
+        }
+      ]
+    },
+    {
+      "slug": "mist-humidifier",
+      "title": "雾间加湿器",
+      "subtitle": "夜里只听见一点水声",
+      "brand": "小满 XIAOMAN",
+      "category": "smart",
+      "description": "上加水冷蒸发滤芯，2.2L 水箱，三档风量。木纹顶盖可以取下直接接水，指示灯亮度也能关掉。",
+      "story": "我们不想做一台会在半夜亮屏的机器。所有按钮藏在侧面，水位用一条细小的浮标表示，连水声都尽量放轻。",
+      "tags": [
+        "加湿器",
+        "冷蒸发",
+        "上加水",
+        "睡眠"
+      ],
+      "badges": [
+        "2.2L 上加水",
+        "指示灯可关"
+      ],
+      "art": {
+        "cover": "/web/assets/products/mist-humidifier.svg",
+        "cover_alt": "傍晚窗边的陶白色加湿器、木盖与轻柔水汽插画",
+        "images": [
+          {
+            "src": "/web/assets/products/mist-humidifier.svg",
+            "alt": "傍晚窗边的陶白色加湿器、木盖与轻柔水汽插画"
+          },
+          {
+            "src": "/web/assets/products/mist-humidifier-detail.svg",
+            "alt": "加湿器陶面质感、滤芯与水汽出口的特写插画"
+          }
+        ]
+      },
+      "flags": {
+        "hero": false,
+        "featured": false,
+        "new": true
+      },
+      "sold_count": 204,
+      "highlights": [
+        {
+          "title": "加水不用搬机器",
+          "body": "顶盖取下就是加水口，2.2L 水箱可以直接端去水龙头接水，省掉抱着机器穿过房间的动作。"
+        },
+        {
+          "title": "滤芯能单独换",
+          "body": "滤芯是可水洗纤维材质，按使用频率 1-2 周清洗一次，需要时单独购买替换件，不必换整机。"
+        },
+        {
+          "title": "夜里不看它发光",
+          "body": "侧面的指示灯可以关闭，低档运行声约 28dB；水位太低时会闪两下提醒，再自动停止。"
+        }
+      ],
+      "specs": [
+        {
+          "title": "容量与运行",
+          "items": [
+            {
+              "label": "水箱",
+              "value": "2.2L，上加水"
+            },
+            {
+              "label": "加湿方式",
+              "value": "冷蒸发滤芯"
+            },
+            {
+              "label": "风量",
+              "value": "低 / 中 / 高三档"
+            },
+            {
+              "label": "运行声",
+              "value": "低档约 28dB"
+            }
+          ]
+        },
+        {
+          "title": "结构与保养",
+          "items": [
+            {
+              "label": "净重",
+              "value": "2.6kg"
+            },
+            {
+              "label": "功率",
+              "value": "18W"
+            },
+            {
+              "label": "滤芯",
+              "value": "可水洗，建议 1-2 周清洗一次"
+            },
+            {
+              "label": "清洁",
+              "value": "断电后倒空水箱，软布擦干"
+            }
+          ]
+        }
+      ],
+      "detail_sections": [
+        {
+          "title": "木纹顶盖下面是一整晚的水",
+          "body": "顶盖的细缝只负责进风，不藏水箱的接缝。倒掉剩水时可以把整个上盖取下，滤芯单独晾干，第二天再放回去。"
+        }
+      ],
+      "faq": [
+        {
+          "q": "可以直接加精油吗？",
+          "a": "不建议。滤芯为可水洗纤维材质，香精可能留下气味并影响蒸发效率。需要香气时请另用扩香器具。"
+        },
+        {
+          "q": "滤芯多久换一次？",
+          "a": "按水质与使用频率不同，建议每 3-6 个月检查一次。滤芯变硬、出现明显水垢或异味时请更换。"
+        }
+      ],
+      "skus": [
+        {
+          "name": "陶白 / 标准版",
+          "options": {
+            "颜色": "陶白",
+            "版本": "标准版"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "岩灰 / 标准版",
+          "options": {
+            "颜色": "岩灰",
+            "版本": "标准版"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "陶白 / 含备用滤芯",
+          "options": {
+            "颜色": "陶白",
+            "版本": "含备用滤芯"
+          },
+          "price_delta_cents": 5000
+        }
+      ],
+      "offers": [
+        {
+          "shop": "openshop-self",
+          "kind": "self",
+          "name": "官方自营 · 标准版",
+          "price_cents": 39900,
+          "market_price_cents": 48900,
+          "shipping_fee_cents": 0,
+          "stock": 48,
+          "delivery_eta_days": 2,
+          "delivery_note": "上海仓直发 · 含首发滤芯",
+          "services": [
+            "正品保障",
+            "一年质保",
+            "7天无理由"
+          ],
+          "is_primary": true
+        },
+        {
+          "shop": "xiaoman-electric",
+          "kind": "brand",
+          "name": "旗舰店 · 含备用滤芯",
+          "price_cents": 41900,
+          "market_price_cents": 48900,
+          "shipping_fee_cents": 0,
+          "stock": 28,
+          "delivery_eta_days": 4,
+          "delivery_note": "顺德仓直发 · 预计 4 天送达",
+          "services": [
+            "品牌直营",
+            "一年质保",
+            "7天无理由"
+          ],
+          "is_primary": false
+        }
+      ],
+      "reviews": [
+        {
+          "author": "湛**",
+          "rating": 4,
+          "title": "加水不用弯太深",
+          "body": "顶盖拿下来就能从水龙头接水，2.2L 到早上还剩一点。最低档几乎听不见，只在水位低的时候有轻微气泡声。",
+          "tags": [
+            "上加水方便",
+            "低档安静"
+          ],
+          "verified": true,
+          "helpful_count": 13,
+          "days_ago": 5,
+          "sku_name": "陶白 / 标准版"
+        },
+        {
+          "author": "单**",
+          "rating": 5,
+          "title": "灯可以关掉",
+          "body": "指示灯在侧面，晚上按一下就全暗。木纹顶盖和床头柜颜色接近。滤芯可以拿出来冲，不用整机搬去阳台。",
+          "tags": [
+            "夜间不刺眼",
+            "滤芯好洗"
+          ],
+          "verified": true,
+          "helpful_count": 8,
+          "days_ago": 17,
+          "sku_name": "陶白 / 含备用滤芯"
+        },
+        {
+          "author": "凌**",
+          "rating": 4,
+          "title": "容量适合卧室",
+          "body": "书房用一整晚刚好，客厅就有点不够。陶瓷感外壳沾了指纹不明显，但搬动时有点滑，最好双手。",
+          "tags": [
+            "容量合适",
+            "外壳偏滑"
+          ],
+          "verified": true,
+          "helpful_count": 4,
+          "days_ago": 26,
+          "sku_name": "岩灰 / 标准版"
+        }
+      ]
+    },
+    {
+      "slug": "grid-journal",
+      "title": "方格线装手账",
+      "subtitle": "写给下一天的一页",
+      "brand": "纸间 ZHIJIAN",
+      "category": "gift",
+      "description": "A5 方格内页，112 页 100g 米白纸，裸脊锁线能平摊。布面书脊配灰卡封面，不印年份，什么时候写完都算数。",
+      "story": "我们保留了锁线外露的针脚，因为本子应该允许被写坏、画乱、再翻回来。方格印得很浅，写字时是参照，拍照时不会抢走内容。",
+      "tags": [
+        "手账本",
+        "方格内页",
+        "平摊装订",
+        "A5"
+      ],
+      "badges": [
+        "裸脊锁线",
+        "100g米白纸"
+      ],
+      "art": {
+        "cover": "/web/assets/products/grid-journal.svg",
+        "cover_alt": "木桌上摊开的苔绿方格手账、铅笔与茶杯插画",
+        "images": [
+          {
+            "src": "/web/assets/products/grid-journal.svg",
+            "alt": "木桌上摊开的苔绿方格手账、铅笔与茶杯插画"
+          },
+          {
+            "src": "/web/assets/products/grid-journal-detail.svg",
+            "alt": "手账裸脊锁线、方格内页与黄铜书签的特写插画"
+          }
+        ]
+      },
+      "flags": {
+        "hero": false,
+        "featured": true,
+        "new": false
+      },
+      "sold_count": 388,
+      "highlights": [
+        {
+          "title": "能完全摊平",
+          "body": "裸脊锁线让本子在桌面摊成 180°，写到靠近书脊的一列也不用把手压出折痕。"
+        },
+        {
+          "title": "方格浅到不抢字",
+          "body": "5mm 灰格印得轻，铅笔和中性笔的笔迹都不会被线压住。页脚留了一小块空白，用来编号或贴票根。"
+        },
+        {
+          "title": "没有需要填满的年份",
+          "body": "封面不印年份与月份，写到一半放下，隔半年再打开也不会觉得欠了什么。"
+        }
+      ],
+      "specs": [
+        {
+          "title": "纸张与装订",
+          "items": [
+            {
+              "label": "尺寸",
+              "value": "A5，148 × 210mm"
+            },
+            {
+              "label": "内页",
+              "value": "112 页，100g 米白纸"
+            },
+            {
+              "label": "格式",
+              "value": "5mm 浅灰方格"
+            },
+            {
+              "label": "装订",
+              "value": "裸脊锁线，可平摊"
+            }
+          ]
+        },
+        {
+          "title": "封面与配件",
+          "items": [
+            {
+              "label": "封面",
+              "value": "灰卡封面与布面书脊"
+            },
+            {
+              "label": "书签",
+              "value": "部分套装含黄铜书签"
+            },
+            {
+              "label": "包装",
+              "value": "棉纸腰封，无塑料外袋"
+            }
+          ]
+        }
+      ],
+      "detail_sections": [
+        {
+          "title": "把线留在外面",
+          "body": "锁线处没有整块布把它盖住，几道针脚直接露在书脊上。翻得多了线会稍起毛，但不影响使用；这也是这本手账被翻动过的样子。"
+        }
+      ],
+      "faq": [
+        {
+          "q": "钢笔会洇吗？",
+          "a": "100g 米白纸适合铅笔、中性笔与多数钢笔墨水，不同墨水的干燥速度与洇纸表现会有差异，建议先在小角标处试写。"
+        },
+        {
+          "q": "书脊会不会开线？",
+          "a": "正常摊平书写没有问题。请避免从中间强行对折或把整本浸水，长期使用后若出现松线可联系店铺。"
+        }
+      ],
+      "skus": [
+        {
+          "name": "苔绿 / 方格",
+          "options": {
+            "颜色": "苔绿",
+            "内页": "方格"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "陶土 / 方格",
+          "options": {
+            "颜色": "陶土",
+            "内页": "方格"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "苔绿 / 方格 + 黄铜书签",
+          "options": {
+            "颜色": "苔绿",
+            "内页": "方格",
+            "配件": "黄铜书签"
+          },
+          "price_delta_cents": 2500
+        }
+      ],
+      "offers": [
+        {
+          "shop": "zhijian-gift",
+          "kind": "brand",
+          "name": "纸间直发 · 方格手账",
+          "price_cents": 6800,
+          "market_price_cents": 8800,
+          "shipping_fee_cents": 0,
+          "stock": 120,
+          "delivery_eta_days": 3,
+          "delivery_note": "松江工作室 · 包含棉纸腰封",
+          "services": [
+            "品牌直营",
+            "7天无理由"
+          ],
+          "is_primary": true
+        },
+        {
+          "shop": "openshop-self",
+          "kind": "self",
+          "name": "官方自营 · 方格手账",
+          "price_cents": 7200,
+          "market_price_cents": 8800,
+          "shipping_fee_cents": 0,
+          "stock": 150,
+          "delivery_eta_days": 2,
+          "delivery_note": "上海仓直发 · 次日达",
+          "services": [
+            "正品保障",
+            "7天无理由"
+          ],
+          "is_primary": false
+        }
+      ],
+      "reviews": [
+        {
+          "author": "席**",
+          "rating": 5,
+          "title": "摊平写字很舒服",
+          "body": "方格浅，拍照不会抢镜，写满两页也不会鼓成一座山。封面没有年份，隔了半年接着用也不浪费。",
+          "tags": [
+            "可以平摊",
+            "不印年份"
+          ],
+          "verified": true,
+          "helpful_count": 15,
+          "days_ago": 4,
+          "sku_name": "苔绿 / 方格"
+        },
+        {
+          "author": "骆**",
+          "rating": 4,
+          "title": "纸比一般本子厚",
+          "body": "中性笔和铅笔都顺，钢笔墨水干得慢一点。布脊容易沾灰，不适用橡皮硬擦，我常用微湿的软布轻按。",
+          "tags": [
+            "纸感扎实",
+            "布脊需打理"
+          ],
+          "verified": true,
+          "helpful_count": 7,
+          "days_ago": 15,
+          "sku_name": "陶土 / 方格"
+        },
+        {
+          "author": "南**",
+          "rating": 5,
+          "title": "书签让本子更完整",
+          "body": "黄铜书签有重量，夹在写到的那页不会滑。把本子放在包里一周，四角没有卷边，线装也牢。",
+          "tags": [
+            "装订牢固",
+            "书签实用"
+          ],
+          "verified": true,
+          "helpful_count": 4,
+          "days_ago": 24,
+          "sku_name": "苔绿 / 方格 + 黄铜书签"
+        }
+      ]
+    },
+    {
+      "slug": "letterpress-notes",
+      "title": "活版花笺信纸",
+      "subtitle": "寄一页有压痕的问候",
+      "brand": "纸间 ZHIJIAN",
+      "category": "gift",
+      "description": "花枝纹样经活版压印在 100g 棉纸上，20 张信纸与 10 枚信封一套。每张的压痕深浅略有不同。",
+      "story": "图案来自一枚旧木刻版，边缘并不齐整。我们用凸版机重新打起它，让花枝在纸上留下可以摸到的阴影。",
+      "tags": [
+        "信纸",
+        "活版印刷",
+        "棉纸",
+        "礼物"
+      ],
+      "badges": [
+        "活版压痕",
+        "20张信纸"
+      ],
+      "art": {
+        "cover": "/web/assets/products/letterpress-notes.svg",
+        "cover_alt": "棉纸上排开的活版花笺、信封与火漆印章插画",
+        "images": [
+          {
+            "src": "/web/assets/products/letterpress-notes.svg",
+            "alt": "棉纸上排开的活版花笺、信封与火漆印章插画"
+          },
+          {
+            "src": "/web/assets/products/letterpress-notes-detail.svg",
+            "alt": "活版压印花枝、棉纸纤维与信封封口的特写插画"
+          }
+        ]
+      },
+      "flags": {
+        "hero": false,
+        "featured": false,
+        "new": true
+      },
+      "sold_count": 154,
+      "highlights": [
+        {
+          "title": "可以用手摸到的花枝",
+          "body": "不是普通印刷的平色块，斜着看与指腹划过都能感到纸面被压下的一层浅影。"
+        },
+        {
+          "title": "适合不擅长写长信的人",
+          "body": "一套 20 张，每次写三五句也成立。信封是标准尺寸，不强迫你填满一张纸。"
+        },
+        {
+          "title": "一张一张压出来",
+          "body": "凸版机速度慢，压痕深浅会受纸张纤维影响。我们把明显的差异留下来，没有逐张挑成一样。"
+        }
+      ],
+      "specs": [
+        {
+          "title": "一套包含",
+          "items": [
+            {
+              "label": "信纸",
+              "value": "20 张，100g 米白棉纸"
+            },
+            {
+              "label": "信封",
+              "value": "10 枚，配同色胶口"
+            },
+            {
+              "label": "尺寸",
+              "value": "信纸 A5 / 信封 C6"
+            },
+            {
+              "label": "工艺",
+              "value": "活版压印，单色无油墨堆积"
+            }
+          ]
+        },
+        {
+          "title": "书写与保存",
+          "items": [
+            {
+              "label": "适合",
+              "value": "铅笔、中性笔与细尖钢笔"
+            },
+            {
+              "label": "提示",
+              "value": "压痕处略有阻力，建议放慢运笔"
+            },
+            {
+              "label": "保存",
+              "value": "阴凉干燥，避免重压"
+            }
+          ]
+        }
+      ],
+      "detail_sections": [
+        {
+          "title": "一封信可以很轻",
+          "body": "我们把信封做成不需要额外装饰的米白色，写错地址时可以贴一枚小签。信纸没有横线，句子会在纸上自己找到位置。"
+        }
+      ],
+      "faq": [
+        {
+          "q": "所有信纸都是同一种花枝图案吗？",
+          "a": "花枝款为同一种图案；混装册为花枝与山雀各半，两种图案的压痕深浅会有些差别。"
+        },
+        {
+          "q": "可以直接邮寄吗？",
+          "a": "可以装入 C6 信封走普通信件。活版压痕较明显，寄送前建议在封口处再贴一小段胶带防潮。"
+        }
+      ],
+      "skus": [
+        {
+          "name": "花枝 / 米白信纸",
+          "options": {
+            "图案": "花枝",
+            "纸张": "米白信纸"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "山雀 / 米白信纸",
+          "options": {
+            "图案": "山雀",
+            "纸张": "米白信纸"
+          },
+          "price_delta_cents": 2000
+        },
+        {
+          "name": "混装 / 一册",
+          "options": {
+            "图案": "花枝与山雀各半",
+            "纸张": "米白信纸"
+          },
+          "price_delta_cents": 5000
+        }
+      ],
+      "offers": [
+        {
+          "shop": "openshop-self",
+          "kind": "self",
+          "name": "官方自营 · 花枝款",
+          "price_cents": 4900,
+          "market_price_cents": 6900,
+          "shipping_fee_cents": 0,
+          "stock": 80,
+          "delivery_eta_days": 2,
+          "delivery_note": "上海仓直发 · 含硬质纸套",
+          "services": [
+            "正品保障",
+            "7天无理由"
+          ],
+          "is_primary": true
+        },
+        {
+          "shop": "zhijian-gift",
+          "kind": "brand",
+          "name": "纸间直发 · 20张一套",
+          "price_cents": 5200,
+          "market_price_cents": 6900,
+          "shipping_fee_cents": 0,
+          "stock": 64,
+          "delivery_eta_days": 3,
+          "delivery_note": "松江工作室 · 预计 3 天发出",
+          "services": [
+            "品牌直营",
+            "7天无理由"
+          ],
+          "is_primary": false
+        }
+      ],
+      "reviews": [
+        {
+          "author": "曲**",
+          "rating": 5,
+          "title": "压痕让纸有了厚度",
+          "body": "花枝不是亮光印刷，斜着看能看见凹陷。写给朋友的信拆开后被留下来贴在冰箱上。信封胶口很薄，刚好够粘住。",
+          "tags": [
+            "压痕清晰",
+            "纸感温柔"
+          ],
+          "verified": true,
+          "helpful_count": 10,
+          "days_ago": 3,
+          "sku_name": "花枝 / 米白信纸"
+        },
+        {
+          "author": "芦**",
+          "rating": 4,
+          "title": "钢笔书写需要慢一点",
+          "body": "细尖钢笔划过压痕处会轻微挂纸，换 F 尖后好很多。混装册里两种图案各半，适合不固定写信对象的人。",
+          "tags": [
+            "适合拼装",
+            "压痕处略挂纸"
+          ],
+          "verified": true,
+          "helpful_count": 5,
+          "days_ago": 11,
+          "sku_name": "混装 / 一册"
+        },
+        {
+          "author": "扈**",
+          "rating": 5,
+          "title": "山雀图案很耐看",
+          "body": "压在纸上的山雀只有轮廓，比彩色插画更耐看。20 张看起来不多，但认真写，足够用很久了。外包装没有塑料膜，拆开就能收进抽屉。",
+          "tags": [
+            "图案耐看",
+            "包装简单"
+          ],
+          "verified": true,
+          "helpful_count": 3,
+          "days_ago": 22,
+          "sku_name": "山雀 / 米白信纸"
+        }
+      ]
+    },
+    {
+      "slug": "lullaby-box",
+      "title": "榉木八音盒",
+      "subtitle": "拧三圈，听见一段木头的歌",
+      "brand": "纸间 ZHIJIAN",
+      "category": "gift",
+      "description": "榉木盒身，18 音机芯，发条拧三圈约播放 1 分钟。盒盖内侧可以夹一张小纸卡，写一句不想当面讲的话。",
+      "story": "木工房把盒盖边缘倒了两遍圆角，合上时不会发出脆响。曲目是一段公共领域的老旋律，由制琴师重新排了音符，听不出原来的歌词。",
+      "tags": [
+        "八音盒",
+        "榉木",
+        "18音机芯",
+        "礼物"
+      ],
+      "badges": [
+        "18音机芯",
+        "手工打磨"
+      ],
+      "art": {
+        "cover": "/web/assets/products/lullaby-box.svg",
+        "cover_alt": "亚麻布上的榉木八音盒、发条钥匙与纸卡插画",
+        "images": [
+          {
+            "src": "/web/assets/products/lullaby-box.svg",
+            "alt": "亚麻布上的榉木八音盒、发条钥匙与纸卡插画"
+          },
+          {
+            "src": "/web/assets/products/lullaby-box-detail.svg",
+            "alt": "八音盒黄铜机芯、音梳与木盒铰链的特写插画"
+          }
+        ]
+      },
+      "flags": {
+        "hero": false,
+        "featured": true,
+        "new": false
+      },
+      "sold_count": 92,
+      "highlights": [
+        {
+          "title": "声音不尖",
+          "body": "18 音机芯装在实木腔体里，高频被木头吃掉一部分，放在床头也不会显得亮。"
+        },
+        {
+          "title": "能放一张小卡",
+          "body": "盒盖内侧有一道窄卡槽，可以夹一张写好的纸卡。盖上之后，只有打开盒子的人才会看到。"
+        },
+        {
+          "title": "摆着也像一个木盒",
+          "body": "没有塑料视窗和会发光的机芯，合上时就是一只安静的榉木盒，不必只在纪念日拿出来。"
+        }
+      ],
+      "specs": [
+        {
+          "title": "尺寸与材质",
+          "items": [
+            {
+              "label": "盒体",
+              "value": "榉木，植物油涂层"
+            },
+            {
+              "label": "机芯",
+              "value": "18 音黄铜机芯"
+            },
+            {
+              "label": "尺寸",
+              "value": "12 × 9 × 6cm"
+            },
+            {
+              "label": "播放",
+              "value": "发条拧三圈约 1 分钟"
+            }
+          ]
+        },
+        {
+          "title": "使用与维护",
+          "items": [
+            {
+              "label": "上弦",
+              "value": "顺时针，感到阻力即停止"
+            },
+            {
+              "label": "存放",
+              "value": "避免潮湿与暴晒，保持盒盖微开通风"
+            },
+            {
+              "label": "附件",
+              "value": "无酸纸卡 1 张；礼盒装含 6 张"
+            }
+          ]
+        }
+      ],
+      "detail_sections": [
+        {
+          "title": "让机械声慢半拍",
+          "body": "八音盒的每一根音梳都由手工调整。开盖时能听见一点机械摩擦声，再进入旋律；我们没有用润滑脂把它完全抹掉，那是这只盒子在醒来的声音。"
+        }
+      ],
+      "faq": [
+        {
+          "q": "可以换曲子吗？",
+          "a": "机芯与音梳是一体的，不支持自行换曲。当前版本为一段约 1 分钟的公共领域老旋律。"
+        },
+        {
+          "q": "能当首饰盒吗？",
+          "a": "盒内为机芯结构，没有首饰隔层，不建议放置金属硬物以免碰伤音梳。可以放一张平整的纸卡。"
+        }
+      ],
+      "skus": [
+        {
+          "name": "原木色 / 标准版",
+          "options": {
+            "颜色": "原木色",
+            "版本": "标准版"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "胡桃色 / 标准版",
+          "options": {
+            "颜色": "胡桃色",
+            "版本": "标准版"
+          },
+          "price_delta_cents": 2000
+        },
+        {
+          "name": "原木色 / 六张纸卡礼盒",
+          "options": {
+            "颜色": "原木色",
+            "版本": "六张纸卡礼盒"
+          },
+          "price_delta_cents": 5000
+        }
+      ],
+      "offers": [
+        {
+          "shop": "zhijian-gift",
+          "kind": "brand",
+          "name": "纸间直发 · 标准版",
+          "price_cents": 26800,
+          "market_price_cents": 32900,
+          "shipping_fee_cents": 0,
+          "stock": 36,
+          "delivery_eta_days": 4,
+          "delivery_note": "松江木工房 · 礼盒装",
+          "services": [
+            "品牌直营",
+            "7天无理由"
+          ],
+          "is_primary": true
+        },
+        {
+          "shop": "openshop-self",
+          "kind": "self",
+          "name": "官方自营 · 标准版",
+          "price_cents": 27900,
+          "market_price_cents": 32900,
+          "shipping_fee_cents": 0,
+          "stock": 24,
+          "delivery_eta_days": 2,
+          "delivery_note": "上海仓直发 · 次日达",
+          "services": [
+            "正品保障",
+            "7天无理由"
+          ],
+          "is_primary": false
+        },
+        {
+          "shop": "direct-craft",
+          "kind": "factory",
+          "name": "工厂批次 · 原木色",
+          "price_cents": 23900,
+          "market_price_cents": 29900,
+          "shipping_fee_cents": 0,
+          "stock": 48,
+          "delivery_eta_days": 6,
+          "delivery_note": "佛山工厂 · 预计 6 天发出",
+          "services": [
+            "源头直供",
+            "7天无理由"
+          ],
+          "is_primary": false,
+          "group_size": 2,
+          "group_price_cents": 21900
+        }
+      ],
+      "reviews": [
+        {
+          "author": "辛**",
+          "rating": 5,
+          "title": "发条声音比歌还轻",
+          "body": "拧三圈后放在床头，声音像从小盒子里慢慢溢出来。偶尔有一两个音更亮，客服说和发条松紧有关。拿在手里很沉，不像空心的。",
+          "tags": [
+            "声音柔和",
+            "有分量"
+          ],
+          "verified": true,
+          "helpful_count": 14,
+          "days_ago": 4,
+          "sku_name": "原木色 / 标准版"
+        },
+        {
+          "author": "孙**",
+          "rating": 4,
+          "title": "木色比图片深",
+          "body": "胡桃色实际更偏栗色，配深色柜子好看。送人前可以夹张小卡，我在上面写了生日日期。盒子合页紧，单手开有点费劲。",
+          "tags": [
+            "颜色沉稳",
+            "适合送礼"
+          ],
+          "verified": true,
+          "helpful_count": 7,
+          "days_ago": 18,
+          "sku_name": "胡桃色 / 标准版"
+        },
+        {
+          "author": "惠**",
+          "rating": 4,
+          "title": "曲子我不熟，但好听",
+          "body": "不是熟悉的流行旋律，查了说明才知道是一段公共领域的老旋律。晚上听听不腻，但没法循环，需要再拧一次发条。纸卡礼盒里的卡片可以自己写，比印刷祝词更合适。",
+          "tags": [
+            "旋律耐听",
+            "需要手动上弦"
+          ],
+          "verified": true,
+          "helpful_count": 4,
+          "days_ago": 31,
+          "sku_name": "原木色 / 六张纸卡礼盒"
         }
       ]
     }

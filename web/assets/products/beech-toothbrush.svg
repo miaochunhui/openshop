@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="art-title art-desc">
+<title id="art-title">榉木软毛牙刷晨间插画</title>
+<desc id="art-desc">浅绿墙前的一支深榉木软毛牙刷放在白色陶瓷盘上，旁边是玻璃杯、备用牙刷和晨光下的植物影子。</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2=".72" y2="1">
+      <stop offset="0" stop-color="#e1e4d6"/><stop offset="1" stop-color="#b6c1b0"/>
+    </linearGradient>
+    <radialGradient id="light" gradientUnits="userSpaceOnUse" cx="250" cy="180" r="760">
+      <stop offset="0" stop-color="#fff7e7" stop-opacity=".82"/>
+      <stop offset=".52" stop-color="#fff5e3" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#fff5e3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" gradientUnits="userSpaceOnUse" cx="600" cy="410" r="760">
+      <stop offset=".55" stop-color="#2d2117" stop-opacity="0"/>
+      <stop offset="1" stop-color="#2d2117" stop-opacity=".24"/>
+    </radialGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="2" seed="54" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .11"/></feComponentTransfer>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="28"/></filter>
+    <filter id="soft-s" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="11"/></filter>
+    <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#3c2a1d" flood-opacity=".26"/>
+    </filter>
+    <filter id="shadow-lg" x="-40%" y="-40%" width="190%" height="200%">
+      <feDropShadow dx="0" dy="28" stdDeviation="26" flood-color="#312116" flood-opacity=".3"/>
+    </filter>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="30"/>
+    </filter>
+
+
+<linearGradient id="washroom" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dde2d3"/><stop offset=".6" stop-color="#c7d0c0"/><stop offset="1" stop-color="#abb7a7"/></linearGradient>
+<linearGradient id="shelfWood" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#b89c78"/><stop offset="1" stop-color="#9b7d5b"/></linearGradient>
+<linearGradient id="tray" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e7dfd1"/><stop offset="1" stop-color="#cbbfad"/></linearGradient>
+<linearGradient id="brushWood" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#b08352"/><stop offset=".45" stop-color="#9a6d40"/><stop offset="1" stop-color="#78522e"/></linearGradient>
+<linearGradient id="glass" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#c5d1c7" stop-opacity=".3"/><stop offset=".5" stop-color="#eef1e8" stop-opacity=".7"/><stop offset="1" stop-color="#a9b8ad" stop-opacity=".36"/></linearGradient>
+<pattern id="bathMatte" width="26" height="24" patternUnits="userSpaceOnUse">
+  <path d="M2 7 C8 3 14 10 24 5" stroke="#fff8e9" stroke-opacity=".12" stroke-width="1.2" fill="none"/>
+  <circle cx="18" cy="19" r="1" fill="#5c675b" opacity=".06"/>
+</pattern>
+
+</defs>
+<rect width="1200" height="900" fill="url(#bg)"/>
+<rect width="1200" height="900" fill="url(#light)"/>
+
+<path d="M0 0 H1200 V900 H0Z" fill="url(#washroom)"/>
+<g stroke="#93a594" stroke-opacity=".24" stroke-width="2">
+  <path d="M0 184 H1200 M0 376 H1200 M0 568 H1200 M264 0 V900 M592 0 V900 M920 0 V900"/>
+</g>
+<path d="M0 0 L400 0 L740 900 L296 900Z" fill="#fff3dc" opacity=".13" filter="url(#soft-s)"/>
+<path d="M0 682 H1200 V900 H0Z" fill="url(#shelfWood)"/>
+<path d="M0 682 H1200" stroke="#5d5140" stroke-opacity=".32" stroke-width="2"/>
+<g opacity=".33" fill="#708067">
+  <path d="M1016 0 C972 154 982 336 1080 520"/>
+  <ellipse cx="968" cy="126" rx="82" ry="17" transform="rotate(32 968 126)"/>
+  <ellipse cx="1072" cy="242" rx="68" ry="14" transform="rotate(-28 1072 242)"/>
+  <ellipse cx="1034" cy="376" rx="56" ry="12" transform="rotate(16 1034 376)"/>
+  <ellipse cx="1104" cy="484" rx="44" ry="10" transform="rotate(34 1104 484)"/>
+</g>
+<ellipse cx="566" cy="782" rx="380" ry="41" fill="#3f372b" opacity=".13" filter="url(#soft)"/>
+
+<!-- tray -->
+<g transform="translate(174,624) rotate(-3)" filter="url(#shadow)">
+  <path d="M0 46 C52 8 210 0 540 14 C618 20 670 38 684 60 C666 92 616 112 534 120 C296 138 62 120 10 86 C-8 72 -10 56 0 46Z" fill="url(#tray)" stroke="#746959" stroke-opacity=".3" stroke-width="3"/>
+  <path d="M44 54 C192 30 468 32 632 56" fill="none" stroke="#fff7e7" stroke-opacity=".32" stroke-width="4"/>
+  <path d="M42 88 C224 108 474 102 644 78" fill="none" stroke="#b6a993" stroke-opacity=".3" stroke-width="2"/>
+</g>
+
+<!-- toothbrush foreground -->
+<g transform="translate(238,510) rotate(-15)" filter="url(#shadow-lg)">
+  <path d="M0 44 C140 18 302 20 386 38 C414 44 418 74 396 82 C286 104 130 96 6 70 C-16 64 -16 50 0 44Z" fill="url(#brushWood)" stroke="#624d35" stroke-opacity=".35" stroke-width="2"/>
+  <path d="M386 38 C416 36 446 34 476 38 L498 50 L494 74 L466 84 C438 82 412 78 392 74 C410 68 418 58 414 44Z" fill="#b79a70" stroke="#755a3b" stroke-opacity=".3" stroke-width="2"/>
+  <path d="M496 42 L562 36 C586 36 598 48 596 64 C590 82 568 88 542 86 L498 78Z" fill="#dcd7cb" stroke="#726e62" stroke-opacity=".3" stroke-width="2"/>
+  <g stroke="#f8f5ec" stroke-width="5" stroke-linecap="round">
+    <path d="M512 38 L506 8 M530 36 L526 4 M548 35 L546 4 M566 35 L568 6 M582 38 L588 12"/>
+  </g>
+  <g stroke="#b8b3a6" stroke-width="2" stroke-linecap="round">
+    <path d="M512 52 L508 72 M530 52 L528 74 M548 53 L548 74 M566 54 L570 73"/>
+  </g>
+  <path d="M480 50 L482 74" stroke="#6d695d" stroke-width="3" opacity=".45"/>
+  <path d="M18 56 C134 34 294 36 378 54" fill="none" stroke="#efddc2" stroke-opacity=".28" stroke-width="3"/>
+  <path d="M32 66 C158 50 298 52 376 64" fill="none" stroke="#5e4630" stroke-opacity=".12" stroke-width="2"/>
+  <g transform="translate(76,38)">
+    <path d="M0 0 C22 6 32 18 30 34" fill="none" stroke="#f4e5cc" stroke-opacity=".22" stroke-width="2"/>
+  </g>
+</g>
+
+<!-- glass and spare brush -->
+<g transform="translate(838,546)" filter="url(#shadow)">
+  <path d="M0 36 C3 10 30 -4 64 0 C98 4 122 30 122 62 L112 212 C94 234 26 232 8 208Z" fill="url(#glass)" stroke="#8a9a8e" stroke-opacity=".38" stroke-width="2"/>
+  <ellipse cx="63" cy="36" rx="61" ry="14" fill="#e9e4d7" opacity=".35"/>
+  <ellipse cx="63" cy="188" rx="51" ry="13" fill="#b9c6bd" opacity=".4"/>
+  <path d="M18 74 L12 196 M104 76 L112 196" stroke="#f7f1e5" stroke-opacity=".36" stroke-width="4"/>
+  <path d="M120 92 C146 98 146 128 116 136" stroke="#d8e1d7" stroke-opacity=".35" stroke-width="6" fill="none"/>
+  <g transform="translate(52,-20) rotate(-4)">
+    <path d="M0 126 C1 80 6 34 18 0" stroke="#8e724e" stroke-width="9" stroke-linecap="round" fill="none"/>
+    <path d="M18 0 C34 -4 44 6 44 18" stroke="#dad4c8" stroke-width="8" stroke-linecap="round" fill="none"/>
+  </g>
+  <g transform="translate(88,-30) rotate(5)">
+    <path d="M0 126 C2 76 8 36 22 4" stroke="#a78b65" stroke-width="7" stroke-linecap="round" fill="none"/>
+  </g>
+</g>
+<g transform="translate(102,588)">
+  <path d="M0 102 C30 62 88 50 130 72" fill="none" stroke="#627159" stroke-width="3"/>
+  <g fill="#79886c">
+    <ellipse cx="28" cy="68" rx="42" ry="12" transform="rotate(-34 28 68)"/>
+    <ellipse cx="86" cy="44" rx="34" ry="10" transform="rotate(18 86 44)"/>
+    <ellipse cx="-2" cy="92" rx="26" ry="8" transform="rotate(24 -2 92)"/>
+  </g>
+</g>
+<g fill="#f9eddb" opacity=".28">
+  <circle cx="324" cy="232" r="2.4"/><circle cx="764" cy="166" r="2"/><circle cx="974" cy="440" r="1.6"/>
+</g>
+<rect width="1200" height="900" fill="url(#bathMatte)" opacity=".5"/>
+<rect width="1200" height="900" fill="url(#vignette)" opacity="0.47"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity="0.43"/>
+</svg>

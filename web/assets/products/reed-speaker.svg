@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="art-title art-desc">
+<title id="art-title">苇声便携音箱窗边插画</title>
+<desc id="art-desc">米色墙前的苔绿布面便携音箱立在书堆上，圆形网罩、控制键与短皮绳旁是一束干芦苇和陶杯。</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2=".72" y2="1">
+      <stop offset="0" stop-color="#eadcc8"/><stop offset="1" stop-color="#cdb493"/>
+    </linearGradient>
+    <radialGradient id="light" gradientUnits="userSpaceOnUse" cx="230" cy="200" r="720">
+      <stop offset="0" stop-color="#fff7e7" stop-opacity=".82"/>
+      <stop offset=".52" stop-color="#fff5e3" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#fff5e3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" gradientUnits="userSpaceOnUse" cx="600" cy="410" r="760">
+      <stop offset=".55" stop-color="#2d2117" stop-opacity="0"/>
+      <stop offset="1" stop-color="#2d2117" stop-opacity=".24"/>
+    </radialGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="2" seed="41" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .11"/></feComponentTransfer>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="28"/></filter>
+    <filter id="soft-s" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="11"/></filter>
+    <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#3c2a1d" flood-opacity=".26"/>
+    </filter>
+    <filter id="shadow-lg" x="-40%" y="-40%" width="190%" height="200%">
+      <feDropShadow dx="0" dy="28" stdDeviation="26" flood-color="#312116" flood-opacity=".3"/>
+    </filter>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="30"/>
+    </filter>
+
+
+<linearGradient id="table" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#c7a986"/><stop offset="1" stop-color="#9f7c59"/></linearGradient>
+<linearGradient id="speakerBody" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#87957b"/><stop offset=".52" stop-color="#6d7c62"/><stop offset="1" stop-color="#4f5d48"/></linearGradient>
+<linearGradient id="fabric" x1="0" y1="0" x2=".7" y2="1"><stop stop-color="#7e8d71"/><stop offset=".55" stop-color="#6a795e"/><stop offset="1" stop-color="#58664e"/></linearGradient>
+<pattern id="speakerWeave" width="20" height="18" patternUnits="userSpaceOnUse">
+  <path d="M0 5 H20 M0 13 H20" stroke="#e2cfab" stroke-opacity=".22" stroke-width="1.8"/>
+  <path d="M5 0 V18 M15 0 V18" stroke="#2e3926" stroke-opacity=".22" stroke-width="1.8"/>
+  <circle cx="10" cy="9" r="1" fill="#f7ead0" opacity=".17"/>
+</pattern>
+
+</defs>
+<rect width="1200" height="900" fill="url(#bg)"/>
+<rect width="1200" height="900" fill="url(#light)"/>
+
+<path d="M0 592 H1200 V900 H0Z" fill="url(#table)"/>
+<path d="M0 592 H1200" stroke="#7b6348" stroke-opacity=".3" stroke-width="2"/>
+<g opacity=".17" fill="#fff5df">
+  <path d="M0 0 L350 0 L170 592 L0 592Z"/>
+  <path d="M438 0 L596 0 L476 592 L340 592Z"/>
+  <path d="M690 0 L762 0 L706 592 L638 592Z"/>
+</g>
+<path d="M254 0 L490 0 L620 592 L356 592Z" fill="#fff7e7" opacity=".1" filter="url(#soft-s)"/>
+<g transform="translate(84,350)">
+  <path d="M84 250 L54 342 H196 L176 250Z" fill="#d2bea4" stroke="#7e6a51" stroke-opacity=".3" stroke-width="2"/>
+  <ellipse cx="124" cy="250" rx="72" ry="14" fill="#b39b7d"/>
+  <g stroke="#6e6f50" stroke-width="4" fill="none">
+    <path d="M118 248 C92 160 62 90 30 20 M122 248 C142 150 166 82 202 28 M120 248 C126 166 132 100 134 30"/>
+  </g>
+  <g fill="#b7aa86" opacity=".9">
+    <ellipse cx="32" cy="32" rx="21" ry="49" transform="rotate(-26 32 32)"/>
+    <ellipse cx="200" cy="42" rx="18" ry="45" transform="rotate(24 200 42)"/>
+    <ellipse cx="134" cy="14" rx="15" ry="39" transform="rotate(-3 134 14)"/>
+    <ellipse cx="72" cy="92" rx="15" ry="36" transform="rotate(-18 72 92)"/>
+  </g>
+</g>
+<ellipse cx="613" cy="756" rx="286" ry="32" fill="#5a412b" opacity=".2" filter="url(#soft)"/>
+
+<!-- book stack under the speaker -->
+<g transform="translate(368,640)">
+  <rect x="0" y="94" width="474" height="34" rx="5" fill="#a07d58"/>
+  <rect x="20" y="56" width="434" height="40" rx="5" fill="#d9c8ad"/>
+  <rect x="40" y="32" width="398" height="26" rx="4" fill="#64735a"/>
+  <path d="M58 44 H420 M58 66 H404 M16 110 H450" stroke="#faf0de" stroke-opacity=".3" stroke-width="2"/>
+  <path d="M24 152 C170 170 356 168 452 148" stroke="#7b6248" stroke-opacity=".32" stroke-width="3" fill="none"/>
+</g>
+
+<!-- portable speaker -->
+<g filter="url(#shadow-lg)">
+  <ellipse cx="614" cy="628" rx="158" ry="17" fill="#3e4635" opacity=".28" filter="url(#soft-s)"/>
+  <path d="M484 366 C484 326 536 302 614 302 C692 302 744 326 744 366 L738 602 C734 624 692 640 614 640 C536 640 494 624 490 602Z" fill="url(#speakerBody)" stroke="#4d5a44" stroke-opacity=".55" stroke-width="2"/>
+  <ellipse cx="614" cy="330" rx="130" ry="28" fill="#899778"/>
+  <ellipse cx="614" cy="326" rx="108" ry="20" fill="#6f7e63"/>
+  <path d="M506 350 C522 374 552 386 614 388 C676 386 706 374 722 350" fill="none" stroke="#edddc0" stroke-opacity=".22" stroke-width="3"/>
+  <rect x="516" y="382" width="196" height="222" rx="86" fill="url(#fabric)" stroke="#536149" stroke-opacity=".3" stroke-width="2"/>
+  <rect x="516" y="382" width="196" height="222" rx="86" fill="url(#speakerWeave)" opacity=".8"/>
+  <circle cx="614" cy="492" r="80" fill="none" stroke="#3d4936" stroke-opacity=".24" stroke-width="3"/>
+  <circle cx="614" cy="492" r="64" fill="none" stroke="#e8d7b9" stroke-opacity=".16" stroke-width="2"/>
+  <circle cx="614" cy="492" r="17" fill="#4e5b44" opacity=".72"/>
+  <circle cx="614" cy="492" r="5" fill="#d9c595" opacity=".7"/>
+  <!-- control panel on top -->
+  <rect x="554" y="312" width="120" height="26" rx="13" fill="#465440" stroke="#32402d" stroke-width="1.5"/>
+  <circle cx="580" cy="325" r="6" fill="#c9b280"/>
+  <circle cx="614" cy="325" r="6" fill="#c9b280" opacity=".65"/>
+  <circle cx="648" cy="325" r="6" fill="#c9b280" opacity=".65"/>
+  <!-- short wrist strap -->
+  <path d="M718 376 C764 392 780 432 750 466 C734 482 718 476 716 460 C732 442 732 414 702 396" fill="none" stroke="#7c5f40" stroke-width="16" stroke-linecap="round"/>
+  <path d="M720 386 C752 400 762 428 742 452" fill="none" stroke="#b28a5f" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="710" cy="382" r="7" fill="#c5a678" stroke="#5b4832" stroke-width="1.5"/>
+  <!-- feet -->
+  <path d="M536 638 C542 650 560 656 586 658 M692 658 C718 656 736 650 742 638" fill="none" stroke="#3c4534" stroke-width="7" stroke-linecap="round"/>
+  <path d="M504 424 C496 486 498 556 512 606" fill="none" stroke="#f2e3c7" stroke-opacity=".18" stroke-width="7" stroke-linecap="round"/>
+  <path d="M730 460 C736 516 730 572 714 614" fill="none" stroke="#2d3827" stroke-opacity=".26" stroke-width="5" stroke-linecap="round"/>
+</g>
+<g opacity=".4" fill="none" stroke="#f7ead1" stroke-width="2" stroke-linecap="round">
+  <path d="M800 442 C824 418 824 390 806 368"/>
+  <path d="M834 466 C874 430 874 358 840 330"/>
+</g>
+<g transform="translate(844,548)" filter="url(#shadow)">
+  <path d="M0 52 H122 L110 132 C74 144 28 142 4 128Z" fill="#dfd0b8" stroke="#75614b" stroke-opacity=".35" stroke-width="2"/>
+  <ellipse cx="60" cy="54" rx="60" ry="13" fill="#f0e5d2"/>
+  <ellipse cx="60" cy="55" rx="44" ry="9" fill="#6d4733"/>
+  <path d="M122 66 C158 68 160 102 120 112" stroke="#dfd0b8" stroke-width="8" fill="none"/>
+  <path d="M36 24 C48 4 64 0 76 14 C58 22 58 28 50 38" fill="#fff6e9" opacity=".26" filter="url(#soft-s)"/>
+</g>
+<g fill="#f8ecd8" opacity=".3">
+  <circle cx="404" cy="330" r="2.4"/><circle cx="978" cy="354" r="2"/><circle cx="308" cy="552" r="1.6"/>
+</g>
+
+<rect width="1200" height="900" fill="url(#vignette)" opacity="0.52"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity="0.45"/>
+</svg>

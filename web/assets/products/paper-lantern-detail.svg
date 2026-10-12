@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="art-title art-desc">
+<title id="art-title">纸罩台灯细节插画</title>
+<desc id="art-desc">贴近纸罩的视角，皱纸里的暖光、木底座的纹路与旋钮清晰可见。</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2=".72" y2="1">
+      <stop offset="0" stop-color="#8f7252"/><stop offset="1" stop-color="#d6b98b"/>
+    </linearGradient>
+    <radialGradient id="light" gradientUnits="userSpaceOnUse" cx="490" cy="350" r="670">
+      <stop offset="0" stop-color="#fff7e7" stop-opacity=".82"/>
+      <stop offset=".52" stop-color="#fff5e3" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#fff5e3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" gradientUnits="userSpaceOnUse" cx="600" cy="410" r="760">
+      <stop offset=".55" stop-color="#2d2117" stop-opacity="0"/>
+      <stop offset="1" stop-color="#2d2117" stop-opacity=".24"/>
+    </radialGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="2" seed="5" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .11"/></feComponentTransfer>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="28"/></filter>
+    <filter id="soft-s" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="11"/></filter>
+    <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#3c2a1d" flood-opacity=".26"/>
+    </filter>
+    <filter id="shadow-lg" x="-40%" y="-40%" width="190%" height="200%">
+      <feDropShadow dx="0" dy="28" stdDeviation="26" flood-color="#312116" flood-opacity=".3"/>
+    </filter>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="30"/>
+    </filter>
+
+
+<linearGradient id="detailBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#6d543c"/><stop offset=".52" stop-color="#b08b5f"/><stop offset="1" stop-color="#eed9ae"/></linearGradient>
+<radialGradient id="paperBig" cx=".42" cy=".46" r=".72"><stop stop-color="#fff6dd"/><stop offset=".5" stop-color="#f1d7a5"/><stop offset="1" stop-color="#c39b66"/></radialGradient>
+<linearGradient id="woodDetail" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#725337"/><stop offset=".55" stop-color="#98734e"/><stop offset="1" stop-color="#5e442f"/></linearGradient>
+<pattern id="washiMacro" width="46" height="36" patternUnits="userSpaceOnUse">
+  <path d="M4 11 C15 3 24 18 42 8 M2 28 C16 20 36 29 44 23" stroke="#fff8e8" stroke-opacity=".18" stroke-width="1.5" fill="none"/>
+  <path d="M22 0 C17 11 25 22 20 36" stroke="#876742" stroke-opacity=".12" stroke-width="1.2" fill="none"/>
+</pattern>
+
+</defs>
+<rect width="1200" height="900" fill="url(#bg)"/>
+<rect width="1200" height="900" fill="url(#light)"/>
+
+<rect width="1200" height="900" fill="url(#detailBg)"/>
+<ellipse cx="660" cy="365" rx="430" ry="370" fill="#f5c879" opacity=".36" filter="url(#glow)"/>
+<g transform="translate(70,60)">
+  <path d="M135 -40 C-10 220 -30 520 65 820 C260 880 750 862 1000 770 C970 430 880 165 708 -28Z" fill="url(#paperBig)" opacity=".96"/>
+  <g stroke="#9d7953" stroke-opacity=".38" stroke-width="4" fill="none">
+    <path d="M130 0 C42 242 32 502 112 804"/>
+    <path d="M252 16 C184 250 178 512 244 824"/>
+    <path d="M378 35 C332 260 336 518 390 833"/>
+    <path d="M512 42 C494 265 502 518 538 826"/>
+    <path d="M638 36 C652 260 660 506 674 812"/>
+    <path d="M765 12 C806 244 828 480 802 790"/>
+    <path d="M888 -12 C942 224 970 456 918 760"/>
+  </g>
+  <g stroke="#fff3d4" stroke-opacity=".52" stroke-width="4" fill="none">
+    <path d="M160 4 C82 250 74 510 146 808"/>
+    <path d="M283 22 C218 254 214 510 278 826"/>
+    <path d="M410 40 C370 264 376 516 426 832"/>
+    <path d="M547 44 C534 266 544 512 574 822"/>
+    <path d="M674 32 C694 254 706 502 714 806"/>
+    <path d="M801 6 C846 240 866 474 838 782"/>
+  </g>
+  <path d="M132 -32 C322 -58 572 -28 712 -10" stroke="#6e5339" stroke-opacity=".28" stroke-width="8" fill="none"/>
+  <path d="M94 776 C290 842 678 826 956 756" fill="none" stroke="#f5d9a3" stroke-opacity=".55" stroke-width="5"/>
+  <path d="M78 812 C292 882 716 858 1010 790" fill="none" stroke="#8b6945" stroke-opacity=".32" stroke-width="8"/>
+</g>
+<ellipse cx="640" cy="890" rx="380" ry="42" fill="#5e442c" opacity=".35" filter="url(#soft)"/>
+<g transform="translate(392,722)" filter="url(#shadow)">
+  <path d="M72 35 C138 12 296 8 388 28 L412 72 C304 98 142 100 32 76Z" fill="url(#woodDetail)"/>
+  <ellipse cx="218" cy="34" rx="160" ry="26" fill="#9e7a55" stroke="#5b452f" stroke-opacity=".3" stroke-width="2"/>
+  <ellipse cx="218" cy="30" rx="132" ry="19" fill="#c4a175"/>
+  <path d="M40 74 C166 94 332 92 406 74" fill="none" stroke="#f0dcbf" stroke-opacity=".22" stroke-width="3"/>
+  <circle cx="100" cy="80" r="18" fill="#614a34" stroke="#403023" stroke-width="3"/>
+  <path d="M100 64 C111 72 113 86 104 96" fill="none" stroke="#e3c494" stroke-width="3" opacity=".65"/>
+</g>
+<g stroke="#fff7e6" stroke-width="2" opacity=".22" fill="none">
+  <path d="M80 160 C180 130 260 140 332 170 M940 620 C860 650 770 652 690 642"/>
+  <path d="M160 80 C250 58 334 62 420 84"/>
+</g>
+<rect width="1200" height="900" fill="url(#washiMacro)" opacity=".6"/>
+<rect width="1200" height="900" fill="url(#vignette)" opacity="0.5"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity="0.48"/>
+</svg>

@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="art-title art-desc">
+<title id="art-title">水洗亚麻罩衫插画</title>
+<desc id="art-desc">木衣架上的雾白亚麻罩衫，前襟敞开，衣身垂坠，午后的窗光落在布料与地板上。</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2=".72" y2="1">
+      <stop offset="0" stop-color="#e4d7c4"/><stop offset="1" stop-color="#c5b197"/>
+    </linearGradient>
+    <radialGradient id="light" gradientUnits="userSpaceOnUse" cx="250" cy="200" r="780">
+      <stop offset="0" stop-color="#fff7e7" stop-opacity=".82"/>
+      <stop offset=".52" stop-color="#fff5e3" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#fff5e3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" gradientUnits="userSpaceOnUse" cx="600" cy="410" r="760">
+      <stop offset=".55" stop-color="#2d2117" stop-opacity="0"/>
+      <stop offset="1" stop-color="#2d2117" stop-opacity=".24"/>
+    </radialGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="2" seed="45" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .11"/></feComponentTransfer>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="28"/></filter>
+    <filter id="soft-s" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="11"/></filter>
+    <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#3c2a1d" flood-opacity=".26"/>
+    </filter>
+    <filter id="shadow-lg" x="-40%" y="-40%" width="190%" height="200%">
+      <feDropShadow dx="0" dy="28" stdDeviation="26" flood-color="#312116" flood-opacity=".3"/>
+    </filter>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="30"/>
+    </filter>
+
+
+<linearGradient id="plaster" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e6d9c6"/><stop offset=".62" stop-color="#d3c1aa"/><stop offset="1" stop-color="#b39b80"/></linearGradient>
+<linearGradient id="floorWood" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#b99772"/><stop offset="1" stop-color="#a37c58"/></linearGradient>
+<linearGradient id="shirt" x1="0" y1="0" x2=".65" y2="1"><stop stop-color="#f5ede2"/><stop offset=".6" stop-color="#eadfd1"/><stop offset="1" stop-color="#d7c8b5"/></linearGradient>
+<pattern id="linenCloth" width="20" height="20" patternUnits="userSpaceOnUse">
+  <path d="M0 6 H20 M0 15 H20" stroke="#a58e73" stroke-opacity=".1" stroke-width="1"/>
+  <path d="M7 0 V20 M15 0 V20" stroke="#fffaf1" stroke-opacity=".16" stroke-width="1"/>
+</pattern>
+
+</defs>
+<rect width="1200" height="900" fill="url(#bg)"/>
+<rect width="1200" height="900" fill="url(#light)"/>
+
+<path d="M0 0 H1200 V900 H0Z" fill="url(#plaster)"/>
+<path d="M0 0 L430 0 L820 900 L0 900Z" fill="#f7e7ca" opacity=".15" filter="url(#soft-s)"/>
+<path d="M860 0 C810 210 856 500 1100 900" fill="none" stroke="#b79c7d" stroke-opacity=".18" stroke-width="3"/>
+<path d="M924 148 C1000 188 1072 260 1112 348" fill="none" stroke="#8f9474" stroke-opacity=".22" stroke-width="7"/>
+<g fill="#7d8567" opacity=".22">
+  <ellipse cx="960" cy="210" rx="60" ry="16" transform="rotate(35 960 210)"/>
+  <ellipse cx="1040" cy="292" rx="48" ry="13" transform="rotate(42 1040 292)"/>
+  <ellipse cx="1080" cy="370" rx="42" ry="11" transform="rotate(68 1080 370)"/>
+</g>
+<path d="M0 748 H1200 V900 H0Z" fill="url(#floorWood)"/>
+<path d="M0 748 H1200" stroke="#755e45" stroke-opacity=".3" stroke-width="2"/>
+<ellipse cx="592" cy="820" rx="310" ry="42" fill="#4e3a2b" opacity=".15" filter="url(#soft)"/>
+<g transform="translate(916,644)">
+  <path d="M0 44 H196 V60 H0Z" fill="#8b6848"/>
+  <path d="M18 60 L14 222 M178 60 L186 222" stroke="#674b35" stroke-width="13"/>
+  <path d="M0 44 C42 26 154 28 196 46" stroke="#c0a27b" stroke-opacity=".38" stroke-width="3" fill="none"/>
+  <g transform="translate(26,-34)">
+    <path d="M0 48 C10 8 62 0 98 22 C128 40 142 76 132 112 C100 140 44 138 14 112 C-4 94 -4 66 0 48Z" fill="#b48b62" opacity=".8"/>
+    <ellipse cx="68" cy="56" rx="66" ry="17" fill="#9b744e" opacity=".6"/>
+  </g>
+</g>
+
+<!-- wall hook and hanger -->
+<g stroke="#6c523a" fill="none">
+  <path d="M600 90 C594 130 600 158 600 176" stroke-width="4"/>
+  <path d="M600 166 L438 248 L520 276" stroke-width="11" stroke-linecap="round"/>
+  <path d="M600 166 L762 248 L682 278" stroke-width="11" stroke-linecap="round"/>
+</g>
+<circle cx="600" cy="84" r="9" fill="#5a4432" stroke="#9d7f5e" stroke-width="2"/>
+
+<!-- overshirt -->
+<g filter="url(#shadow-lg)">
+  <path d="M600 184 C568 164 532 154 500 152 L414 208 L350 394 L390 426 L426 328 L420 654 C488 680 706 680 782 652 L776 328 L814 424 L854 394 L786 208 L700 152 C658 154 628 168 600 184Z" fill="url(#shirt)" stroke="#8d7b65" stroke-opacity=".4" stroke-width="2.4"/>
+  <path d="M600 184 L600 658 C536 670 474 666 422 654 L428 326 L392 424 L350 394 L414 208 L500 152 C534 156 568 166 600 184Z" fill="#f3eadc" opacity=".42"/>
+  <path d="M600 184 C628 168 658 154 700 152 L786 208 L854 394 L814 424 L778 328 L782 652 C744 666 670 674 600 674Z" fill="#e9dece" opacity=".38"/>
+  <path d="M600 186 C578 200 568 220 570 248 L552 334 L600 360 L644 334 L630 248 C628 218 620 200 600 186Z" fill="#d9ccb9" stroke="#8a7661" stroke-opacity=".3" stroke-width="2"/>
+  <path d="M558 216 L514 152 L438 228 L528 266Z" fill="#f1e8db" stroke="#917d66" stroke-opacity=".35" stroke-width="2"/>
+  <path d="M648 216 L690 152 L768 228 L674 266Z" fill="#eee4d6" stroke="#917d66" stroke-opacity=".35" stroke-width="2"/>
+  <path d="M570 248 L600 258 L632 248" fill="none" stroke="#a18c73" stroke-width="2"/>
+  <path d="M600 360 L618 660" stroke="#b7a58f" stroke-width="2.5"/>
+  <path d="M590 374 L572 640 M650 388 L654 650" fill="none" stroke="#d8cbb9" stroke-opacity=".8" stroke-width="3"/>
+  <path d="M598 365 L588 649" fill="none" stroke="#dbcbb6" stroke-opacity=".7" stroke-width="2"/>
+  <path d="M776 328 C746 356 730 392 726 442 L748 650" fill="none" stroke="#bfae96" stroke-opacity=".5" stroke-width="3"/>
+  <path d="M390 424 C372 456 366 506 382 546 L392 566" fill="none" stroke="#c8b8a2" stroke-opacity=".5" stroke-width="3"/>
+  <path d="M420 654 C490 674 706 674 782 648" fill="none" stroke="#b4a28a" stroke-opacity=".45" stroke-width="4"/>
+  <path d="M438 228 C448 208 468 196 490 196" fill="none" stroke="#fffaf0" stroke-opacity=".3" stroke-width="3"/>
+  <!-- seam folds and sleeves -->
+  <path d="M446 226 C430 304 414 354 392 412 M747 230 C764 302 786 352 812 416" fill="none" stroke="#b5a28b" stroke-opacity=".36" stroke-width="2"/>
+  <path d="M446 226 C468 286 466 354 448 406 M760 230 C742 294 742 352 762 410" fill="none" stroke="#fffbf2" stroke-opacity=".2" stroke-width="4"/>
+  <path d="M454 466 C476 452 518 454 536 472 M662 468 C690 452 724 454 742 470" fill="none" stroke="#c6b59e" stroke-opacity=".45" stroke-width="2"/>
+  <!-- patch pockets -->
+  <g>
+    <rect x="456" y="426" width="98" height="92" rx="9" fill="#f0e6d8" stroke="#a08b74" stroke-opacity=".36" stroke-width="2" transform="rotate(-2 456 426)"/>
+    <path d="M462 438 H546" stroke="#b09d85" stroke-dasharray="3 5" stroke-width="2"/>
+  </g>
+  <g>
+    <rect x="662" y="430" width="94" height="88" rx="9" fill="#efe5d7" stroke="#a08b74" stroke-opacity=".36" stroke-width="2" transform="rotate(2 662 430)"/>
+    <path d="M668 440 H748" stroke="#b09d85" stroke-dasharray="3 5" stroke-width="2"/>
+  </g>
+  <!-- buttons -->
+  <g fill="#806b52" stroke="#f6eddf" stroke-opacity=".6" stroke-width="1.5">
+    <circle cx="642" cy="390" r="6"/><circle cx="646" cy="450" r="6"/><circle cx="650" cy="512" r="6"/><circle cx="654" cy="574" r="6"/>
+    <circle cx="728" cy="344" r="4"/><circle cx="380" cy="388" r="4"/>
+  </g>
+  <!-- cloth texture highlight -->
+  <path d="M470 600 C544 620 650 620 728 598" fill="none" stroke="#fff8ed" stroke-opacity=".24" stroke-width="6"/>
+</g>
+<g transform="translate(170,560)">
+  <path d="M0 170 C42 148 124 148 176 172" fill="none" stroke="#786048" stroke-width="12"/>
+  <path d="M26 166 H152 L140 238 H38Z" fill="#c5b196" stroke="#7f6a52" stroke-opacity=".3" stroke-width="2"/>
+  <path d="M64 112 C60 68 80 34 114 16 C140 4 166 22 158 48 C136 88 110 116 82 140" fill="#d8c4a5" stroke="#877054" stroke-opacity=".3" stroke-width="2"/>
+</g>
+<rect width="1200" height="900" fill="url(#linenCloth)" opacity=".45"/>
+<rect width="1200" height="900" fill="url(#vignette)" opacity="0.53"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity="0.46"/>
+</svg>

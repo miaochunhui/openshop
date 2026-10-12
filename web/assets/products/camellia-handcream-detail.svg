@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="art-title art-desc">
+<title id="art-title">护手霜质地与铝管细节插画</title>
+<desc id="art-desc">护手霜乳霜质感的近景，铝管与旋盖、山茶花瓣和石面纹理在柔光中层层叠出。</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2=".72" y2="1">
+      <stop offset="0" stop-color="#b8b8a2"/><stop offset="1" stop-color="#e4dac9"/>
+    </linearGradient>
+    <radialGradient id="light" gradientUnits="userSpaceOnUse" cx="270" cy="170" r="760">
+      <stop offset="0" stop-color="#fff7e7" stop-opacity=".82"/>
+      <stop offset=".52" stop-color="#fff5e3" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#fff5e3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" gradientUnits="userSpaceOnUse" cx="600" cy="410" r="760">
+      <stop offset=".55" stop-color="#2d2117" stop-opacity="0"/>
+      <stop offset="1" stop-color="#2d2117" stop-opacity=".24"/>
+    </radialGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="2" seed="13" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .11"/></feComponentTransfer>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="28"/></filter>
+    <filter id="soft-s" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="11"/></filter>
+    <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#3c2a1d" flood-opacity=".26"/>
+    </filter>
+    <filter id="shadow-lg" x="-40%" y="-40%" width="190%" height="200%">
+      <feDropShadow dx="0" dy="28" stdDeviation="26" flood-color="#312116" flood-opacity=".3"/>
+    </filter>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="30"/>
+    </filter>
+
+
+<linearGradient id="creamBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a7ad97"/><stop offset=".52" stop-color="#c9c5b2"/><stop offset="1" stop-color="#eee6d8"/></linearGradient>
+<linearGradient id="creamStone" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d6ccbb"/><stop offset="1" stop-color="#a99c88"/></linearGradient>
+<linearGradient id="tubeMacro" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d5d2c5"/><stop offset=".38" stop-color="#f2f0e5"/><stop offset="1" stop-color="#b5b2a5"/></linearGradient>
+<linearGradient id="macroCap" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#898679"/><stop offset=".4" stop-color="#c8c3b4"/><stop offset="1" stop-color="#717065"/></linearGradient>
+<pattern id="creamSwirl" width="38" height="30" patternUnits="userSpaceOnUse">
+  <path d="M3 8 C12 -1 26 10 34 3 M0 22 C12 14 26 26 38 18" stroke="#ded1be" stroke-opacity=".25" stroke-width="1.4" fill="none"/>
+</pattern>
+
+</defs>
+<rect width="1200" height="900" fill="url(#bg)"/>
+<rect width="1200" height="900" fill="url(#light)"/>
+
+<rect width="1200" height="900" fill="url(#creamBg)"/>
+<path d="M0 0 L460 0 L132 900 L0 900Z" fill="#fff8eb" opacity=".18" filter="url(#soft-s)"/>
+<path d="M198 614 C382 534 658 530 910 596 C1052 634 1128 700 1144 776 L1144 900 L174 900 C120 804 134 694 198 614Z" fill="url(#creamStone)"/>
+<g transform="translate(140,118) rotate(-6)">
+  <g transform="translate(354,318)">
+    <path d="M0 82 C66 -4 214 -38 326 28 C408 76 422 178 348 248 C282 312 158 314 76 246 C14 196 -18 138 0 82Z" fill="#f7f0e4" stroke="#c5b8a6" stroke-opacity=".55" stroke-width="3"/>
+    <path d="M60 102 C140 40 258 28 336 76 C384 106 390 176 344 218 C278 266 166 262 100 212 C56 178 38 136 60 102Z" fill="#fffbf3"/>
+    <path d="M132 134 C182 96 272 88 324 128 C336 150 322 178 294 190 C246 212 182 202 148 172 C128 154 122 146 132 134Z" fill="#fffdf7"/>
+    <path d="M98 184 C142 214 218 228 286 218" fill="none" stroke="#e1d3c0" stroke-opacity=".7" stroke-width="4"/>
+    <path d="M160 80 C196 56 244 50 284 64" fill="none" stroke="#b9aa95" stroke-opacity=".25" stroke-width="3"/>
+    <path d="M80 60 C130 22 208 12 272 38" fill="none" stroke="#fff9ef" stroke-opacity=".55" stroke-width="6"/>
+  </g>
+  <g transform="translate(892,70) rotate(24)">
+    <path d="M0 94 C30 20 112 -12 182 24 C242 54 258 134 218 194 C172 262 68 268 16 210 C-14 176 -22 130 0 94Z" fill="#f1e5d6" stroke="#c8b9a4" stroke-opacity=".4" stroke-width="3"/>
+    <circle cx="110" cy="122" r="68" fill="#faf3e7"/>
+    <circle cx="104" cy="114" r="54" fill="#fdf8ef"/>
+    <path d="M46 84 C92 46 160 44 204 78" fill="none" stroke="#fffdf6" stroke-opacity=".7" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(30,480) rotate(-26)">
+    <path d="M0 0 H540 L518 104 C354 130 172 118 20 92Z" fill="url(#tubeMacro)" stroke="#6f6a5d" stroke-opacity=".3" stroke-width="3"/>
+    <path d="M0 100 C174 128 356 136 516 108 L528 142 C348 174 156 162 10 132Z" fill="#9c998c" stroke="#666358" stroke-opacity=".3" stroke-width="2"/>
+    <path d="M46 30 C198 10 362 12 508 34" fill="none" stroke="#f5f3e9" stroke-opacity=".36" stroke-width="6"/>
+    <g transform="translate(520,8)">
+      <path d="M0 0 C52 6 72 44 66 92 L54 130 L0 120Z" fill="url(#macroCap)" stroke="#5d5a50" stroke-opacity=".4" stroke-width="2"/>
+      <path d="M10 24 L62 34 M8 46 L64 56 M6 68 L62 78 M8 90 L60 100" stroke="#7e7b6e" stroke-opacity=".35" stroke-width="3"/>
+    </g>
+  </g>
+</g>
+<g transform="translate(86,734)">
+  <path d="M0 68 C224 26 486 34 706 70" stroke="#b6ac9d" stroke-opacity=".36" stroke-width="3" fill="none"/>
+  <path d="M40 90 C248 52 480 58 678 92" stroke="#f4ece0" stroke-opacity=".26" stroke-width="3" fill="none"/>
+</g>
+<g fill="#f4eadb" opacity=".3">
+  <circle cx="1006" cy="740" r="3"/><circle cx="938" cy="260" r="2"/><circle cx="820" cy="820" r="2.4"/>
+</g>
+<rect width="1200" height="900" fill="url(#creamSwirl)" opacity=".5"/>
+<rect width="1200" height="900" fill="url(#vignette)" opacity="0.46"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity="0.45"/>
+</svg>

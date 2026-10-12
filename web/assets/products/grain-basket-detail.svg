@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="art-title art-desc">
+<title id="art-title">蒲草收纳筐编织与棉布内衬细节插画</title>
+<desc id="art-desc">手工蒲草筐的编织近景，水洗棉布折好放在篮口，草编横竖纹与斜向收边在晨光里留下细密层次。</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2=".72" y2="1">
+      <stop offset="0" stop-color="#977856"/><stop offset="1" stop-color="#e5d4ba"/>
+    </linearGradient>
+    <radialGradient id="light" gradientUnits="userSpaceOnUse" cx="320" cy="160" r="760">
+      <stop offset="0" stop-color="#fff7e7" stop-opacity=".82"/>
+      <stop offset=".52" stop-color="#fff5e3" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#fff5e3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" gradientUnits="userSpaceOnUse" cx="600" cy="410" r="760">
+      <stop offset=".55" stop-color="#2d2117" stop-opacity="0"/>
+      <stop offset="1" stop-color="#2d2117" stop-opacity=".24"/>
+    </radialGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="2" seed="12" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .11"/></feComponentTransfer>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="28"/></filter>
+    <filter id="soft-s" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="11"/></filter>
+    <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#3c2a1d" flood-opacity=".26"/>
+    </filter>
+    <filter id="shadow-lg" x="-40%" y="-40%" width="190%" height="200%">
+      <feDropShadow dx="0" dy="28" stdDeviation="26" flood-color="#312116" flood-opacity=".3"/>
+    </filter>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="30"/>
+    </filter>
+
+
+<linearGradient id="weaveBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#6d543c"/><stop offset=".48" stop-color="#c5a77c"/><stop offset="1" stop-color="#eee0ca"/></linearGradient>
+<linearGradient id="basketBody" x1="0" y1="0" x2=".7" y2="1"><stop stop-color="#d2b183"/><stop offset=".55" stop-color="#b79465"/><stop offset="1" stop-color="#8c6a49"/></linearGradient>
+<pattern id="strawFiber" width="26" height="22" patternUnits="userSpaceOnUse">
+  <path d="M0 9 C8 3 16 14 26 6 M0 18 C9 12 17 23 26 16" stroke="#fff0d8" stroke-opacity=".18" stroke-width="1.4" fill="none"/>
+  <circle cx="12" cy="5" r="0.9" fill="#5d4630" opacity=".18"/>
+</pattern>
+
+</defs>
+<rect width="1200" height="900" fill="url(#bg)"/>
+<rect width="1200" height="900" fill="url(#light)"/>
+
+<rect width="1200" height="900" fill="url(#weaveBg)"/>
+<path d="M0 0 L530 0 L180 900 L0 900Z" fill="#fff3dc" opacity=".14" filter="url(#soft-s)"/>
+<g transform="rotate(7 600 450)">
+  <path d="M-120 176 C174 84 592 92 904 172 C1082 218 1188 330 1268 486 L1290 900 L-120 900Z" fill="url(#basketBody)" stroke="#5b4733" stroke-opacity=".35" stroke-width="3"/>
+  <g fill="none" stroke="#6f573c" stroke-opacity=".46" stroke-width="3.4">
+    <path d="M-120 238 C192 146 556 154 878 232 C1064 278 1182 382 1272 520"/>
+    <path d="M-120 296 C184 210 536 214 842 288 C1042 336 1162 430 1268 560"/>
+    <path d="M-120 356 C174 274 518 278 812 346 C1018 392 1152 484 1268 606"/>
+    <path d="M-120 420 C176 342 508 344 792 408 C1000 452 1144 546 1268 662"/>
+    <path d="M-120 488 C168 412 498 414 774 474 C986 518 1144 616 1268 724"/>
+    <path d="M-120 560 C152 486 484 488 750 544 C968 588 1134 684 1268 790"/>
+  </g>
+  <g fill="none" stroke="#ecd1a7" stroke-opacity=".42" stroke-width="11" stroke-linecap="round">
+    <path d="M-120 268 C188 174 548 182 858 258 C1052 306 1174 406 1248 534"/>
+    <path d="M-120 392 C192 304 518 310 800 380 C1010 432 1150 526 1248 648"/>
+    <path d="M-120 524 C168 442 490 448 758 512 C978 562 1138 658 1248 772"/>
+  </g>
+  <g fill="none" stroke="#4e3d2c" stroke-opacity=".34" stroke-width="3">
+    <path d="M18 208 C42 348 24 548 -22 760 M122 178 C148 326 134 552 92 804 M236 154 C250 310 242 564 210 830 M356 140 C368 302 364 572 338 852 M480 134 C488 304 484 580 464 864 M608 136 C612 308 610 588 594 870 M736 150 C738 318 730 580 708 856 M862 176 C858 332 842 574 814 832 M978 214 C968 354 944 568 906 800"/>
+  </g>
+</g>
+
+<!-- rim and lining -->
+<g filter="url(#shadow)">
+  <path d="M-20 196 C244 94 708 92 1042 184 C1090 198 1106 226 1090 252 C1048 288 964 306 858 310 C606 318 248 304 66 264 C-4 248 -28 214 -20 196Z" fill="#d9c2a2"/>
+  <path d="M50 200 C322 118 690 120 1006 196 C1024 200 1028 218 1010 228 C938 258 786 272 610 274 C386 274 176 254 66 224 C40 216 38 208 50 200Z" fill="#ecdfcb"/>
+  <path d="M180 234 C306 198 480 190 622 198 C764 208 858 230 890 252 C828 282 690 294 518 288 C362 280 234 262 180 234Z" fill="#f5ecdf" opacity=".9"/>
+  <path d="M190 234 C318 208 470 200 606 208 C732 214 816 232 862 250" fill="none" stroke="#b59e82" stroke-width="4"/>
+  <path d="M204 254 C320 232 462 226 592 232 C716 238 788 252 828 268" fill="none" stroke="#c8b49a" stroke-width="2" stroke-dasharray="5 10"/>
+  <path d="M222 254 C210 292 222 340 268 372 M758 266 C780 304 770 336 736 358" fill="none" stroke="#a78f73" stroke-width="3"/>
+  <g stroke="#bda88f" stroke-width="2">
+    <path d="M270 214 C278 230 274 246 264 258 M320 206 C326 222 324 238 314 250 M370 200 C376 214 372 230 364 240"/>
+  </g>
+</g>
+
+<!-- folded washed-cotton throw resting inside the basket -->
+<g filter="url(#shadow)">
+  <path d="M170 240 C300 194 548 184 742 216 C838 232 880 258 858 290 C826 330 690 348 538 338 C376 328 230 302 166 268 C150 256 152 248 170 240Z" fill="#e7dbca"/>
+  <path d="M202 248 C330 212 536 206 708 228 C784 238 818 254 806 278 C770 310 664 324 534 316 C394 308 252 286 198 262Z" fill="#f4ebe0"/>
+  <path d="M202 262 C330 244 520 238 700 252 C780 260 814 274 790 294 C728 316 614 324 488 314 C358 306 250 290 204 274Z" fill="#ece1d2" opacity=".9"/>
+  <g fill="none" stroke="#b8a58d" stroke-width="2.4">
+    <path d="M222 270 C344 248 528 242 694 258 C756 264 792 276 780 288"/>
+    <path d="M248 292 C386 274 556 270 704 284 C744 288 768 298 760 306"/>
+  </g>
+  <path d="M214 276 C244 300 252 330 240 352 M350 290 C360 316 356 338 344 352 M758 272 C780 292 790 312 786 330" fill="none" stroke="#b6a288" stroke-width="3"/>
+  <path d="M476 238 C552 224 636 228 704 248" fill="none" stroke="#b59f83" stroke-width="5" stroke-linecap="round"/>
+  <path d="M320 286 C452 270 602 270 716 286" fill="none" stroke="#a17f5f" stroke-opacity=".42" stroke-width="8"/>
+  <path d="M240 352 l-6 28 M350 354 l2 26 M780 332 l10 22" stroke="#b8a58d" stroke-width="3"/>
+</g>
+<g opacity=".4" fill="none" stroke="#5d4732" stroke-width="2.4">
+  <path d="M120 236 C160 300 188 390 208 470 M300 204 C330 280 352 374 364 450 M488 186 C504 266 512 354 514 426 M666 200 C674 272 672 354 660 426 M824 236 C810 304 792 374 770 438"/>
+</g>
+<g fill="#f8ead4" opacity=".28">
+  <circle cx="238" cy="142" r="3"/><circle cx="1020" cy="208" r="2.2"/><circle cx="908" cy="754" r="2.6"/>
+</g>
+<rect width="1200" height="900" fill="url(#strawFiber)" opacity=".55"/>
+<rect width="1200" height="900" fill="url(#vignette)" opacity="0.44"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity="0.5"/>
+</svg>
