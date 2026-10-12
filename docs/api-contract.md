@@ -16,10 +16,11 @@
 - 所有变更状态的方法（POST/PATCH/DELETE）必须是 `application/json`，且带 `X-OpenShop-CSRF`，值来自最近一次 `/api/session`、登录或注册响应；不匹配返回 403 `CSRF_FAILED`。不信任 Origin 作为唯一 CSRF 防御。
 - `GET /api/session` 可创建游客会话（HttpOnly Cookie）。**前端启动必须先取得会话再发写请求**。
 - 游客可浏览、收藏、加购；结算/地址/订单需登录。商家接口需 seller 角色且只能操作自己的 shop。
+- **跨用户/跨店铺资源访问统一返回 404 `NOT_FOUND`**（已登录但对象不属于当前用户或商家时，不泄露对象是否存在）；未登录仍 401。前端文案用“地址不存在或无权访问”这类不泄露存在性的表述。
 - 所有校验失败返回：
   - 400 `VALIDATION_ERROR`（字段错误放 `error.fields`）
   - 401 `AUTH_REQUIRED`
-  - 403 `FORBIDDEN` / `CSRF_FAILED`
+  - 403 `CSRF_FAILED`（仅安全令牌/角色能力不足；资源归属使用 404）
   - 404 `NOT_FOUND`
   - 409 `STOCK_CHANGED` / `GROUP_FULL` / `GROUP_UNAVAILABLE` / `ORDER_STATE` / `DUPLICATE_REVIEW`
   - 422 `COUPON_INVALID` / `MIXED_BUY_MODE` / `CART_EMPTY`
@@ -273,7 +274,7 @@ Address：
  "province":"上海市","city":"上海市","district":"徐汇区","detail":"漕溪北路 88 号 6 栋 502",
  "is_default":true}
 ```
-AddressInput 必须含 receiver(2-20)、phone(11 位大陆手机号，演示数据)、province/city/district/detail(5-120 字)、label(可选 ≤10)、is_default(bool)。
+AddressInput 必须含 receiver(2-20)、phone(11 位大陆手机号，演示数据)、province/city/district/detail(5-120 字)、label(可选 ≤10)、is_default(可选 bool，缺省 false；服务端在设为默认时原子取消其它默认)。访问不属于当前用户的地址 PATCH/DELETE 返回 404。
 CouponDef：
 ```json
 {"code":"WELCOME20","title":"新人见面礼","description":"满 199 减 20",
