@@ -66,10 +66,16 @@ tar -tzf /path/to/openshop-0.1.0.tar.gz
 标记完成后可运行 [tools/rehearse_release.py](../tools/rehearse_release.py)。它只操作本地文件与 loopback：
 
 ```bash
-python3 -B tools/rehearse_release.py --tag v0.1.0 --out-dir /path/to/empty-release-evidence
+# 负控自检：不需要 release tag / Node / Chromium
+python3 -B tools/rehearse_release.py --selftest --out-dir /path/to/empty-selftest-evidence
+
+# 真实源码演练：要求干净树和指向 HEAD 的 annotated tag
+python3 -B tools/rehearse_release.py --tag vX.Y.Z --out-dir /path/to/empty-release-evidence
 ```
 
-该工具会验证工作树干净、tag 是 annotated 且指向 HEAD、归档边界无脏文件，计算 SHA-256，从解包树重新跑标准库测试和仓库门，再从解包树启动真实服务并检查 `/healthz`、`/api/health`、`/api/home` 与首页 shell，最后写出 `release-summary.json` 与原始日志。**它不会 push、上传、安装 systemd 或修改任何网络入口。**
+该工具会验证工作树干净、tag 是 annotated 且指向 HEAD、归档边界无脏文件，计算 SHA-256 并写出文件清单，从解包树重新跑标准库测试和仓库门，再从解包树启动真实服务并检查 `/healthz`、`/api/health`、`/api/session`→demo buyer 登录→目录 API、`/api/home` 与首页 shell，干净停止后写出 `release-summary.json` 与原始日志。**它不会 push、上传、安装 systemd 或修改任何网络入口。**
+
+负控范围、证据、失败语义和未覆盖的部署/回滚边界见 [docs/RELEASE-REHEARSAL.md](RELEASE-REHEARSAL.md)。
 
 ## 部署
 
