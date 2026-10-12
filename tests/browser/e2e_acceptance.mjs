@@ -1364,12 +1364,22 @@ async function stageSellerShip() {
   }
   await page.goto(C.baseUrl + "/seller", { waitUntil: "domcontentloaded" });
   await assertPageReady(page, "seller-console", { contains: "/seller" });
+  // The overview can already contain the order number in "recent packages".
+  // Always open the real order tab first, otherwise the row's nearest
+  // "发货"-matching control is the tab itself rather than the ship button.
+  const sellerOrdersTab = page.getByTestId("seller-tab-orders");
+  if (await sellerOrdersTab.isVisible().catch(() => false)) {
+    await sellerOrdersTab.click({ timeout: 8000 }).catch(() => {});
+    await sleep(700);
+    await page.getByTestId("seller-orders-list").waitFor({ state: "visible", timeout: 15000 }).catch(() => {});
+    await assertPageReady(page, "seller-orders", { contains: "/seller" });
+  }
   let sellerText = await bodyText(page);
   if (!sellerText.includes(C.orderNo)) {
     const tabCandidates = [
-      page.getByRole("tab", { name: /订单|待发货|发货/ }),
-      page.getByRole("button", { name: /^订单$|订单管理|待发货|全部订单/ }),
-      page.getByRole("link", { name: /^订单$|订单管理|待发货|全部订单/ }),
+      page.getByTestId("seller-tab-orders"),
+      page.getByRole("link", { name: /订单发货|全部订单|待发货/ }),
+      page.getByRole("button", { name: /订单发货|全部订单|待发货/ }),
     ];
     for (const locator of tabCandidates) {
       const tab = await firstVisible([locator], {
