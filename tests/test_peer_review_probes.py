@@ -1,24 +1,28 @@
 #!/usr/bin/env python3
-"""Independent adversarial peer-review probes for core/auth/catalog/trade.
+"""Independent adversarial peer-review regression probes for v0.1.1.
 
-Read-only product audit. This file owns a real server on 127.0.0.1:8882
-(task-10); OPENSHOP_AUDIT_PORT can override only when 8882 is unavailable.
-It uses a fresh SQLite database and a server log under
-/hf3fs-jd/data/tmp/openshop/peer-review/. It never edits product source.
+Read-only product audit. This script owns a real server on 127.0.0.1:8882 by
+default, starts it with a fresh isolated SQLite data dir, and writes its
+evidence to a unique run directory. It never edits product source.
+
+Environment overrides (safe defaults, no 3FS dependency):
+    OPENSHOP_AUDIT_PORT           default 8882
+    OPENSHOP_AUDIT_EVIDENCE_ROOT  default <system temp>/openshop-peer-review
 
 Run:
     sudo -n -u infra python3 -B tests/test_peer_review_probes.py
 
-The suite exits non-zero when a finding probe is red. Red probes are security
-findings, not test-suite exceptions: this is an audit gate, not a happy-path
-acceptance suite. Setup failures are fatal and print the server-log tail.
+For durable evidence:
+    sudo -n -u infra env OPENSHOP_AUDIT_EVIDENCE_ROOT=/hf3fs-jd/data/tmp/openshop/peer-review         python3 -B tests/test_peer_review_probes.py
 
-Known weaknesses this run deliberately exposes (see docs/peer-review-core-api.md):
-  F-01 session identifier is not rotated on authentication
-  F-02 successful registrations reset the IP registration limiter
-  F-03 login limits are per account identifier, with no IP-wide ceiling
-  F-04 more than 100 query fields produce HTTP 500 (ValueError escapes parsing)
-  F-05 a NUL byte in a static path drops the connection without an HTTP reply
+The five historical findings F-01..F-05 are fixed in v0.1.1 and remain as
+regression probes; all 44 probes are expected PASS. The suite exits non-zero
+on any red probe and writes first-failure evidence.
+
+Three rate-probe groups restart the same server in place (same SQLite data
+dir and live sessions, append-only server log, new process => empty in-memory
+rate buckets). This is explicit fixture isolation, not a whitelist or skip.
+The obsolete seller-stub assertion is replaced by live seller role isolation.
 """
 from __future__ import annotations
 
@@ -27,7 +31,6 @@ import hashlib
 import http.client
 import http.cookiejar
 import http.cookies
-import ipaddress
 import json
 import os
 import re
@@ -37,6 +40,7 @@ import socket
 import sqlite3
 import subprocess
 import sys
+import tempfile
 import threading
 import time
 import traceback
@@ -51,7 +55,12 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 PORT = int(os.environ.get("OPENSHOP_AUDIT_PORT", "8882"))
 BASE_URL = f"http://127.0.0.1:{PORT}"
-EVIDENCE_ROOT = Path("/hf3fs-jd/data/tmp/openshop/peer-review")
+EVIDENCE_ROOT = Path(
+    os.environ.get(
+        "OPENSHOP_AUDIT_EVIDENCE_ROOT",
+        str(Path(tempfile.gettempdir()) / "openshop-peer-review"),
+    )
+)
 SAFE_METHODS = {"GET", "HEAD", "OPTIONS"}
 _MISSING = object()
 
@@ -289,19 +298,46 @@ class RunningServer:
         self.run_dir = run_dir
         self.data_dir = run_dir / "data"
         self.log_path = run_dir / "server.log"
+        self.events_path = run_dir / "server-restarts.jsonl"
         self.log_handle: Any = None
         self.proc: subprocess.Popen[bytes] | None = None
+        self.boots = 0
+        self.restart_events: list[dict[str, Any]] = []
 
-    def start(self) -> None:
-        self.run_dir.mkdir(parents=True, exist_ok=False)
-        self.data_dir.mkdir(parents=True, exist_ok=True)
-        probe = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        probe.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    def _session_count(self) -> int | None:
+        db_path = self.data_dir / "openshop.sqlite3"
+        if not db_path.is_file():
+            return None
+        conn: sqlite3.Connection | None = None
         try:
-            probe.bind(("127.0.0.1", PORT))
+            conn = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True, timeout=5)
+            row = conn.execute("SELECT COUNT(*) FROM sessions").fetchone()
+            return int(row[0]) if row else 0
+        except sqlite3.Error:
+            return None
         finally:
-            probe.close()
-        self.log_handle = open(self.log_path, "wb")
+            if conn is not None:
+                conn.close()
+
+    def _wait_for_port_free(self, timeout: float = 6.0) -> None:
+        deadline = time.monotonic() + timeout
+        last_error = ""
+        while time.monotonic() < deadline:
+            probe = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            probe.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            try:
+                probe.bind(("127.0.0.1", PORT))
+                return
+            except OSError as exc:
+                last_error = type(exc).__name__
+            finally:
+                probe.close()
+            time.sleep(0.1)
+        raise RuntimeError(f"loopback port {PORT} not free: {last_error}")
+
+    def _boot(self, *, reason: str, append_log: bool) -> None:
+        self._wait_for_port_free()
+        self.log_handle = open(self.log_path, "ab" if append_log else "wb")
         self.proc = subprocess.Popen(
             [
                 sys.executable,
@@ -325,20 +361,82 @@ class RunningServer:
             if self.proc.poll() is not None:
                 break
             if _run_health().get("ok") is True:
+                self.boots += 1
+                print(
+                    f"AUDIT_SERVER_BOOT verdict=PASS boot={self.boots} reason={reason} "
+                    f"pid={self.proc.pid} log_mode={'append' if append_log else 'fresh'} "
+                    f"data_dir={self.data_dir}",
+                    flush=True,
+                )
                 return
             time.sleep(0.2)
-        self.proc.wait(timeout=2) if self.proc.poll() is not None else None
+        if self.proc.poll() is not None:
+            self.proc.wait(timeout=2)
         try:
             tail = self.log_path.read_text(encoding="utf-8", errors="replace")[-4000:]
         except OSError:
             tail = ""
-        print("AUDIT_SETUP verdict=FAIL reason=server_not_ready", flush=True)
+        print(
+            f"AUDIT_SERVER_BOOT verdict=FAIL boot={self.boots + 1} reason={reason} "
+            f"server_not_ready log={self.log_path}",
+            flush=True,
+        )
         if tail:
             print(tail, flush=True)
-        self.stop()
+        self._stop_process()
         raise RuntimeError("audit server did not become ready")
 
-    def stop(self) -> None:
+    def start(self) -> None:
+        self.run_dir.mkdir(parents=True, exist_ok=False)
+        self.data_dir.mkdir(parents=True, exist_ok=True)
+        self._boot(reason="initial", append_log=False)
+
+    def restart(self, reason: str) -> dict[str, Any]:
+        """Restart on the same port/data dir; clears process-local rate buckets."""
+        if self.proc is None:
+            raise RuntimeError("cannot restart a server that is not running")
+        pid_before = self.proc.pid
+        sessions_before = self._session_count()
+        self._stop_process()
+        try:
+            self._boot(reason=reason, append_log=True)
+        except Exception:
+            print(
+                f"AUDIT_SERVER_RESTART verdict=FAIL reason={reason} "
+                f"pid_before={pid_before} log={self.log_path}",
+                flush=True,
+            )
+            raise
+        pid_after = self.proc.pid if self.proc is not None else None
+        sessions_after = self._session_count()
+        event = {
+            "boot": self.boots,
+            "reason": reason,
+            "pid_before": pid_before,
+            "pid_after": pid_after,
+            "sessions_before": sessions_before,
+            "sessions_after": sessions_after,
+            "sessions_preserved": sessions_before == sessions_after,
+            "data_dir": str(self.data_dir),
+            "log_mode": "append",
+        }
+        self.restart_events.append(event)
+        try:
+            with open(self.events_path, "a", encoding="utf-8") as handle:
+                handle.write(json.dumps(event, ensure_ascii=False) + "\n")
+        except OSError:
+            pass
+        print(
+            f"AUDIT_SERVER_RESTART verdict=PASS boot={self.boots} reason={reason} "
+            f"pid_before={pid_before} pid_after={pid_after} "
+            f"sessions_before={sessions_before} sessions_after={sessions_after} "
+            f"sessions_preserved={event['sessions_preserved']} "
+            f"log_mode=append data_dir_preserved=True",
+            flush=True,
+        )
+        return event
+
+    def _stop_process(self) -> None:
         proc = self.proc
         if proc is not None and proc.poll() is None:
             try:
@@ -356,12 +454,16 @@ class RunningServer:
                     proc.wait(timeout=4)
                 except subprocess.TimeoutExpired:
                     pass
+        self.proc = None
         if self.log_handle is not None:
             try:
                 self.log_handle.close()
             except OSError:
                 pass
             self.log_handle = None
+
+    def stop(self) -> None:
+        self._stop_process()
 
 
 class Audit:
@@ -957,13 +1059,52 @@ class Audit:
         return comp_detail.data or {}, other_detail.data or {}
 
     def probe_seller_scope(self) -> None:
+        guest_no_session = raw_request("GET", "/api/seller/overview")
+        guest_client = Client()
+        guest_client.session()
+        guest_session = guest_client.request("GET", "/api/seller/overview")
+        self.remember(guest_client.cookie_token())
+        self.remember(guest_client.csrf)
+
+        buyer = self.client("a")
+        buyer_overview = buyer.request("GET", "/api/seller/overview")
+        buyer_products = buyer.request("GET", "/api/seller/products")
+
         seller_client = self.seller["client"]
-        resp = seller_client.request("GET", "/api/seller/overview")
+        seller_overview = seller_client.request("GET", "/api/seller/overview")
+        seller_products = seller_client.request("GET", "/api/seller/products")
+        seller_data = seller_overview.data if isinstance(seller_overview.data, dict) else {}
+        seller_user = self.seller.get("user") or {}
+        expected_shop_id = seller_user.get("shop_id")
+        if expected_shop_id is None and isinstance(seller_user.get("shop"), dict):
+            expected_shop_id = seller_user["shop"].get("id")
+        overview_shop = seller_data.get("shop") if isinstance(seller_data.get("shop"), dict) else {}
+        overview_shop_id = overview_shop.get("id")
+
+        role_ok = bool(
+            guest_no_session.status == 401
+            and guest_no_session.error_code() == "AUTH_REQUIRED"
+            and guest_session.status == 401
+            and guest_session.error_code() == "AUTH_REQUIRED"
+            and buyer_overview.status == 403
+            and buyer_overview.error_code() == "FORBIDDEN"
+            and buyer_products.status == 403
+            and buyer_products.error_code() == "FORBIDDEN"
+            and seller_overview.status == 200
+            and seller_products.status == 200
+            and expected_shop_id is not None
+            and int(overview_shop_id or -1) == int(expected_shop_id)
+        )
         self.record(
-            "scope_seller_api_not_merged",
-            resp.status == 404,
-            f"seller_overview_http={resp.status} code={resp.error_code()} stub=apps/storefront/routes/seller.py:7-9",
-            kind="scope",
+            "authz_seller_role_isolation",
+            role_ok,
+            f"guest_no_session={guest_no_session.status}/{guest_no_session.error_code()} "
+            f"guest_session={guest_session.status}/{guest_session.error_code()} "
+            f"buyer_overview={buyer_overview.status}/{buyer_overview.error_code()} "
+            f"buyer_products={buyer_products.status}/{buyer_products.error_code()} "
+            f"seller_overview={seller_overview.status} seller_products={seller_products.status} "
+            f"seller_shop_match={int(overview_shop_id or -1) == int(expected_shop_id) if expected_shop_id is not None else None}",
+            kind="control",
         )
 
     def probe_idor(self) -> None:
@@ -2006,7 +2147,11 @@ class Audit:
     def probe_login_rate_controls(self) -> None:
         c = self.accounts["c"]
         client = Client()
-        client.session()
+        pre_restart_session = client.session()
+        self.remember(client.cookie_token())
+        self.remember(client.csrf)
+        self.server.restart("isolate_login_per_identifier_control")
+        post_restart_session = client.request("GET", "/api/session")
         failures = []
         for _ in range(8):
             resp = client.request(
@@ -2023,11 +2168,16 @@ class Audit:
         self.record(
             "rate_login_per_identifier_failure_control",
             failures == [401] * 8 and ninth.status == 429 and ninth.error_code() == "RATE_LIMITED",
-            f"first8={failures} ninth_correct={ninth.status}/{ninth.error_code()}",
+            f"first8={failures} ninth_correct={ninth.status}/{ninth.error_code()} "
+            f"pre_restart_session={pre_restart_session.status} "
+            f"post_restart_session={post_restart_session.status}/is_guest={((post_restart_session.data or {}) if isinstance(post_restart_session.data, dict) else {}).get('is_guest')}",
         )
 
         spray = Client()
-        spray.session()
+        pre_restart_spray = spray.session()
+        self.remember(spray.cookie_token())
+        self.remember(spray.csrf)
+        self.server.restart("isolate_login_cross_identifier_control")
         spray_statuses = []
         spray_codes = []
         for index in range(10):
@@ -2043,7 +2193,8 @@ class Audit:
         self.expect_probe(
             "auth_login_identifier_rotation_spray",
             rate_limited > 0,
-            f"attempts=10 distinct_identifiers=10 statuses={spray_statuses} codes={sorted(set(spray_codes))} rate_limited={rate_limited}",
+            f"attempts=10 distinct_identifiers=10 statuses={spray_statuses} codes={sorted(set(spray_codes))} "
+            f"rate_limited={rate_limited} pre_restart_session={pre_restart_spray.status}",
             finding="F-03",
             severity="Low",
             owner="Lead (core.py/auth.py rate limiter)",
@@ -2067,7 +2218,7 @@ class Audit:
             "rate_register_successful_signup_bypass",
             successes <= 5,
             f"successful_registrations_same_ip_window={successes} extra_statuses={statuses} "
-            "successful signup calls reset bucket at core.py:60 before the next call",
+            "registration IP budget permits at most 5 successful signups in this process window",
             finding="F-02",
             severity="Low",
             owner="Lead (core.py registration limiter)",
@@ -2076,7 +2227,11 @@ class Audit:
 
     def probe_register_failure_control(self) -> None:
         client = Client()
-        client.session()
+        pre_restart_session = client.session()
+        self.remember(client.cookie_token())
+        self.remember(client.csrf)
+        self.server.restart("isolate_register_failure_control")
+        post_restart_session = client.request("GET", "/api/session")
         failures = []
         for index in range(5):
             resp = client.request(
@@ -2099,7 +2254,9 @@ class Audit:
         self.record(
             "rate_register_five_failure_control",
             failures == [400] * 5 and sixth.status == 429 and sixth.error_code() == "RATE_LIMITED",
-            f"first5={failures} sixth={sixth.status}/{sixth.error_code()}",
+            f"first5={failures} sixth={sixth.status}/{sixth.error_code()} "
+            f"pre_restart_session={pre_restart_session.status} "
+            f"post_restart_session={post_restart_session.status}/is_guest={((post_restart_session.data or {}) if isinstance(post_restart_session.data, dict) else {}).get('is_guest')}",
         )
 
     def probe_logs_and_finish(self) -> None:
@@ -2120,23 +2277,90 @@ class Audit:
 
         failures = [row for row in self.results if row["verdict"] == "FAIL"]
         controls = [row for row in self.results if row["kind"] == "control"]
+        control_failures = [row for row in controls if row["verdict"] == "FAIL"]
         findings = sorted({str(row["finding"]) for row in failures if row["finding"]})
+        finding_rows = [row for row in self.results if row["kind"] == "finding"]
+        finding_passes = [row for row in finding_rows if row["verdict"] == "PASS"]
+        verdict = "FAIL" if failures else "PASS"
         result_path = self.run_dir / "probes.jsonl"
+        summary_path = self.run_dir / "run-summary.json"
+        first_failure_path = self.run_dir / "first-failure.txt"
         try:
             with open(result_path, "w", encoding="utf-8") as handle:
                 for row in self.results:
                     handle.write(json.dumps(row, ensure_ascii=False) + "\n")
         except OSError:
             pass
+
+        summary = {
+            "verdict": verdict,
+            "generated_at": _now_stamp(),
+            "argv": sys.argv,
+            "python": sys.executable,
+            "port": PORT,
+            "base_url": BASE_URL,
+            "evidence_root": str(EVIDENCE_ROOT),
+            "evidence_root_env": os.environ.get("OPENSHOP_AUDIT_EVIDENCE_ROOT"),
+            "audit_port_env": os.environ.get("OPENSHOP_AUDIT_PORT"),
+            "test_script": str(Path(__file__).resolve()),
+            "run_dir": str(self.run_dir),
+            "data_dir": str(self.server.data_dir),
+            "server_log": str(self.log_path),
+            "probes_file": str(result_path),
+            "summary_file": str(summary_path),
+            "probe_count": len(self.results),
+            "probes_passed": sum(1 for row in self.results if row["verdict"] == "PASS"),
+            "failure_count": len(failures),
+            "control_count": len(controls),
+            "control_failures": len(control_failures),
+            "controls_all_pass": not control_failures,
+            "finding_probe_count": len(finding_rows),
+            "finding_probes_passed": len(finding_passes),
+            "finding_probes_all_pass": len(finding_passes) == len(finding_rows),
+            "failing_findings": findings,
+            "finding_probes": [
+                {"probe": row["probe"], "finding": row["finding"], "verdict": row["verdict"]}
+                for row in finding_rows
+            ],
+            "server_boots": self.server.boots,
+            "restart_count": len(self.server.restart_events),
+            "restarts": self.server.restart_events,
+            "restart_events_file": str(self.server.events_path),
+            "server_log_append_restarts": bool(self.server.restart_events),
+        }
+        if failures:
+            first = failures[0]
+            first_failure = {
+                "at": _now_stamp(),
+                "first_failure": first,
+                "verdict": verdict,
+                "server_log": str(self.log_path),
+            }
+            try:
+                with open(first_failure_path, "w", encoding="utf-8") as handle:
+                    handle.write(json.dumps(first_failure, ensure_ascii=False, indent=2) + "\n")
+            except OSError:
+                first_failure_path = None
+        else:
+            first_failure_path = None
+        if first_failure_path is not None:
+            summary["first_failure_file"] = str(first_failure_path)
+        try:
+            with open(summary_path, "w", encoding="utf-8") as handle:
+                handle.write(json.dumps(summary, ensure_ascii=False, indent=2) + "\n")
+        except OSError:
+            pass
         print(
             f"AUDIT_FINDINGS verdict={'FAIL' if findings else 'PASS'} ids={','.join(findings) or None} "
-            f"fail_probes={len(failures)}",
+            f"fail_probes={len(failures)} finding_probes_passed={len(finding_passes)}/{len(finding_rows)}",
             flush=True,
         )
         print(
-            f"PEER_REVIEW verdict={'FAIL' if failures else 'PASS'} probes={len(self.results)} "
+            f"PEER_REVIEW verdict={verdict} probes={len(self.results)} "
             f"controls={len(controls)} failures={len(failures)} findings={len(findings)} "
-            f"run_dir={self.run_dir} server_log={self.log_path.name} results={result_path.name}",
+            f"server_boots={self.server.boots} restarts={len(self.server.restart_events)} "
+            f"run_dir={self.run_dir} server_log={self.log_path.name} "
+            f"results={result_path.name} summary={summary_path.name}",
             flush=True,
         )
 

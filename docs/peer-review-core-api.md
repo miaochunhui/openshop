@@ -1,6 +1,8 @@
 # Peer Review：核心 / 认证 / 目录 / 交易 API 安全审计
 
-> **2026-10-13 修复更新**：下面第 1–3 节保留**修复前**审计快照。F-01～F-05 已全部修复，修复后同一 finding probes 均转为 PASS；复核记录、剩余测试夹具限制与 QA 现行验收见文末「修复后复核」。不要再把本页开头的历史 verdict 当作当前产品状态。本报告保留原始失败与不覆盖边界。
+> **2026-10-13 task-13 三方整合后复验（当前状态）**：v0.1.1 ce6378c 上，固定命令单次串行运行 44/44 probes PASS；F-01～F-05 五个 finding 回归探针均 PASS；controls=39、failures=0、findings=0。此前 3 个非 finding 红项已用现行 seller RBAC 检查替换过时 scope，并通过同库原地进程重启隔离两个限速控制，详见文末「三方整合后复验」。本页下方保留完整历史快照。
+>
+> **2026-10-13 修复更新（历史）**：下面第 1–3 节保留**修复前**审计快照。F-01～F-05 已全部修复，修复后同一 finding probes 均转为 PASS；复核记录、剩余测试夹具限制与 QA 现行验收见文末「修复后复核」。不要再把本页开头的历史 verdict 当作当前产品状态。本报告保留原始失败与不覆盖边界。
 
 - 任务：task-10，独立对抗审查；base master a3c30a9（已合 catalog + trade）。
 - Worktree：/data/dev/openshop-wt-peer-review；branch：seat/peer-review。
@@ -144,6 +146,8 @@
 
 ## 未覆盖与限制
 
+> 本节保留 task-10 时点的历史范围。seller 已在 v0.1.1 合入；task-13 已用当前授权探针覆盖角色门禁和卖家店铺归属，见文末。
+
 - seller API 未合入（apps/storefront/routes/seller.py 为 register-only stub）。商家资源、库存修改、发货、售后审核及其跨店 IDOR 未测试。
 - 前端页面仍多为 stub，且本次不做浏览器执行；存储型/反射型 XSS 的最终渲染安全、CSP 在真实 DOM 上的行为未覆盖。API 只保证 JSON 与安全头基础面。
 - 未验证真实 TLS、Caddy 反代 client IP、HSTS、生产 OPENSHOP_SECURE_COOKIES；Secure 仅通过 X-Forwarded-Proto 模拟验证。
@@ -192,8 +196,142 @@
 
 上述两项限制不再作为产品未收项，但也不伪称完整 44 探针在单一运行内全绿。F-01～F-05 的 finding 结论以逐项 probe 为准。
 
+> **task-13 后续状态（2026-10-13）**：上述 3 条非产品红项已解决。过时的 seller stub scope 断言已被现行 guest/buyer/seller RBAC 检查替换；两个 rate control 通过同 SQLite data_dir、保留 session、追加 server log 的真实进程原地重启，在新的空内存限速桶中独立复跑。当前单次串行验收为 44/44 PASS、failures=0、findings=0；本段中“44 探针不全绿”的描述仅对历史运行有效。原始失败证据见「三方整合后复验」。
+
 ### 仍未覆盖
 
 - seller 的 IDOR/发货/售后安全由后续 QA 的真实 API/浏览器验收覆盖（API-040/041/052 等），不是本早先审计的运行范围。
 - 分布式、多进程、真实反代/TLS/生产容量和拼团后台过期清理没有在本报告内验证。
 - 本报告不是公网渗透测试或生产合规证明。
+
+---
+
+## 三方整合后复验（task-13，v0.1.1 ce6378c，2026-10-13）
+
+结论：当前 44/44 probes PASS，五个 finding 回归探针 F-01 至 F-05 全部 PASS，39 个 control 全部 PASS，failures=0，findings=0，exit code=0。本任务只修改 tests/test_peer_review_probes.py 与本报告，没有修改产品代码。branch=seat/peer-review-v011，base=ce6378c；交付 commit SHA 见 Lead 收件简报与 3FS evidence manifest。
+
+固定复跑命令（默认 127.0.0.1:8882，真实服务、fresh 隔离 data_dir）：
+
+    cd /data/dev/openshop-wt-peer-review
+    sudo -n -u infra python3 -B tests/test_peer_review_probes.py
+
+本次权威证据复跑命令（额外指定证据根，端口仍为 8882）：
+
+    cd /data/dev/openshop-wt-peer-review
+    sudo -n -u infra env \
+      OPENSHOP_AUDIT_EVIDENCE_ROOT=/hf3fs-jd/data/tmp/openshop/peer-review/task13-acceptance \
+      python3 -B tests/test_peer_review_probes.py
+
+端口支持 OPENSHOP_AUDIT_PORT 环境覆盖；证据根支持 OPENSHOP_AUDIT_EVIDENCE_ROOT 覆盖。默认证据根是系统 temp 下的 openshop-peer-review，不依赖 3FS；本次显式覆盖到 3FS。控制台原始输出另存：
+
+    /hf3fs-jd/data/tmp/openshop/peer-review/task13-acceptance/console.log
+
+本次权威证据 run：
+
+    /hf3fs-jd/data/tmp/openshop/peer-review/task13-acceptance/run-20261012T175605533749-607951/
+      probes.jsonl              44 条逐探针原始判定
+      server.log                4 次真实启动的追加日志
+      server-restarts.jsonl     3 次原地重启的原始事件
+      run-summary.json          verdict/计数/boot/session/restart/环境汇总
+      data/                     同一隔离 SQLite，跨重启保留
+
+原始总判定：
+
+    AUDIT_SETUP verdict=PASS url=http://127.0.0.1:8882
+    AUDIT_FIXTURE verdict=PASS products=18 essential_accounts=3
+    AUDIT_FINDINGS verdict=PASS ids=None fail_probes=0 finding_probes_passed=5/5
+    PEER_REVIEW verdict=PASS probes=44 controls=39 failures=0 findings=0 server_boots=4 restarts=3
+
+44 = 39 controls + 5 个 finding 回归探针。旧的 1 个 scope seller stub 检查已升级为现行 seller RBAC 控制，所以 controls 从 38 变为 39，probe 总数仍为 44。
+
+### 五个历史 finding 回归（全部 PASS）
+
+    PROBE auth_session_identifier_rotation verdict=PASS finding=F-01
+      token_rotated=True csrf_rotated=True old_cookie_after_is_guest=True
+    PROBE rate_register_successful_signup_bypass verdict=PASS finding=F-02
+      successful_registrations_same_ip_window=5 extra_statuses=[200, 200, 429]
+    PROBE auth_login_identifier_rotation_spray verdict=PASS finding=F-03
+      attempts=10 distinct_identifiers=10 statuses=[401x8, 429, 429] rate_limited=2
+    PROBE input_query_field_limit verdict=PASS finding=F-04
+      http=400 code=VALIDATION_ERROR
+    PROBE input_nul_byte_static_path verdict=PASS finding=F-05
+      http=400 transport_error=None health_after=True
+
+### 当前 seller 授权检查（替换过时 stub 断言，不删 coverage）
+
+    PROBE authz_seller_role_isolation verdict=PASS kind=control
+      guest_no_session=401/AUTH_REQUIRED
+      guest_session=401/AUTH_REQUIRED
+      buyer_overview=403/FORBIDDEN
+      buyer_products=403/FORBIDDEN
+      seller_overview=200
+      seller_products=200
+      seller_shop_match=True
+
+使用真实 demo seller 会话、真实 buyer 会话、无 cookie 与游客会话；同时要求 seller overview 返回的 shop 与 seller 自身绑定的 shop 一致。不是 404/stub 断言，也不是空断言。
+
+### 三个控制红项的首因与合法隔离
+
+隔离前（v0.1.1 修复后但审计夹具未隔离）真实运行证据：
+
+    /hf3fs-jd/data/tmp/openshop/peer-review/task13-pre-fix/initial-console.log
+    /hf3fs-jd/data/tmp/openshop/peer-review/run-20261012T174202116579-310756/
+      probes.jsonl
+      server.log
+
+    原始判定：PEER_REVIEW verdict=FAIL probes=44 controls=38 failures=3 findings=0
+    scope_seller_api_not_merged FAIL seller_overview_http=200
+    rate_login_per_identifier_failure_control FAIL
+      first8=[401,401,401,401,401,429,429,429] ninth_correct=429
+    rate_register_five_failure_control FAIL
+      first5=[429,429,429,429,429] sixth=429
+
+这三项不是新增产品漏洞：F-01 至 F-05 五个 finding probe 在同一首跑中已全部 PASS；失败的是过时 scope 断言和两个被前面探针提前消耗额度的 control。
+
+合法修复，没有白名单、skip 或放宽断言：
+
+1. 把 seller stub/404 断言换成上述 guest/buyer/seller 真实 RBAC 与 seller-shop 匹配检查。
+2. 增加真实进程原地重启：相同 SQLite data_dir、保留 session/CSRF、server.log 以 append 续写；新进程只有内存限速桶为空。
+3. 三个 rate 控制各在自己的干净 boot 中运行，序列断言保持原样。
+4. 重启检查不计入 44 条 probe；每个重启都写入独立原始事件文件并在总 summary 中列出。
+
+本次三次重启的原始事件：
+
+    boot 2  reason=isolate_login_per_identifier_control   sessions 23 -> 23
+    boot 3  reason=isolate_login_cross_identifier_control sessions 24 -> 24
+    boot 4  reason=isolate_register_failure_control        sessions 25 -> 25
+
+细节说明：每次 events 记录 pid_before、pid_after、sessions_before、sessions_after、data_dir、log_mode=append；session 计数在每组内相等，重启前后 server.log 中共有 4 条 OPENSHOP_START。限速控制使用的 guest 会话在重启前创建，重启后继续被接受（pre/post session=200），证明 session/CSRF 数据未丢。
+
+干净额度下的原始控制行：
+
+    PROBE rate_login_per_identifier_failure_control verdict=PASS
+      first8=[401,401,401,401,401,401,401,401]
+      ninth_correct=429/RATE_LIMITED
+      pre_restart_session=200 post_restart_session=200/is_guest=True
+
+    PROBE auth_login_identifier_rotation_spray verdict=PASS finding=F-03
+      attempts=10 distinct_identifiers=10
+      statuses=[401,401,401,401,401,401,401,401,429,429]
+      codes=[INVALID_CREDENTIALS,RATE_LIMITED] rate_limited=2
+      pre_restart_session=200
+
+    PROBE rate_register_five_failure_control verdict=PASS
+      first5=[400,400,400,400,400] sixth=429/RATE_LIMITED
+      pre_restart_session=200 post_restart_session=200/is_guest=True
+
+意义：per-identifier 控制从空登录桶开始；per-IP 跨 identifier 的 F-03 探针从另一空 IP 桶开始（10 个不同 identifier，前 8 个 401、后 2 个 429），register failure 控制从空注册桶开始。三个前提都独立成立，无跨 probe 污染；F-03 断言未改。
+
+### 其余控制与总体验收
+
+本次 44 条 probe 的所有非 finding 控制均 PASS，包括 Cookie 属性、CSRF 正/负对照和旋转、登出撤销、密码 PBKDF2/session token 哈希/日志无凭据、地址/购物车/订单/收藏/事件/优惠券/评价越权、价格权威、数量与 SKU、并发库存、幂等重放/冲突、订单状态机、优惠券、拼团进度/满团竞态/跨团跨 SKU、SQL/LIKE、静态路径、CORS/CSP、反射内容和服务存活。完整逐条结果见本次 probes.jsonl；没有删除、跳过或将红项记为绿。
+
+### 本轮未覆盖
+
+- seller 当前只覆盖 RBAC 门禁、seller-only 读接口和自身 shop 归属；完整商家跨店 IDOR、发货、退款审批仍由独立 seller/QA 套件验收，不属本 44-probe 套件新增范围。
+- 浏览器端 XSS 最终渲染、真实 TLS/Caddy、反代 client IP、HSTS、生产 OPENSHOP_SECURE_COOKIES 未测。
+- 并发仅为固定两请求场景；限速隔离以真实进程重启重置进程内存桶，不等于多进程/分布式限速验证。
+- 拼团过期后台清理、真实支付/物流、生产容量不在此次范围。
+- 本轮未发现新的产品漏洞，未修改 apps/packages/contracts；这是夹具/当前授权覆盖的复验，不代表全站或公网安全证明。
+
+本节取代第 1 至 3 节历史 FAIL 以及「修复后复核」中“尚非完整 44 全绿”的旧状态说明；历史结论、原始失败与首因证据均保留，以便独立复核。
