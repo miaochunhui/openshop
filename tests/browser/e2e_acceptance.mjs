@@ -211,6 +211,15 @@ async function fetchCatalogFixture(baseUrl) {
   throw new Error("no browsable product has an in-stock official self default offer for the merchant journey");
 }
 
+async function visibleDialog(page) {
+  const dialogs = page.locator('[role="dialog"]');
+  const count = await dialogs.count().catch(() => 0);
+  for (let i = 0; i < count; i += 1) {
+    if (await dialogs.nth(i).isVisible().catch(() => false)) return dialogs.nth(i);
+  }
+  return null;
+}
+
 function normalizeAvailableCoupons(couponData) {
   const defs = new Map();
   for (const item of (couponData && couponData.available) || []) {

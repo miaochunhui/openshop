@@ -565,6 +565,7 @@ class ApiSuite:
         c = self._need("catalog_client", "API-020")
         cards = self._need("product_cards", "API-022")
         main_offer: OfferChoice | None = None
+        main_unit_price = -1
         group_offer: OfferChoice | None = None
         self.product_details = {}
         for card in cards:
@@ -594,22 +595,28 @@ class ApiSuite:
                 for key in ("id", "kind", "name", "shop", "price_cents", "market_price_cents", "stock", "services"):
                     require(key in offer, f"product {slug} offer[{index}] missing {key}")
                 require(isinstance(offer["shop"], dict) and isinstance(offer["shop"].get("slug"), str), f"product {slug} offer[{index}].shop invalid")
-                if main_offer is None and offer["shop"].get("slug") == "openshop-self" and int(offer.get("stock", 0)) > 0:
+                if offer["shop"].get("slug") == "openshop-self" and int(offer.get("stock", 0)) > 0:
                     unit = int(offer["price_cents"]) + int(sku["price_delta_cents"])
-                    main_offer = OfferChoice(
-                        product_slug=slug,
-                        product_title=str(detail.get("title") or card.get("title") or slug),
-                        offer_id=int(offer["id"]),
-                        sku_id=int(sku["id"]),
-                        sku_name=str(sku.get("name") or ""),
-                        unit_price_cents=unit,
-                        shop_id=int(offer["shop"].get("id")),
-                        shop_slug=str(offer["shop"]["slug"]),
-                        shop_kind=str(offer["shop"].get("kind") or offer.get("kind")),
-                        stock=int(offer["stock"]),
-                        kind=str(offer.get("kind")),
-                    )
-                    self.main_detail = detail
+                    # The coupon journey must be able to clear the real
+                    # threshold coupons seeded for the demo buyer. Choose the
+                    # highest-priced self-operated offer encountered rather
+                    # than whichever appears first in featured order.
+                    if unit > main_unit_price:
+                        main_unit_price = unit
+                        main_offer = OfferChoice(
+                            product_slug=slug,
+                            product_title=str(detail.get("title") or card.get("title") or slug),
+                            offer_id=int(offer["id"]),
+                            sku_id=int(sku["id"]),
+                            sku_name=str(sku.get("name") or ""),
+                            unit_price_cents=unit,
+                            shop_id=int(offer["shop"].get("id")),
+                            shop_slug=str(offer["shop"]["slug"]),
+                            shop_kind=str(offer["shop"].get("kind") or offer.get("kind")),
+                            stock=int(offer["stock"]),
+                            kind=str(offer.get("kind")),
+                        )
+                        self.main_detail = detail
                 group = offer.get("group")
                 if (
                     group_offer is None
@@ -640,8 +647,6 @@ class ApiSuite:
             require(isinstance(reviews.get("items"), list), f"product {slug}: reviews.items missing")
             related = detail.get("related")
             require(isinstance(related, list), f"product {slug}: related must be list")
-            if main_offer is not None and group_offer is not None:
-                break
         require(main_offer is not None, "no in-stock openshop-self offer with valid SKU found in catalog fixture")
         require(group_offer is not None, "no in-stock 2/3-person group offer found in catalog fixture")
         self.main_offer = main_offer
