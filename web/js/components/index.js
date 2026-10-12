@@ -1,6 +1,6 @@
 // Shared UI primitives. All dynamic text must be escaped before insertion.
-import { api, ApiError } from "./core/api.js";
-import { applySession, state } from "./core/store.js";
+import { api, ApiError } from "../core/api.js";
+import { applySession, state } from "../core/store.js";
 
 export function escapeHtml(value) {
   return String(value ?? "")

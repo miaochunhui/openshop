@@ -176,7 +176,8 @@ OrderSummary 外加：
 {"packages":[{"id":4,"shop":{"id":1,"name":"OpenShop 自营","kind":"self"},"status":"PENDING","status_label":"待发货",
   "carrier":null,"tracking_no":null,"shipped_at":null,
   "items":[{"id":31,"product_id":3,"slug":"cloud-sofa","title":"云朵模块沙发","cover":"…","sku_label":"雾灰 / 双人位",
-    "unit_price_cents":359900,"quantity":1,"offer_kind":"self","services":["正品保障"]}],
+    "unit_price_cents":359900,"quantity":1,"offer_kind":"self","services":["正品保障"],
+    "reviewable":false,"reviewed":false}],
   "events":[{"label":"订单已创建","detail":"等待付款","created_at":"…"}]}],
  "timeline":[{"label":"订单已创建","detail":"等待付款","created_at":"…"}],
  "actions":{"pay":true,"cancel":true,"confirm":false,"review":false,"refund":false,"view_group":false}}
@@ -318,7 +319,10 @@ UserCoupon 额外 `{"user_coupon_id":7,"status":"AVAILABLE","used_at":null}`。
 - **支付**：仅 `demo`；模拟成功可审计且明确 demo。普通订单 -> PAID；group 订单 -> GROUP_FORMING，等待团满后所有已付款成员订单变 PAID。付款事件写 timeline。不得自动确认收货。
 - **GROUP_FORMING 取消**：允许取消未成团且未发货的订单，释放 group slot，退款（模拟）并恢复库存/优惠券。成团后不能直接取消，走售后。
 - **确认收货**：需所有 package 已发货；转 COMPLETED，写事件，评价窗口打开。
-- **评价**：需订单 COMPLETED 且商品包含在此订单；每个 order_item 只能评价一次；rating 1-5，title ≤40，body 10-600；返回新 Review。需要防重复与越权。
+- **评价**：需订单 COMPLETED 且商品包含在此订单；每个 order_item 只能评价一次；rating 1-5，title ≤40，body 10-600；需要防重复与越权。
+  - OrderDetail 的 `packages[].items[].id` **就是 order_items.id**（稳定评价目标）。每项另含 `reviewable:boolean`（当前订单/当前用户是否还能评）与 `reviewed:boolean`；`actions.review` 为真表示至少有一项可评。
+  - 请求固定为 `{"reviews":[{"item_id":31,"rating":5,"title":"很好用","body":"至少十个字的具体评价内容。","tags":["质感好"]}]}`。1-20 项/次；可只评价其中若干项；重复 item_id、非本订单 item、未完成、已评过 -> 409 `DUPLICATE_REVIEW`/400/409 明确错误。返回 `{"reviews":[Review]}`。
+  - 评价成功后必须重算该商品真实 rating 与 review_count 聚合并更新商品；不得只写评论不改聚合。
 
 GroupView：
 ```json

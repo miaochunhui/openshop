@@ -74,6 +74,14 @@ export async function loadCategories({ signal } = {}) {
   return loadCategoriesPromise;
 }
 
+export async function refreshCart({ signal } = {}) {
+  const cart = await api.get("/api/cart", { signal });
+  const count = Number(cart?.summary?.item_count ?? 0);
+  state.cartCount = Math.max(0, count);
+  emit();
+  return cart;
+}
+
 export async function logout() {
   const session = await api.post("/api/auth/logout", {});
   applySession(session);
