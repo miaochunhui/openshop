@@ -117,6 +117,18 @@ def choose_port(requested: int | None) -> int:
         return int(probe.getsockname()[1])
 
 
+def choose_unique_ports(count: int, exclude: set[int] | None = None) -> list[int]:
+    used = set(exclude or ())
+    ports: list[int] = []
+    while len(ports) < count:
+        candidate = choose_port(None)
+        if candidate in used:
+            continue
+        used.add(candidate)
+        ports.append(candidate)
+    return ports
+
+
 def wait_for_http(url: str, timeout: float = 40.0) -> bytes:
     deadline = time.monotonic() + timeout
     last_error = "not attempted"
@@ -443,14 +455,26 @@ def main() -> int:
         summary["checks"]["archive_boundary"] = "PASS"
         summary["archive_members"] = archive_info["members"]
 
+        # Each backend suite owns a real server. Give this rehearsal isolated
+        # ports so it can run alongside other developer/agent tests that use
+        # the default 8861/8862/8865 ports.
+        catalog_port, trade_port, seller_port = choose_unique_ports(3, exclude={port})
         env = dict(os.environ)
         env.update(
             {
                 "PYTHONDONTWRITEBYTECODE": "1",
                 "OPENSHOP_TMP_BASE": str(out_dir / "test-tmp"),
                 "TMPDIR": str(out_dir / "test-tmp"),
+                "OPENSHOP_CATALOG_TEST_PORT": str(catalog_port),
+                "OPENSHOP_TRADE_TEST_PORT": str(trade_port),
+                "OPENSHOP_SELLER_TEST_PORT": str(seller_port),
             }
         )
+        summary["unit_test_ports"] = {
+            "catalog": catalog_port,
+            "trade": trade_port,
+            "seller": seller_port,
+        }
         (out_dir / "test-tmp").mkdir(parents=True, exist_ok=True)
 
         run_checked(
