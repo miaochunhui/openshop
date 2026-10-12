@@ -251,6 +251,17 @@
   ],
   "coupons": [
     {
+      "code": "FIRST12",
+      "title": "初见见面礼",
+      "description": "无门槛减 ¥12",
+      "threshold_cents": 0,
+      "discount_cents": 1200,
+      "scope": "all",
+      "valid_days": 30,
+      "auto_claim_new_user": true,
+      "quantity": 2000
+    },
+    {
       "code": "HELLO20",
       "title": "新人见面礼",
       "description": "满 ¥199 减 ¥20",
