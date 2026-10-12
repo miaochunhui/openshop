@@ -274,8 +274,8 @@ export function openAuth({ reason = "", onSuccess = null, preferSeller = false }
       <p>${escapeHtml(reason || "登录后可跨设备保留购物车、地址与订单。演示环境不会真实扣款。")}</p>
     </div>
     <div class="auth-demos">
-      <button class="demo-account" type="button" data-demo="buyer"><span class="demo-avatar">林</span><span><b>买家演示 · 林澄</b><em>已有历史订单与地址</em></span><span aria-hidden="true">→</span></button>
-      <button class="demo-account demo-account--seller" type="button" data-demo="seller"><span class="demo-avatar">周</span><span><b>商家演示 · 周屿</b><em>OpenShop 自营 · 处理发货</em></span><span aria-hidden="true">→</span></button>
+      <button class="demo-account" type="button" data-demo="buyer" data-testid="demo-buyer"><span class="demo-avatar">林</span><span><b>买家演示 · 林澄</b><em>已有历史订单与地址</em></span><span aria-hidden="true">→</span></button>
+      <button class="demo-account demo-account--seller" type="button" data-demo="seller" data-testid="demo-seller"><span class="demo-avatar">周</span><span><b>商家演示 · 周屿</b><em>OpenShop 自营 · 处理发货</em></span><span aria-hidden="true">→</span></button>
     </div>
     <div class="auth-separator"><span>或使用账号</span></div>
     <div class="auth-tabs" role="tablist" aria-label="登录或注册">
