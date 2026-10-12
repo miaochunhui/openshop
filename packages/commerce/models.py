@@ -18,6 +18,7 @@ STATUS_LABELS = {
     "SHIPPED": "待收货",
     "COMPLETED": "已完成",
     "CANCELLED": "已取消",
+    "REFUNDING": "售后处理中",
     "REFUNDED": "已退款",
 }
 PACKAGE_STATUS_LABELS = {"PENDING": "待发货", "SHIPPED": "运输中", "DELIVERED": "已送达", "CANCELLED": "已取消"}

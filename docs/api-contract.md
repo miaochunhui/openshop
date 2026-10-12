@@ -277,9 +277,10 @@ AddressInput 必须含 receiver(2-20)、phone(11 位大陆手机号，演示数�
 CouponDef：
 ```json
 {"code":"WELCOME20","title":"新人见面礼","description":"满 199 减 20",
- "threshold_cents":19900,"discount_cents":20000,"scope":"all","expires_at":"…",
+ "threshold_cents":19900,"discount_cents":20000,"scope":"all","expires_at":null,
  "claimed":true,"claimable":false,"remaining":null}
 ```
+- 未领取券不知道领取后到期日，`expires_at` 固定返回 `null`（不得伪造未来日期）；已领取券以 user_coupon.expires_at 填值。接口可只返回 `mine` 中有效的 AVAILABLE/USED 记录。
 UserCoupon 额外 `{"user_coupon_id":7,"status":"AVAILABLE","used_at":null}`。
 
 ### 2.4 购物车与交易（backend-trade 席）
@@ -298,7 +299,7 @@ UserCoupon 额外 `{"user_coupon_id":7,"status":"AVAILABLE","used_at":null}`。
 | POST | `/api/orders/{order_no}/pay` | owner | `{payment_method:"demo"}` -> OrderDetail |
 | POST | `/api/orders/{order_no}/cancel` | owner | `{reason?}` -> OrderDetail，恢复库存/购物车不恢复 |
 | POST | `/api/orders/{order_no}/confirm` | owner | 仅 SHIPPED / 包裹已发 -> OrderDetail |
-| POST | `/api/orders/{order_no}/refund` | owner | `{reason,kind:"refund_only"|"return_refund",detail?}` -> OrderDetail |
+| POST | `/api/orders/{order_no}/refund` | owner | 整单单店铺；`{reason,kind:"refund_only"|"return_refund",detail?}` -> OrderDetail；多店铺/状态不符 422 `AFTER_SALES_UNSUPPORTED`/409 `ORDER_STATE` |
 | POST | `/api/orders/{order_no}/reviews` | owner | 一次提交整单评价（逐 item）；返回 `{reviews:[Review]}` |
 | GET | `/api/groups/{code}` | public | GroupView |
 | POST | `/api/coupons/{code}/claim` | user | 同 2.3 |
@@ -318,6 +319,7 @@ UserCoupon 额外 `{"user_coupon_id":7,"status":"AVAILABLE","used_at":null}`。
 - **运费**：standard=0（全站包邮活动），express=1200；group 强制 standard。优惠券门槛按 subtotal 计算，discount 不超过 subtotal。
 - **支付**：仅 `demo`；模拟成功可审计且明确 demo。普通订单 -> PAID；group 订单 -> GROUP_FORMING，等待团满后所有已付款成员订单变 PAID。付款事件写 timeline。不得自动确认收货。
 - **GROUP_FORMING 取消**：允许取消未成团且未发货的订单，释放 group slot，退款（模拟）并恢复库存/优惠券。成团后不能直接取消，走售后。
+- **售后边界（MVP 冻结）**：只支持**整单、单店铺**售后（order_packages 恰好 1 个）；多店铺订单返回 422 `AFTER_SALES_UNSUPPORTED`。仅 PAID/SHIPPED/COMPLETED 可发起；GROUP_FORMING/PENDING_PAYMENT/CANCELLED/REFUNDED/已有处理中售后不可发起。发起后订单状态转 REFUNDING 并把原状态存 last_state_before_refund；同一时刻只允许一个 REQUESTED refund。卖家 REJECT -> refund REJECTED、订单回原状态；APPROVE -> refund APPROVED、订单 REFUNDED、恢复 offer 库存与已用优惠券（如仍可用则恢复 AVAILABLE，否则 EXPIRED），写 order_events。退货物流不在本演示范围。
 - **确认收货**：需所有 package 已发货；转 COMPLETED，写事件，评价窗口打开。
 - **评价**：需订单 COMPLETED 且商品包含在此订单；每个 order_item 只能评价一次；rating 1-5，title ≤40，body 10-600；需要防重复与越权。
   - OrderDetail 的 `packages[].items[].id` **就是 order_items.id**（稳定评价目标）。每项另含 `reviewable:boolean`（当前订单/当前用户是否还能评）与 `reviewed:boolean`；`actions.review` 为真表示至少有一项可评。
