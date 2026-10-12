@@ -8,7 +8,7 @@ loopback and exercises health, session/demo login, catalog and storefront.
 
 Run after creating the local release tag:
 
-    python3 -B tools/rehearse_release.py --tag v0.1.0 \
+    python3 -B tools/rehearse_release.py --tag vX.Y.Z \
       --out-dir /path/to/release-evidence
 
 The self-test uses only temporary local fixtures and deliberately verifies
@@ -398,7 +398,7 @@ def run_selftest(out_dir: Path) -> int:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Rehearse a local OpenShop source tag without publishing it")
-    parser.add_argument("--tag", help="existing annotated tag, e.g. v0.1.0")
+    parser.add_argument("--tag", help="existing annotated tag at HEAD, e.g. v0.1.1")
     parser.add_argument("--out-dir", required=True, type=Path, help="external evidence directory")
     parser.add_argument("--selftest", action="store_true", help="run temporary-fixture negative controls only")
     parser.add_argument("--port", type=int, default=None, help="loopback rehearsal port (default: free port)")
@@ -534,6 +534,12 @@ def main() -> int:
             data = api_health.get("data") if isinstance(api_health.get("data"), dict) else api_health
             if not isinstance(data, dict) or data.get("demo") is not True:
                 raise RehearsalFailure("api health does not declare demo=true")
+            served_version = str(data.get("version") or "")
+            if served_version != version:
+                raise RehearsalFailure(
+                    f"released server version {served_version!r} does not match tag version {version!r}"
+                )
+            summary["service_version"] = served_version
             status, home = http_json(f"http://127.0.0.1:{port}/api/home")
             if status != 200 or not isinstance(home, dict):
                 raise RehearsalFailure("public home API did not return JSON")

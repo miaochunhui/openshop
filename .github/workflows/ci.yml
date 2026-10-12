@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
-# Stdlib tests plus the fail-closed repository gate. No credentials, no installs.
+# Stdlib tests, real-HTTP concurrency acceptance and the fail-closed repository gate.
+# No credentials, no installs, no deployment.
 name: ci
 
 on:
@@ -12,7 +13,7 @@ permissions:
 
 jobs:
   verify:
-    name: stdlib-tests-and-repository-gate
+    name: stdlib-tests-concurrency-and-repository-gate
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     permissions:
@@ -30,6 +31,8 @@ jobs:
           node --version
       - name: Standard-library tests
         run: python3 -B -m unittest discover -s tests -v
+      - name: Concurrent trade acceptance (3 real-HTTP rounds)
+        run: python3 -B tests/test_trade_concurrency.py
       - name: Repository gate self-test
         run: python3 -B tools/check_repository.py --selftest
       - name: Repository gate

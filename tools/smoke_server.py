@@ -13,6 +13,7 @@ import os
 import signal
 import subprocess
 import sys
+import tempfile
 import time
 import urllib.error
 import urllib.request
@@ -25,19 +26,20 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--port", type=int, default=8791)
+    parser.add_argument("--port", type=int, default=int(os.environ.get("OPENSHOP_SMOKE_PORT", "8791")))
     parser.add_argument("--data-dir", default="")
     args = parser.parse_args()
     stamp = datetime.now().strftime("%Y%m%dT%H%M%S%f")
+    tmp_base = Path(os.environ.get("OPENSHOP_TMP_BASE", str(Path(tempfile.gettempdir()) / "openshop")))
     if args.data_dir:
         data_dir = Path(args.data_dir)
         if data_dir.exists() and any(data_dir.iterdir()):
             print(f"OPENSHOP_SMOKE verdict=FAIL reason=data_dir_not_empty path={data_dir}", flush=True)
             return 2
     else:
-        data_dir = Path("/hf3fs-jd/data/tmp/openshop/smoke") / stamp
+        data_dir = tmp_base / "smoke" / stamp
     data_dir.mkdir(parents=True, exist_ok=False)
-    log_dir = Path("/hf3fs-jd/data/tmp/openshop/logs")
+    log_dir = tmp_base / "logs"
     log_dir.mkdir(parents=True, exist_ok=True)
     log_path = log_dir / f"smoke-{stamp}.log"
     jar = http.cookiejar.CookieJar()

@@ -1,15 +1,22 @@
 #!/usr/bin/env python3
 """Deterministic real-HTTP concurrency acceptance for the trade domain.
 
-Runs three independent rounds on port 8881. Every round starts the real
-stdlib server against a fresh SQLite data dir. Buyers, their independent
-sessions/CSRF values and the scarce stock/coupon/group fixtures are created
-through the project schema before the concurrent HTTP phases. The phases use
-ThreadPoolExecutor plus a Barrier; no sleep is used as a correctness assertion.
+Runs three independent rounds on loopback port 8881 by default. Every round
+starts the real stdlib server against a fresh SQLite data dir. Buyers, their
+independent sessions/CSRF values and the scarce stock/coupon/group fixtures are
+created through the project schema before the concurrent HTTP phases. The
+phases use ThreadPoolExecutor plus a Barrier; no sleep is used as a correctness
+assertion.
 
-Evidence (server logs, DB dirs, raw scenario JSON, console log and the first
-failure traceback) is written under:
-    /hf3fs-jd/data/tmp/openshop/trade-concurrency-final/
+Environment:
+    OPENSHOP_CONCURRENCY_TEST_PORT       loopback port (default 8881)
+    OPENSHOP_CONCURRENCY_EVIDENCE_ROOT  durable evidence directory
+                                        (default $TMPDIR/openshop-trade-concurrency)
+    OPENSHOP_TMP_BASE                   optional base for default evidence root
+
+Evidence includes server logs, DB dirs, raw scenario JSON, console log and the
+first failure traceback. The test never pushes, installs services or touches
+network entry points.
 """
 from __future__ import annotations
 
@@ -23,6 +30,7 @@ import socket
 import sqlite3
 import subprocess
 import sys
+import tempfile
 import threading
 import time
 import traceback
@@ -37,9 +45,15 @@ if str(REPO_ROOT) not in sys.path:
 
 from packages.commerce import db as dbutil  # noqa: E402
 
-PORT = 8881
+PORT = int(os.environ.get("OPENSHOP_CONCURRENCY_TEST_PORT", "8881"))
 BASE_URL = f"http://127.0.0.1:{PORT}"
-EVIDENCE_ROOT = Path("/hf3fs-jd/data/tmp/openshop/trade-concurrency-final")
+_TMP_BASE = Path(os.environ.get("OPENSHOP_TMP_BASE", tempfile.gettempdir()))
+EVIDENCE_ROOT = Path(
+    os.environ.get(
+        "OPENSHOP_CONCURRENCY_EVIDENCE_ROOT",
+        str(_TMP_BASE / "openshop-trade-concurrency"),
+    )
+)
 ROUNDS = 3
 HTTP_TIMEOUT = 35
 BARRIER_TIMEOUT = 30

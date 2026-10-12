@@ -368,7 +368,7 @@ Refund decision：approve -> Order REFUNDED，写事件并恢复库存/优惠券
 
 ### 2.6 健康
 
-`GET /api/health` -> `{"ok":true,"app":"openshop","version":"0.1.0","demo":true}`（不套 data 信封，供探针直读）。
+`GET /api/health` -> `{"ok":true,"app":"openshop","version":"0.1.1","demo":true}`（不套 data 信封，供探针直读）。
 `GET /healthz` -> 纯文本 `ok`。
 
 ## 3. 前端调用约定

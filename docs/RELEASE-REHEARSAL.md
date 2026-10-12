@@ -37,7 +37,7 @@ python3 -B tools/rehearse_release.py --selftest \
 本轮自检证据（2026-10-13）：
 
 ```text
-/hf3fs-jd/data/tmp/openshop/release-selftest-20261013T011051/
+/hf3fs-jd/data/tmp/openshop/lead/final2-release-selftest-20261013T013142/
   release-selftest-summary.json
 controls=10  verdict=PASS
 ```
@@ -59,10 +59,12 @@ python3 -B tools/rehearse_release.py --tag "$VERSION" \
 1. 验证工作树干净、tag 为 annotated 且指向 HEAD；
 2. 用 `git archive` 生成带版本前缀的 tar.gz，计算 SHA-256 并写出文件清单；
 3. 审计归档路径边界、必需文件、危险后缀、运行数据库/日志/凭据形状，再解包；
-4. 在解包树运行 `unittest discover`、仓库门 selftest 与 `--check`；
-5. 用新数据目录在 loopback 启动解包服务，等待 `/healthz`，检查 `/api/health`、`/api/session`→demo buyer 登录→`/api/products`、公开首页与 `/api/home`；
+4. 在解包树运行 `unittest discover`、仓库门 selftest 与 `--check`；三套后端测试会获得隔离的临时端口，避免和并行 agent/开发者占用的 8861/8862/8865 冲突；
+5. 用新数据目录在 loopback 启动解包服务，等待 `/healthz`，检查 `/api/health`（`demo=true` 且服务版本与 tag 一致）、`/api/session`→demo buyer 登录→`/api/products`、公开首页与 `/api/home`；
 6. 干净停止服务并扫描 server log 无 traceback；
 7. 写出 `release-summary.json`、`archive-manifest.txt`、SHA 文件和各类原始日志。
+
+[tests/test_release_rehearsal.py](../tests/test_release_rehearsal.py) 已进入标准库测试集合，CI 的 `unittest discover` 会执行对应负控。
 
 预期判定行的形态：
 

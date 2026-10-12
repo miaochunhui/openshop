@@ -34,7 +34,7 @@ from packages.commerce import auth, db as dbutil  # noqa: E402
 from packages.commerce.seed import SeedMismatchError  # noqa: E402
 from packages.commerce.web import ApiError, MAX_BODY_BYTES, RequestContext, Response, Router  # noqa: E402
 
-APP_VERSION = "0.1.0"
+APP_VERSION = "0.1.1"
 WEB_ROOT = (REPO_ROOT / "web").resolve()
 LOG = logging.getLogger("openshop")
 

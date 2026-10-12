@@ -163,7 +163,7 @@ function applyChrome() {
     badge.hidden = count <= 0;
   }
   document.getElementById("cart-action")?.setAttribute("aria-label", `购物车，${count} 件商品`);
-  document.getElementById("build-stamp").textContent = `OpenShop v0.1.0 · ${new Date().toLocaleDateString("zh-CN")}`;
+  document.getElementById("build-stamp").textContent = `OpenShop v0.1.1 · ${new Date().toLocaleDateString("zh-CN")}`;
 }
 
 function renderCategories() {

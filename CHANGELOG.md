@@ -1,8 +1,37 @@
 # 变更记录
 
-本项目当前状态为 **v0.1.0 本地源码验收版**。本地 API、真实 Chromium、标准库测试和固定仓库门已通过；**未公开部署、未推送远端仓库**。正式生产发布仍需 [docs/RELEASE.md](docs/RELEASE.md) 中的授权、远端 CI、部署与回滚演练。
+本项目当前状态为 **v0.1.1 本地源码验收版**。真实 API、真实 Chromium、三轮并发、标准库测试、仓库门与本地发布演练自检均已通过；**未公开部署、未推送远端仓库、未在远端 GitHub 实际执行 CI**。正式生产发布仍需 [docs/RELEASE.md](docs/RELEASE.md) 中的授权、远端 CI、部署与回滚演练。
 
 记录日期：2026-10-13（Asia/Shanghai）。公开发布日期：待定。
+
+## [0.1.1] — 并发与发布演练补强（本地源码，未公开发布）
+
+### Added
+
+- `tests/test_trade_concurrency.py`：真实 HTTP 三轮并发验收，覆盖库存抢购、幂等、券领取/核销、拼团名额与支付、取消、pay/cancel 七类竞态；每轮独立 SQLite 数据目录，输出 HTML 级原始证据。
+- CI 新增真实三轮并发步骤；标准库测试、并发、仓库门可顺序复跑。
+- [tools/rehearse_release.py](tools/rehearse_release.py) 的 10 项负控自检（脏树、坏 tag、危险 tar、路径穿越、不健康端口等）、解包服务真实 demo 登录与目录检查、唯一测试端口隔离。
+- [docs/RELEASE-REHEARSAL.md](docs/RELEASE-REHEARSAL.md) 与对应正式测试 [tests/test_release_rehearsal.py](tests/test_release_rehearsal.py)。
+- 应用、健康接口与页脚版本统一升级到 **v0.1.1**。
+
+### Changed / Fixed
+
+- 结算验收在 3FS 偶发慢 I/O 下会因 5 秒控件等待先超时而误报；保留失败证据后改为等待 20 秒地址控件（并记录原因），最终全链路恢复 11/11 PASS。
+- 发布演练为三套后端测试分配独立临时端口，不再与并行 agent/CI 的 8861/8862/8865 冲突。
+- 并发验收支持 `OPENSHOP_CONCURRENCY_TEST_PORT` 与 `OPENSHOP_CONCURRENCY_EVIDENCE_ROOT`，默认证据落系统临时目录，便于 CI。
+
+### Verification
+
+- `OPENSHOP_ACCEPTANCE verdict=PASS`：API **35/35**；Chromium **11/11**；13 截图；0 console/page/external/API errors。
+- 并发：**3 rounds × 7 scenarios PASS**；无 500/transport；超卖唯一成功、幂等只扣一次、券只绑一单、拼团不超员、pay/cancel 单终态。
+- `unittest discover`：**22 tests PASS**；仓库门 **PASS** 19 checks（1 个非阻断 warning）；发布演练自检 **10/10 controls PASS**。
+- 证据、复跑命令与未覆盖边界见 [docs/testing.md](docs/testing.md) 与 [docs/RELEASE-REHEARSAL.md](docs/RELEASE-REHEARSAL.md)。
+
+### Known limitations
+
+- 三轮并发只在单进程 SQLite/单机 loopback + DB fixture 上运行；不覆盖多进程/多机、文件系统锁超时、卖家售后审批并发、拼团过期并发，也不构成容量或 SLA 证据。
+- 公网部署、远端 push、远端 CI、systemd 安装、TLS/反代和回滚演练仍未执行；发布是本地源码级，不是生产发布。
+- 拼团无后台自动过期退款任务；售后只支持整单单店铺；无真实支付/物流/KYC/风控。
 
 ## [0.1.0] — 本地源码验收版（未公开发布）
 

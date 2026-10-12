@@ -955,14 +955,19 @@ async function stageCheckoutAddressCoupon() {
   ];
   const receiverCandidates = [page.locator('input[name="receiver"]')];
   let receiverField = await firstVisible(receiverCandidates, {
-    timeoutMs: 1200,
+    timeoutMs: 3000,
     description: "visible receiver field on checkout",
     page,
     required: false,
   });
   if (!receiverField) {
+    // Checkout initially renders a loading skeleton and hydrates cart, coupon,
+    // address and quote state through four real HTTP calls. This acceptance can
+    // run on a network filesystem where a cold call has intermittently taken
+    // 6-7 seconds; a 5s control wait produced a false failure while the server
+    // and page both later completed. Wait long enough for the true page state.
     const addTrigger = await firstVisible(addAddressCandidates, {
-      timeoutMs: 5000,
+      timeoutMs: 20000,
       description: "checkout add-address control",
       page,
       required: false,
@@ -972,7 +977,7 @@ async function stageCheckoutAddressCoupon() {
     }
     await addTrigger.click({ timeout: 8000 });
     receiverField = await firstVisible(receiverCandidates, {
-      timeoutMs: 6000,
+      timeoutMs: 10000,
       description: "address form receiver field after opening add-address",
       page,
       required: false,
