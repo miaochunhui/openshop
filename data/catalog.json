@@ -1,0 +1,1038 @@
+{
+  "version": "0.1.0-base",
+  "currency": "CNY",
+  "categories": [
+    {
+      "slug": "home",
+      "name": "居家生活",
+      "subtitle": "让家更像自己",
+      "icon": "sofa",
+      "sort_order": 1
+    },
+    {
+      "slug": "digital",
+      "name": "数码影音",
+      "subtitle": "把声音与光带在身边",
+      "icon": "headphones",
+      "sort_order": 2
+    },
+    {
+      "slug": "outdoor",
+      "name": "户外出行",
+      "subtitle": "往更远的地方走",
+      "icon": "tent",
+      "sort_order": 3
+    },
+    {
+      "slug": "kitchen",
+      "name": "厨房餐厨",
+      "subtitle": "认真做一顿饭",
+      "icon": "pot",
+      "sort_order": 4
+    },
+    {
+      "slug": "style",
+      "name": "穿着配饰",
+      "subtitle": "穿得舒服，也好看",
+      "icon": "jacket",
+      "sort_order": 5
+    },
+    {
+      "slug": "care",
+      "name": "美妆个护",
+      "subtitle": "照顾自己的日常",
+      "icon": "serum",
+      "sort_order": 6
+    },
+    {
+      "slug": "smart",
+      "name": "智能家电",
+      "subtitle": "让家务轻一点",
+      "icon": "robot",
+      "sort_order": 7
+    },
+    {
+      "slug": "gift",
+      "name": "文创礼物",
+      "subtitle": "送得出去的心意",
+      "icon": "notebook",
+      "sort_order": 8
+    }
+  ],
+  "shops": [
+    {
+      "slug": "openshop-self",
+      "name": "OpenShop 自营",
+      "kind": "self",
+      "tagline": "官方选品，仓配直达",
+      "story": "从源头到包装，每件商品都经过自己的质检台。",
+      "rating": 4.9,
+      "followers_count": 18230,
+      "since": "2021",
+      "verified": true,
+      "response_rate": "99.6%",
+      "ship_from": "上海 · 嘉定"
+    },
+    {
+      "slug": "shanwu-home",
+      "name": "山雾家居旗舰店",
+      "kind": "brand",
+      "tagline": "把山里的慢，带回家",
+      "story": "山雾是一间做木与织物的小工作室，相信家具可以慢慢用很多年。",
+      "rating": 4.8,
+      "followers_count": 9360,
+      "since": "2019",
+      "verified": true,
+      "response_rate": "98.9%",
+      "ship_from": "浙江 · 杭州"
+    },
+    {
+      "slug": "direct-craft",
+      "name": "直造生活工厂店",
+      "kind": "factory",
+      "tagline": "没有中间商，只有本来的价格",
+      "story": "自有工厂，按需生产，把省下来的每一道加价还给使用者。",
+      "rating": 4.7,
+      "followers_count": 25800,
+      "since": "2020",
+      "verified": true,
+      "response_rate": "97.4%",
+      "ship_from": "广东 · 佛山"
+    },
+    {
+      "slug": "echo-lab",
+      "name": "回声影音专营店",
+      "kind": "brand",
+      "tagline": "给耳朵一间安静的房",
+      "story": "专注个人声学与阅读设备的小团队，做能长久使用的东西。",
+      "rating": 4.8,
+      "followers_count": 7610,
+      "since": "2022",
+      "verified": true,
+      "response_rate": "99.1%",
+      "ship_from": "江苏 · 苏州"
+    }
+  ],
+  "users": [
+    {
+      "handle": "demo_buyer",
+      "display_name": "林澄",
+      "email": "buyer@openshop.demo",
+      "role": "buyer",
+      "avatar": "/web/assets/brand/avatar-lin.svg",
+      "member_since": "2024-03-18",
+      "coupons": [
+        "HELLO20",
+        "HOME60"
+      ],
+      "addresses": [
+        {
+          "label": "家",
+          "receiver": "林澄",
+          "phone": "13800000002",
+          "province": "上海市",
+          "city": "上海市",
+          "district": "徐汇区",
+          "detail": "漕溪北路 88 号 6 栋 502",
+          "is_default": true
+        }
+      ]
+    },
+    {
+      "handle": "demo_buyer_two",
+      "display_name": "许岚",
+      "email": "buyer2@openshop.demo",
+      "role": "buyer",
+      "avatar": "/web/assets/brand/avatar-xu.svg",
+      "member_since": "2025-06-09",
+      "coupons": [
+        "HELLO20"
+      ],
+      "addresses": [
+        {
+          "label": "家",
+          "receiver": "许岚",
+          "phone": "13800000003",
+          "province": "浙江省",
+          "city": "杭州市",
+          "district": "西湖区",
+          "detail": "文三路 199 号 2 幢 801",
+          "is_default": true
+        }
+      ]
+    },
+    {
+      "handle": "demo_seller",
+      "display_name": "周屿",
+      "email": "seller@openshop.demo",
+      "role": "seller",
+      "avatar": "/web/assets/brand/avatar-zhou.svg",
+      "member_since": "2023-08-02",
+      "shop": "openshop-self"
+    }
+  ],
+  "coupons": [
+    {
+      "code": "HELLO20",
+      "title": "新人见面礼",
+      "description": "满 ¥199 减 ¥20",
+      "threshold_cents": 19900,
+      "discount_cents": 2000,
+      "scope": "all",
+      "valid_days": 30,
+      "auto_claim_new_user": true,
+      "quantity": 1000
+    },
+    {
+      "code": "HOME60",
+      "title": "把家安顿好",
+      "description": "居家满 ¥499 减 ¥60",
+      "threshold_cents": 49900,
+      "discount_cents": 6000,
+      "scope": "category:home",
+      "valid_days": 21,
+      "auto_claim_new_user": false,
+      "quantity": 500
+    },
+    {
+      "code": "WEEKEND30",
+      "title": "周末出门去",
+      "description": "全场满 ¥299 减 ¥30",
+      "threshold_cents": 29900,
+      "discount_cents": 3000,
+      "scope": "all",
+      "valid_days": 14,
+      "auto_claim_new_user": false,
+      "quantity": 800
+    }
+  ],
+  "products": [
+    {
+      "slug": "cloud-sofa",
+      "title": "云朵模块沙发",
+      "subtitle": "可组合的松弛角落",
+      "brand": "山雾 SHANWU",
+      "category": "home",
+      "description": "更深的坐深，更慢的回弹。一张愿意让人多坐一会儿的沙发。",
+      "story": "我们花了很多时间推翻扶手。最后留下一个刚好能靠住的弧度，也给客厅留出呼吸的空白。",
+      "tags": [
+        "模块化",
+        "小户型友好",
+        "可拆洗",
+        "客厅"
+      ],
+      "badges": [
+        "原创设计",
+        "送装一体"
+      ],
+      "art": {
+        "cover": "/web/assets/products/cloud-sofa.svg",
+        "cover_alt": "米白色模块沙发与落地灯组成的暖色客厅场景",
+        "images": [
+          {
+            "src": "/web/assets/products/cloud-sofa.svg",
+            "alt": "云朵模块沙发客厅场景"
+          },
+          {
+            "src": "/web/assets/products/cloud-sofa-detail.svg",
+            "alt": "圈绒面料与坐垫细节"
+          }
+        ]
+      },
+      "flags": {
+        "hero": true,
+        "featured": true,
+        "new": true
+      },
+      "sold_count": 128,
+      "highlights": [
+        {
+          "title": "一坐就陷进去的云感",
+          "body": "高回弹海绵与羽绒混合填充，坐深 62cm，盘腿坐也舒展。"
+        },
+        {
+          "title": "能跟着生活搬家",
+          "body": "双人位模块可拆分，改成单人椅或加购贵妃位都不费力。"
+        },
+        {
+          "title": "看不见的稳妥",
+          "body": "桦木框架经过含水率检测，底部防滑脚垫保护木地板。"
+        }
+      ],
+      "specs": [
+        {
+          "title": "尺寸与材质",
+          "items": [
+            {
+              "label": "面料",
+              "value": "混纺圈绒"
+            },
+            {
+              "label": "框架",
+              "value": "实木桦木"
+            },
+            {
+              "label": "双人位尺寸",
+              "value": "180 × 95 × 72cm"
+            },
+            {
+              "label": "坐深",
+              "value": "62cm"
+            }
+          ]
+        },
+        {
+          "title": "交付",
+          "items": [
+            {
+              "label": "安装",
+              "value": "送装一体"
+            },
+            {
+              "label": "包装",
+              "value": "可回收牛皮纸与蜂窝板"
+            }
+          ]
+        }
+      ],
+      "detail_sections": [
+        {
+          "title": "把客厅留给松弛",
+          "body": "不做看起来昂贵但坐不住的家具。宽坐面、软靠背和可拆洗外套，让它适应真实生活里的每个姿势。"
+        }
+      ],
+      "faq": [
+        {
+          "q": "是否支持拆洗？",
+          "a": "外套可拆洗，建议低温手洗或专业干洗，避免高温烘干。"
+        },
+        {
+          "q": "可以只买单人位吗？",
+          "a": "模块支持单独购买，请联系店铺客服登记需求。"
+        }
+      ],
+      "skus": [
+        {
+          "name": "雾灰 / 双人位",
+          "options": {
+            "颜色": "雾灰",
+            "规格": "双人位"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "燕麦 / 双人位",
+          "options": {
+            "颜色": "燕麦",
+            "规格": "双人位"
+          },
+          "price_delta_cents": 20000
+        },
+        {
+          "name": "雾灰 / 三人位",
+          "options": {
+            "颜色": "雾灰",
+            "规格": "三人位"
+          },
+          "price_delta_cents": 90000
+        }
+      ],
+      "offers": [
+        {
+          "shop": "openshop-self",
+          "kind": "self",
+          "name": "双人位 · 送装一体",
+          "price_cents": 359900,
+          "market_price_cents": 429900,
+          "shipping_fee_cents": 0,
+          "stock": 26,
+          "delivery_eta_days": 2,
+          "delivery_note": "上海仓直发 · 送装一体",
+          "services": [
+            "正品保障",
+            "7天无理由",
+            "送装一体"
+          ],
+          "is_primary": true,
+          "group_size": 2,
+          "group_price_cents": 319900
+        },
+        {
+          "shop": "shanwu-home",
+          "kind": "brand",
+          "name": "品牌旗舰 · 预约送装",
+          "price_cents": 369900,
+          "market_price_cents": 429900,
+          "shipping_fee_cents": 0,
+          "stock": 18,
+          "delivery_eta_days": 4,
+          "delivery_note": "品牌仓直发 · 预约配送",
+          "services": [
+            "品牌直营",
+            "7天无理由",
+            "预约送装"
+          ],
+          "is_primary": false
+        },
+        {
+          "shop": "direct-craft",
+          "kind": "factory",
+          "name": "源头工厂 · 基础款",
+          "price_cents": 299900,
+          "market_price_cents": 369900,
+          "shipping_fee_cents": 0,
+          "stock": 41,
+          "delivery_eta_days": 6,
+          "delivery_note": "工厂集单 · 预计 6 天发货",
+          "services": [
+            "源头直供",
+            "7天无理由"
+          ],
+          "is_primary": false,
+          "group_size": 2,
+          "group_price_cents": 269900
+        }
+      ],
+      "reviews": [
+        {
+          "author": "陆**",
+          "rating": 5,
+          "title": "比照片更温柔",
+          "body": "颜色是低饱和的燕麦灰，傍晚开灯之后特别舒服。坐在上面看书一下午，腰居然没有抗议。",
+          "tags": [
+            "坐感舒服",
+            "颜色耐看"
+          ],
+          "verified": true,
+          "helpful_count": 18,
+          "days_ago": 6,
+          "sku_name": "雾灰 / 双人位"
+        },
+        {
+          "author": "唐**",
+          "rating": 4,
+          "title": "小户型刚好",
+          "body": "两人位放在 60 平的小客厅里不显拥挤，底部空隙扫地机器人能进去。安装师傅会带走包装。",
+          "tags": [
+            "小户型友好",
+            "安装省心"
+          ],
+          "verified": true,
+          "helpful_count": 7,
+          "days_ago": 12,
+          "sku_name": "燕麦 / 双人位"
+        },
+        {
+          "author": "孟**",
+          "rating": 5,
+          "title": "可拆洗是刚需",
+          "body": "咖啡泼上去之后拆下来洗了，没有留下印子。面料比想象中扎实，猫也很喜欢。",
+          "tags": [
+            "可拆洗",
+            "面料扎实"
+          ],
+          "verified": true,
+          "helpful_count": 12,
+          "days_ago": 19,
+          "sku_name": "雾灰 / 双人位"
+        }
+      ]
+    },
+    {
+      "slug": "hush-headphones",
+      "title": "静岛降噪耳机",
+      "subtitle": "给耳朵一间安静的房",
+      "brand": "回声 ECHOLAB",
+      "category": "digital",
+      "description": "混合主动降噪与环境声透传，40 小时续航，重量只有 248 克。",
+      "story": "地铁、机场、开放式办公室。我们想做的不是让世界消失，而是把注意力还给你。",
+      "tags": [
+        "头戴式",
+        "主动降噪",
+        "长续航",
+        "通勤"
+      ],
+      "badges": [
+        "42 小时续航",
+        "双设备连接"
+      ],
+      "art": {
+        "cover": "/web/assets/products/hush-headphones.svg",
+        "cover_alt": "深绿色背景上的降噪头戴耳机插画",
+        "images": [
+          {
+            "src": "/web/assets/products/hush-headphones.svg",
+            "alt": "静岛降噪耳机正面"
+          },
+          {
+            "src": "/web/assets/products/hush-headphones-detail.svg",
+            "alt": "耳罩与金属转轴细节"
+          }
+        ]
+      },
+      "flags": {
+        "hero": false,
+        "featured": true,
+        "new": false
+      },
+      "sold_count": 342,
+      "highlights": [
+        {
+          "title": "降噪，留一点余地",
+          "body": "六麦克风混合降噪，保留安全提醒音；轻触即可透传周围人声。"
+        },
+        {
+          "title": "很轻，戴得住",
+          "body": "248 克机身配记忆棉耳罩，连续佩戴四小时也不夹头。"
+        },
+        {
+          "title": "一周一充",
+          "body": "开启降噪可听约 42 小时，充电 10 分钟播放 5 小时。"
+        }
+      ],
+      "specs": [
+        {
+          "title": "声学",
+          "items": [
+            {
+              "label": "单元",
+              "value": "40mm 动圈"
+            },
+            {
+              "label": "降噪",
+              "value": "混合主动降噪"
+            },
+            {
+              "label": "编解码",
+              "value": "SBC / AAC / LDAC"
+            }
+          ]
+        },
+        {
+          "title": "连接与续航",
+          "items": [
+            {
+              "label": "蓝牙",
+              "value": "5.3，双设备"
+            },
+            {
+              "label": "续航",
+              "value": "最大 42 小时"
+            },
+            {
+              "label": "接口",
+              "value": "USB-C"
+            }
+          ]
+        }
+      ],
+      "detail_sections": [
+        {
+          "title": "安静，不是隔绝",
+          "body": "耳机上的环境按钮可以在降噪、普通和透传之间切换。过马路前轻按一下，不必把耳机摘下来。"
+        }
+      ],
+      "faq": [
+        {
+          "q": "可以连电脑吗？",
+          "a": "支持蓝牙连接，也可以用 USB-C 音频线连接电脑。"
+        },
+        {
+          "q": "耳罩能更换吗？",
+          "a": "耳罩为可拆结构，后续可通过店铺购买替换件。"
+        }
+      ],
+      "skus": [
+        {
+          "name": "松针绿",
+          "options": {
+            "颜色": "松针绿"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "雾银",
+          "options": {
+            "颜色": "雾银"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "松针绿 + 收纳盒",
+          "options": {
+            "颜色": "松针绿",
+            "套装": "含收纳盒"
+          },
+          "price_delta_cents": 10000
+        }
+      ],
+      "offers": [
+        {
+          "shop": "openshop-self",
+          "kind": "self",
+          "name": "官方自营 · 标准版",
+          "price_cents": 99900,
+          "market_price_cents": 129900,
+          "shipping_fee_cents": 0,
+          "stock": 64,
+          "delivery_eta_days": 1,
+          "delivery_note": "上海仓直发 · 次日达",
+          "services": [
+            "正品保障",
+            "一年质保",
+            "7天无理由"
+          ],
+          "is_primary": true,
+          "group_size": 2,
+          "group_price_cents": 89900
+        },
+        {
+          "shop": "echo-lab",
+          "kind": "brand",
+          "name": "回声旗舰 · 含收纳盒",
+          "price_cents": 104900,
+          "market_price_cents": 129900,
+          "shipping_fee_cents": 0,
+          "stock": 32,
+          "delivery_eta_days": 3,
+          "delivery_note": "品牌仓直发",
+          "services": [
+            "品牌直营",
+            "一年质保",
+            "7天无理由"
+          ],
+          "is_primary": false
+        }
+      ],
+      "reviews": [
+        {
+          "author": "宋**",
+          "rating": 5,
+          "title": "通勤终于安静了",
+          "body": "地铁上开着降噪听播客，音量只要以前的一半。耳罩软，戴眼镜也不硌。",
+          "tags": [
+            "降噪有效",
+            "通勤友好"
+          ],
+          "verified": true,
+          "helpful_count": 21,
+          "days_ago": 3,
+          "sku_name": "松针绿"
+        },
+        {
+          "author": "程**",
+          "rating": 4,
+          "title": "音质对得起价格",
+          "body": "人声清楚，低频不会糊。双设备切换很快，开电脑会自动暂停手机。",
+          "tags": [
+            "音质好",
+            "双设备方便"
+          ],
+          "verified": true,
+          "helpful_count": 9,
+          "days_ago": 9,
+          "sku_name": "雾银"
+        },
+        {
+          "author": "闻**",
+          "rating": 5,
+          "title": "轻得出乎意料",
+          "body": "以前戴大耳机一小时就压头，这款四小时下来还可以。收纳盒质感很好。",
+          "tags": [
+            "轻便",
+            "质感好"
+          ],
+          "verified": true,
+          "helpful_count": 5,
+          "days_ago": 22,
+          "sku_name": "松针绿 + 收纳盒"
+        }
+      ]
+    },
+    {
+      "slug": "trail-pack",
+      "title": "起风轻量登山包",
+      "subtitle": "装下两天一夜",
+      "brand": "北屿 NORTHISLE",
+      "category": "outdoor",
+      "description": "32L 轻量徒步包，悬浮背网和可调背负，把重量分给髋部。",
+      "story": "从灵山到四姑娘山，起风不是坏天气，是让你听见山的呼吸。",
+      "tags": [
+        "徒步",
+        "轻量",
+        "32L",
+        "背负系统"
+      ],
+      "badges": [
+        "1.1kg 轻量",
+        "悬浮背网"
+      ],
+      "art": {
+        "cover": "/web/assets/products/trail-pack.svg",
+        "cover_alt": "苔绿色轻量登山包立在岩石与草丛间",
+        "images": [
+          {
+            "src": "/web/assets/products/trail-pack.svg",
+            "alt": "起风登山包侧面"
+          },
+          {
+            "src": "/web/assets/products/trail-pack-detail.svg",
+            "alt": "背负系统与口袋细节"
+          }
+        ]
+      },
+      "flags": {
+        "hero": false,
+        "featured": true,
+        "new": false
+      },
+      "sold_count": 86,
+      "highlights": [
+        {
+          "title": "重量分给髋部",
+          "body": "可调节铝合金支撑，把肩部压力分担到髋部，走一天也不容易耸肩。"
+        },
+        {
+          "title": "背部会呼吸",
+          "body": "3D 悬浮网面与腰部支撑形成风道，夏天后背不再湿一片。"
+        },
+        {
+          "title": "两天一夜刚好",
+          "body": "32L 主仓、独立睡袋仓与双侧水壶袋，登机无需托运。"
+        }
+      ],
+      "specs": [
+        {
+          "title": "容量与重量",
+          "items": [
+            {
+              "label": "容量",
+              "value": "32L"
+            },
+            {
+              "label": "重量",
+              "value": "1.1kg"
+            },
+            {
+              "label": "尺寸",
+              "value": "54 × 30 × 22cm"
+            }
+          ]
+        },
+        {
+          "title": "结构",
+          "items": [
+            {
+              "label": "背负",
+              "value": "铝合金支撑 + 悬浮背网"
+            },
+            {
+              "label": "面料",
+              "value": "210D 防撕裂尼龙"
+            },
+            {
+              "label": "口袋",
+              "value": "6 个"
+            }
+          ]
+        }
+      ],
+      "detail_sections": [
+        {
+          "title": "不是把所有东西都背上，而是只背需要的",
+          "body": "我们从周末两天一夜的真实清单出发，去掉了多余的固定隔层和不必要的拉链，让每一寸容量都能派上用场。"
+        }
+      ],
+      "faq": [
+        {
+          "q": "可以带上飞机吗？",
+          "a": "空包尺寸符合多数航司随身行李要求，但需根据航司与舱位确认。"
+        },
+        {
+          "q": "有防雨罩吗？",
+          "a": "底仓内置一体式防雨罩。"
+        }
+      ],
+      "skus": [
+        {
+          "name": "苔绿 / 32L",
+          "options": {
+            "颜色": "苔绿",
+            "容量": "32L"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "岩灰 / 32L",
+          "options": {
+            "颜色": "岩灰",
+            "容量": "32L"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "苔绿 / 38L",
+          "options": {
+            "颜色": "苔绿",
+            "容量": "38L"
+          },
+          "price_delta_cents": 8000
+        }
+      ],
+      "offers": [
+        {
+          "shop": "openshop-self",
+          "kind": "self",
+          "name": "官方自营 · 含防雨罩",
+          "price_cents": 47900,
+          "market_price_cents": 59900,
+          "shipping_fee_cents": 0,
+          "stock": 42,
+          "delivery_eta_days": 2,
+          "delivery_note": "上海仓直发",
+          "services": [
+            "正品保障",
+            "7天无理由"
+          ],
+          "is_primary": true,
+          "group_size": 2,
+          "group_price_cents": 42900
+        },
+        {
+          "shop": "direct-craft",
+          "kind": "factory",
+          "name": "源头工厂 · 标准款",
+          "price_cents": 39900,
+          "market_price_cents": 49900,
+          "shipping_fee_cents": 0,
+          "stock": 88,
+          "delivery_eta_days": 5,
+          "delivery_note": "工厂集单 · 5 天发货",
+          "services": [
+            "源头直供",
+            "7天无理由"
+          ],
+          "is_primary": false,
+          "group_size": 3,
+          "group_price_cents": 34900
+        }
+      ],
+      "reviews": [
+        {
+          "author": "韩**",
+          "rating": 5,
+          "title": "两天一夜刚刚好",
+          "body": "周末去安吉走了一圈，帐篷睡袋炉具全塞进去还有空间。腰封承重明显，肩膀轻松。",
+          "tags": [
+            "容量够用",
+            "背负舒服"
+          ],
+          "verified": true,
+          "helpful_count": 14,
+          "days_ago": 5,
+          "sku_name": "苔绿 / 32L"
+        },
+        {
+          "author": "薛**",
+          "rating": 4,
+          "title": "夏天背也不闷",
+          "body": "悬浮背网确实有用，走起来背后有风。侧袋拿水壶顺手，就是主仓开口可以再大一点。",
+          "tags": [
+            "透气",
+            "细节好用"
+          ],
+          "verified": true,
+          "helpful_count": 4,
+          "days_ago": 16,
+          "sku_name": "岩灰 / 32L"
+        }
+      ]
+    },
+    {
+      "slug": "morning-kettle",
+      "title": "慢早珐琅手冲壶",
+      "subtitle": "把水烧开，也把早晨慢下来",
+      "brand": "未行 WAYLINE",
+      "category": "kitchen",
+      "description": "细口手冲壶，均匀控流，明火与电磁炉两用。",
+      "story": "一杯好咖啡从等待水开开始。我们保留了珐琅微微挂着水汽的质感。",
+      "tags": [
+        "手冲",
+        "珐琅",
+        "控流",
+        "厨房美学"
+      ],
+      "badges": [
+        "均匀细流",
+        "全炉具适用"
+      ],
+      "art": {
+        "cover": "/web/assets/products/morning-kettle.svg",
+        "cover_alt": "砖橙色珐琅手冲壶与咖啡杯的清晨场景",
+        "images": [
+          {
+            "src": "/web/assets/products/morning-kettle.svg",
+            "alt": "慢早手冲壶"
+          },
+          {
+            "src": "/web/assets/products/morning-kettle-detail.svg",
+            "alt": "手柄与细口壶嘴细节"
+          }
+        ]
+      },
+      "flags": {
+        "hero": false,
+        "featured": true,
+        "new": true
+      },
+      "sold_count": 207,
+      "highlights": [
+        {
+          "title": "水线像一根细铅笔",
+          "body": "鹅颈壶嘴配稳压水流，绕圈注水更容易，新手也能冲出干净风味。"
+        },
+        {
+          "title": "明火和电磁炉都能用",
+          "body": "搪瓷内胆受热均匀，不挑炉具；容量 700ml，两杯刚好。"
+        },
+        {
+          "title": "握柄不烫手",
+          "body": "加长电木手柄，离热源更远，湿手也不打滑。"
+        }
+      ],
+      "specs": [
+        {
+          "title": "规格",
+          "items": [
+            {
+              "label": "容量",
+              "value": "700ml"
+            },
+            {
+              "label": "材质",
+              "value": "珐琅搪瓷 + 304 不锈钢"
+            },
+            {
+              "label": "壶嘴",
+              "value": "鹅颈细口"
+            }
+          ]
+        },
+        {
+          "title": "使用",
+          "items": [
+            {
+              "label": "适用",
+              "value": "明火 / 电磁炉 / 电陶炉"
+            },
+            {
+              "label": "清洗",
+              "value": "建议手洗"
+            }
+          ]
+        }
+      ],
+      "detail_sections": [
+        {
+          "title": "为两杯咖啡认真做一把壶",
+          "body": "壶身重心压低，水快倒完时也不容易翻。手柄和壶盖都留出了足够的安全距离。"
+        }
+      ],
+      "faq": [
+        {
+          "q": "可以进洗碗机吗？",
+          "a": "建议手洗，避免洗碗机高温与碰撞导致搪瓷边缘受损。"
+        },
+        {
+          "q": "可以直接在壶里煮咖啡吗？",
+          "a": "不建议，这是一把烧水用壶。"
+        }
+      ],
+      "skus": [
+        {
+          "name": "砖橙 / 700ml",
+          "options": {
+            "颜色": "砖橙",
+            "容量": "700ml"
+          },
+          "price_delta_cents": 0
+        },
+        {
+          "name": "奶油白 / 700ml",
+          "options": {
+            "颜色": "奶油白",
+            "容量": "700ml"
+          },
+          "price_delta_cents": 0
+        }
+      ],
+      "offers": [
+        {
+          "shop": "openshop-self",
+          "kind": "self",
+          "name": "官方自营 · 700ml",
+          "price_cents": 26900,
+          "market_price_cents": 32900,
+          "shipping_fee_cents": 0,
+          "stock": 72,
+          "delivery_eta_days": 1,
+          "delivery_note": "上海仓直发 · 次日达",
+          "services": [
+            "正品保障",
+            "7天无理由"
+          ],
+          "is_primary": true,
+          "group_size": 0
+        },
+        {
+          "shop": "direct-craft",
+          "kind": "factory",
+          "name": "工厂直供 · 基础款",
+          "price_cents": 21900,
+          "market_price_cents": 28900,
+          "shipping_fee_cents": 0,
+          "stock": 120,
+          "delivery_eta_days": 4,
+          "delivery_note": "工厂集单 · 4 天发货",
+          "services": [
+            "源头直供",
+            "7天无理由"
+          ],
+          "is_primary": false,
+          "group_size": 3,
+          "group_price_cents": 18900
+        }
+      ],
+      "reviews": [
+        {
+          "author": "苏**",
+          "rating": 5,
+          "title": "水流真的稳",
+          "body": "以前用普通水壶手冲总是断水，这只壶控流很细，咖啡味道干净了不少。珐琅颜色比屏幕上更暖。",
+          "tags": [
+            "控流稳定",
+            "颜色好看"
+          ],
+          "verified": true,
+          "helpful_count": 11,
+          "days_ago": 2,
+          "sku_name": "砖橙 / 700ml"
+        },
+        {
+          "author": "白**",
+          "rating": 4,
+          "title": "重量刚好",
+          "body": "装满水单手也能稳住。电磁炉上加热均匀，就是清洗时要注意别磕碰。",
+          "tags": [
+            "顺手",
+            "受热均匀"
+          ],
+          "verified": true,
+          "helpful_count": 3,
+          "days_ago": 14,
+          "sku_name": "奶油白 / 700ml"
+        }
+      ]
+    }
+  ]
+}

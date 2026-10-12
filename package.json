@@ -1,0 +1,11 @@
+{
+  "name": "openshop",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "OpenShop 开集 — open-source multi-sided commerce reference implementation",
+  "scripts": {
+    "syntax": "node --check web/js/app.js && node --check web/js/components/index.js && node --check web/js/core/api.js && node --check web/js/core/store.js"
+  },
+  "license": "Apache-2.0"
+}

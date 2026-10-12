@@ -1,0 +1,111 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f6f1e8">
+  <meta name="description" content="OpenShop 开集：把自营、品牌与源头拼团放在一起比较的开源电商平台。项目演示数据，支付为模拟流程。">
+  <meta name="application-name" content="OpenShop 开集">
+  <meta name="robots" content="index,follow">
+  <title>OpenShop 开集 · 逛得开，买得值</title>
+  <link rel="icon" href="/web/assets/brand/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/web/css/base.css">
+  <link rel="stylesheet" href="/web/css/shell.css">
+  <link rel="stylesheet" href="/web/css/components.css">
+  <link rel="stylesheet" href="/web/css/discovery.css">
+  <link rel="stylesheet" href="/web/css/trade.css">
+  <link rel="stylesheet" href="/web/css/seller.css">
+  <link rel="stylesheet" href="/web/css/theme.css">
+</head>
+<body>
+  <a class="skip-link" href="#app">跳到主要内容</a>
+  <div class="paint-strip" aria-hidden="true"></div>
+  <div id="promo-bar" class="promo-bar">
+    <div class="container promo-inner">
+      <span class="promo-demo">DEMO · 所有商品与人物均为虚构</span>
+      <span class="promo-line">全站包邮 · 7 天无理由 · 支付为模拟流程</span>
+      <span class="promo-side"><a href="/about" data-link>关于开集</a><span aria-hidden="true">/</span><a href="/seller" data-link>商家工作台</a></span>
+    </div>
+  </div>
+  <header id="site-header" class="site-header">
+    <div class="container header-main">
+      <button class="icon-btn menu-toggle" id="menu-toggle" type="button" aria-label="打开分类菜单" aria-expanded="false" aria-controls="primary-nav">
+        <span class="menu-lines" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
+      <a class="brand" href="/" data-link aria-label="OpenShop 开集首页">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" role="img"><path d="M7 17 20 8l13 9" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/><path d="M10 18v15h20V18M17 33V22h6v11" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="brand-word"><b>OPENSHOP</b><em>开集</em></span>
+      </a>
+      <form class="header-search" id="header-search" role="search" autocomplete="off">
+        <label class="sr-only" for="global-search">搜索商品、品牌或分类</label>
+        <span class="search-icon" aria-hidden="true"></span>
+        <input id="global-search" name="q" type="search" maxlength="60" placeholder="搜一搜，今天想买点什么" autocomplete="off">
+        <button class="search-go" type="submit">搜索</button>
+        <div class="search-suggest" id="search-suggest" hidden></div>
+      </form>
+      <nav class="header-actions" aria-label="账户与购物车">
+        <a class="header-trust" href="/about" data-link><span aria-hidden="true">◉</span> 品质自营</a>
+        <button class="header-action" id="account-action" type="button">
+          <span class="action-icon avatar-mini" id="account-avatar" aria-hidden="true"></span>
+          <span class="action-label" id="account-label">登录 / 注册</span>
+        </button>
+        <a class="header-action cart-action" id="cart-action" href="/cart" data-link>
+          <span class="action-icon cart-icon" aria-hidden="true"></span>
+          <span class="action-label">购物车</span>
+          <span class="cart-badge" id="cart-badge" hidden>0</span>
+        </a>
+      </nav>
+    </div>
+    <nav id="primary-nav" class="primary-nav" aria-label="商品分类">
+      <div class="container nav-inner">
+        <a class="nav-home" href="/" data-link>首页</a>
+        <div id="category-links" class="category-links"><span class="nav-skeleton">正在摆摊…</span></div>
+        <a class="nav-deal" href="/search?sort=price_asc" data-link>今日好价 <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+    <div id="mobile-drawer" class="mobile-drawer" hidden>
+      <div class="drawer-head"><b>逛逛分类</b><button class="icon-btn" id="drawer-close" type="button" aria-label="关闭菜单">×</button></div>
+      <div id="drawer-categories" class="drawer-categories"></div>
+      <div class="drawer-links"><a href="/account" data-link>我的账户</a><a href="/cart" data-link>购物车</a><a href="/seller" data-link>商家工作台</a></div>
+    </div>
+    <div id="nav-scrim" class="nav-scrim" hidden></div>
+  </header>
+  <main id="app" tabindex="-1">
+    <div class="boot-screen" id="boot-screen" role="status">
+      <div class="boot-mark" aria-hidden="true"></div>
+      <p>正在开集…</p>
+    </div>
+  </main>
+  <footer id="site-footer" class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <span class="brand-mark brand-mark--footer" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M7 17 20 8l13 9" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/><path d="M10 18v15h20V18M17 33V22h6v11" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linejoin="round"/></svg></span>
+        <b>OPENSHOP <em>开集</em></b>
+        <p>逛得开，买得值。<br>一个把交易讲清楚的开源电商实验。</p>
+      </div>
+      <div class="footer-column"><b>逛逛</b><a href="/search?sort=rating" data-link>口碑好物</a><a href="/search?sort=price_asc" data-link>今日好价</a><a href="/search?category=home" data-link>居家生活</a><a href="/search?category=digital" data-link>数码影音</a></div>
+      <div class="footer-column"><b>安心买</b><a href="/help" data-link>配送与售后</a><a href="/help" data-link>拼团说明</a><a href="/about" data-link>演示支付声明</a><a href="/help" data-link>隐私与数据</a></div>
+      <div class="footer-column"><b>参与</b><a href="/about" data-link>开源说明</a><a href="/seller" data-link>商家工作台</a><a href="/account" data-link>我的订单</a><a href="/about" data-link>贡献指南</a></div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© 2026 OpenShop Contributors · Apache-2.0</span>
+      <span>演示环境 · 商品、店铺、评价均为虚构 · 不进行真实扣款</span>
+      <span id="build-stamp">OpenShop v0.1.0</span>
+    </div>
+  </footer>
+  <div id="toast-region" class="toast-region" role="status" aria-live="polite"></div>
+  <div id="modal-root"></div>
+  <nav class="mobile-tabbar" aria-label="移动快捷导航">
+    <a href="/" data-link data-nav="home"><span class="tab-icon">⌂</span><span>首页</span></a>
+    <a href="/search" data-link data-nav="search"><span class="tab-icon">⌕</span><span>发现</span></a>
+    <a href="/cart" data-link data-nav="cart"><span class="tab-icon cart-icon"></span><span>购物车</span><span class="tab-badge" id="mobile-cart-badge" hidden>0</span></a>
+    <a href="/account" data-link data-nav="account"><span class="tab-icon">◯</span><span>我的</span></a>
+  </nav>
+  <script type="module" src="/web/js/app.js"></script>
+  <noscript><div class="noscript">OpenShop 需要 JavaScript 才能完成浏览与交易。请开启 JavaScript 后刷新页面。</div></noscript>
+</body>
+</html>

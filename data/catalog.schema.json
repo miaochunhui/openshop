@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OpenShop demo catalog",
+  "type": "object",
+  "required": [
+    "shops",
+    "categories",
+    "products",
+    "coupons",
+    "users"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "currency": {
+      "const": "CNY"
+    },
+    "users": {
+      "type": "array"
+    },
+    "shops": {
+      "type": "array"
+    },
+    "categories": {
+      "type": "array"
+    },
+    "coupons": {
+      "type": "array"
+    },
+    "products": {
+      "type": "array"
+    }
+  }
+}

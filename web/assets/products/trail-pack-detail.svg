@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c9b187"/><stop offset="1" stop-color="#8e956a"/></linearGradient>
+  <radialGradient id="glow" cx="50%" cy="32%" r="70%"><stop stop-color="#fff7e8" stop-opacity=".95"/><stop offset="1" stop-color="#fff7e8" stop-opacity="0"/></radialGradient>
+  <filter id="soft"><feGaussianBlur stdDeviation="22"/></filter>
+  <filter id="shadow"><feDropShadow dx="0" dy="26" stdDeviation="22" flood-color="#5b3c25" flood-opacity=".23"/></filter>
+  <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="table" tableValues="0 .09"/></feComponentTransfer></filter>
+</defs>
+<rect width="1200" height="900" fill="url(#bg)"/>
+<ellipse cx="600" cy="300" rx="620" ry="430" fill="url(#glow)"/>
+
+<g transform="translate(80,120)">
+  <g filter="url(#shadow)">
+    <path d="M240 100 C390 40 680 60 770 210 C840 330 810 610 700 700 C550 800 300 735 205 620 C120 515 110 220 240 100Z" fill="#657245"/>
+    <path d="M350 210 C490 170 620 195 710 265" stroke="#465432" stroke-width="28" fill="none" opacity=".8"/>
+    <path d="M270 420 C400 360 590 380 760 440" stroke="#d6c59a" stroke-width="10" fill="none" stroke-dasharray="5 18" opacity=".7"/>
+    <rect x="300" y="510" width="340" height="140" rx="40" fill="#51613b"/>
+    <path d="M350 580 H580" stroke="#a8aa74" stroke-width="8" stroke-linecap="round"/>
+    <path d="M240 500 C150 580 180 700 300 740" stroke="#39462d" stroke-width="45" fill="none"/>
+  </g>
+</g>
+<path d="M930 150 C850 220 840 330 900 430 C960 330 950 220 930 150Z" fill="#efe1c4" opacity=".45"/>
+<circle cx="1010" cy="700" r="140" fill="#5b6842" opacity=".4"/>
+
+<rect width="1200" height="900" filter="url(#grain)" opacity=".5"/>
+</svg>

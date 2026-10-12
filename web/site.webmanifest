@@ -1,0 +1,15 @@
+{
+  "name": "OpenShop 开集",
+  "short_name": "开集",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f6f1e8",
+  "theme_color": "#d7462c",
+  "icons": [
+    {
+      "src": "/web/assets/brand/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
