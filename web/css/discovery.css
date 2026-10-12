@@ -3407,7 +3407,9 @@
     grid-auto-columns: minmax(132px, 40vw);
     gap: 9px;
     padding-bottom: 8px;
-    margin-right: -16px;
+    max-width: 100%;
+    min-width: 0;
+    overscroll-behavior-x: contain;
   }
   .home-category {
     min-height: 140px;
@@ -3938,7 +3940,9 @@
   .home-assurance__points { grid-template-columns: minmax(0, 1fr); }
   .home-category-rail {
     grid-auto-columns: 45vw;
-    margin-right: -14px;
+    max-width: 100%;
+    min-width: 0;
+    overscroll-behavior-x: contain;
   }
   .home-recommend-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
