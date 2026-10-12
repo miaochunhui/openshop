@@ -181,15 +181,34 @@ async function fetchCatalogFixture(baseUrl) {
   if (!items || items.length === 0) {
     throw new Error("GET /api/products returned no items; cannot run data-driven browser journey");
   }
-  const item = items.find((candidate) => candidate && typeof candidate.slug === "string" && typeof candidate.title === "string");
-  if (!item) throw new Error("first product page has no usable slug/title");
-  return {
-    id: item.id ?? null,
-    slug: item.slug,
-    title: item.title,
-    query: item.title,
-    price_cents: item.price_cents ?? null,
-  };
+  // The demo merchant can only ship offers from their own shop. Pick a
+  // product whose serialized default offer is official self-operated so the
+  // seller stage exercises real cross-session fulfilment rather than a
+  // marketplace offer owned by a different shop.
+  const candidates = items.filter((candidate) => candidate && typeof candidate.slug === "string" && typeof candidate.title === "string");
+  for (const item of candidates) {
+    const detailResponse = await fetchJsonNode(baseUrl + "/api/products/" + encodeURIComponent(item.slug));
+    if (detailResponse.status !== 200) continue;
+    const detail = detailResponse.json?.data;
+    const offers = detail && Array.isArray(detail.offers) ? detail.offers : [];
+    const defaultOffer = offers[0];
+    const skus = detail && Array.isArray(detail.skus) ? detail.skus : [];
+    if (
+      defaultOffer && defaultOffer.shop && defaultOffer.shop.slug === "openshop-self" &&
+      Number(defaultOffer.stock || 0) > 0 && skus.length > 0
+    ) {
+      return {
+        id: item.id ?? null,
+        slug: item.slug,
+        title: item.title,
+        query: item.title,
+        price_cents: item.price_cents ?? null,
+        self_offer_id: defaultOffer.id ?? null,
+        self_shop_slug: defaultOffer.shop.slug,
+      };
+    }
+  }
+  throw new Error("no browsable product has an in-stock official self default offer for the merchant journey");
 }
 
 function normalizeAvailableCoupons(couponData) {
