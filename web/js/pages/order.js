@@ -609,13 +609,13 @@ export async function render(ctx) {
         <div class="review-block__head"><img src="${escapeHtml(item.cover || "")}" alt="" loading="lazy"><div><b>${escapeHtml(item.title || "商品")}</b><p class="tiny muted">${escapeHtml(item.sku_label || "")}</p></div></div>
         <div class="review-block__fields">
           <label class="field"><span class="field-label">评分</span>
-            <select class="select" data-testid="rating-input" data-review-rating>
+            <select class="select" name="rating" data-testid="rating-input" data-review-rating>
               <option value="5">5 星 · 很满意</option><option value="4">4 星 · 满意</option><option value="3">3 星 · 一般</option><option value="2">2 星 · 不太满意</option><option value="1">1 星 · 不满意</option>
             </select>
           </label>
-          <label class="field"><span class="field-label">标题 <span class="tiny muted">选填</span></span><input class="input" data-review-title maxlength="40" placeholder="一句话概括"></label>
+          <label class="field"><span class="field-label">标题 <span class="tiny muted">选填</span></span><input class="input" name="title" data-review-title maxlength="40" placeholder="一句话概括"></label>
         </div>
-        <label class="field"><span class="field-label">评价内容 <span class="tiny muted">10-600 字</span></span><textarea class="textarea" data-testid="review-body" data-review-body minlength="10" maxlength="600" placeholder="写写质感、尺寸、使用感受或值得说明的细节。"></textarea></label>
+        <label class="field"><span class="field-label">评价内容 <span class="tiny muted">10-600 字</span></span><textarea class="textarea" name="body" data-testid="review-body" data-review-body minlength="10" maxlength="600" placeholder="写写质感、尺寸、使用感受或值得说明的细节。"></textarea></label>
       </section>`).join("")}</div>
       <p class="error-inline" data-review-error role="alert" tabindex="-1" hidden></p>
       <div class="trade-form__actions"><button class="btn btn--ghost" type="button" data-cancel>取消</button><button class="btn btn--primary" type="submit" data-testid="review-submit" data-review-submit>提交评价</button></div>`;
