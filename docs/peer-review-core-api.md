@@ -1,5 +1,7 @@
 # Peer Review：核心 / 认证 / 目录 / 交易 API 安全审计
 
+> **2026-10-13 修复更新**：下面第 1–3 节保留**修复前**审计快照。F-01～F-05 已全部修复，修复后同一 finding probes 均转为 PASS；复核记录、剩余测试夹具限制与 QA 现行验收见文末「修复后复核」。不要再把本页开头的历史 verdict 当作当前产品状态。本报告保留原始失败与不覆盖边界。
+
 - 任务：task-10，独立对抗审查；base master a3c30a9（已合 catalog + trade）。
 - Worktree：/data/dev/openshop-wt-peer-review；branch：seat/peer-review。
 - 审查方式：只读产品代码；在 127.0.0.1:8882 启动真实 stdlib 服务，独立 SQLite data_dir，全部结论来自真实 HTTP 探针或明确代码坐标。
@@ -159,3 +161,39 @@
 | F-03 登录无 IP 总闸 | Low | Lead / auth-core |
 | F-04 query-field flood 500 | Low | Lead / web+server |
 | F-05 NUL static path 断连 | Low | Lead / server static handler |
+
+---
+
+## 修复后复核（Lead，2026-10-13）
+
+修复提交：`83fdd92`（会话权限提升时轮换 token、移除注册成功后的限速重置、新增密码登录 per-IP 总闸、query 字段洪泛转 400、静态路径 NUL/控制字符拒绝与路径异常兜底）。
+
+同一审计脚本在 master 复跑的五个 finding probe：
+
+    PROBE auth_session_identifier_rotation verdict=PASS finding=F-01
+      token_rotated=True csrf_rotated=True old_cookie_after_is_guest=True
+    PROBE rate_register_successful_signup_bypass verdict=PASS finding=F-02
+      successful_registrations_same_ip_window=5 extra_statuses=[200,200,429]
+    PROBE auth_login_identifier_rotation_spray verdict=PASS finding=F-03
+      statuses=[429 x10] codes=[RATE_LIMITED] rate_limited=10
+    PROBE input_query_field_limit verdict=PASS finding=F-04
+      http=400 code=VALIDATION_ERROR
+    PROBE input_nul_byte_static_path verdict=PASS finding=F-05
+      http=400 transport_error=None health_after=True
+
+五项均不再复现。现读 QA 门另行以真实 HTTP 覆盖 CSRF/IDOR/价格权威/超卖并发/idempotency/拼团/售后，见 `docs/testing.md`；全量判定为 **API 35 PASS / 0 FAIL**、真实 Chromium **11 PASS / 0 FAIL**。
+
+### 本次复跑中非产品的红项
+
+审计脚本是一次性、单进程串行跑的早期工具，存在两处夹具限制：
+
+1. `scope_seller_api_not_merged` 写死断言 seller API 返回 404（该席当时尚未合入）。seller API 现已合入；独立 QA 已验证访客 401、买家被拒、商家只看到自己的店。该 probe 的失败是**过时 scope 断言**，不是 API 退回 stub。
+2. `rate_login_per_identifier_failure_control` 与 `rate_register_five_failure_control` 在一个共享服务进程里与前面的正常限速/注册探针共用 IP 桶，导致 control 开始时段额已被消耗。它们没有重置桶或重启服务，因此 control 的“前 N 次应放行”前提不成立；这是**测试夹具污染**，不是 F-02/F-03 未修复。该脚本也不在 CI 发现集合内。
+
+上述两项限制不再作为产品未收项，但也不伪称完整 44 探针在单一运行内全绿。F-01～F-05 的 finding 结论以逐项 probe 为准。
+
+### 仍未覆盖
+
+- seller 的 IDOR/发货/售后安全由后续 QA 的真实 API/浏览器验收覆盖（API-040/041/052 等），不是本早先审计的运行范围。
+- 分布式、多进程、真实反代/TLS/生产容量和拼团后台过期清理没有在本报告内验证。
+- 本报告不是公网渗透测试或生产合规证明。

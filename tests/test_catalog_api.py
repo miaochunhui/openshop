@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Real-HTTP acceptance tests for the OpenShop catalog/address seat.
 
-The suite owns its server, binds 127.0.0.1:8861 by default and writes the
-SQLite database and server log under /hf3fs-jd/data/tmp/openshop. It never
-touches the repository data directory. Run it as the infra account:
+The suite owns its server, binds 127.0.0.1:8861 by default and writes an
+isolated SQLite database and server log under $TMPDIR/openshop-tests (override
+with OPENSHOP_TMP_BASE or OPENSHOP_CATALOG_TEST_PORT). It never touches the
+repository data directory.
 
-    sudo -n -u infra python3 -B tests/test_catalog_api.py
+    python3 -B tests/test_catalog_api.py
 
 A fresh timestamped data dir is used on every run, so the suite is rerunnable.
 """
@@ -18,6 +19,7 @@ import signal
 import socket
 import subprocess
 import sys
+import tempfile
 import threading
 import time
 import unittest
@@ -32,7 +34,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 PORT = int(os.environ.get("OPENSHOP_CATALOG_TEST_PORT", "8861"))
 BASE_URL = f"http://127.0.0.1:{PORT}"
-TEMP_BASE = Path(os.environ.get("OPENSHOP_TMP_BASE", "/hf3fs-jd/data/tmp/openshop"))
+TEMP_BASE = Path(os.environ.get("OPENSHOP_TMP_BASE", str(Path(tempfile.gettempdir()) / "openshop-tests")))
 WRITE_METHODS = {"POST", "PATCH", "DELETE", "PUT"}
 _MISSING = object()
 

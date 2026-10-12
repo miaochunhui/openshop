@@ -2,13 +2,14 @@
 """Real-HTTP acceptance tests for the seller workbench API.
 
 Run from the repository root:
-  sudo -n -u infra env PYTHONDONTWRITEBYTECODE=1 \
+
     python3 -B tests/test_seller_api.py -v
 
-The suite boots its own server on 127.0.0.1:8865 with an isolated data
-directory under /hf3fs-jd/data/tmp/openshop/. It never touches another seat's
-database or the committed seed. The data directory and server log are left in
-place as evidence and the exact paths are printed at the end.
+The suite boots its own server on 127.0.0.1:8865 (override
+OPENSHOP_SELLER_TEST_PORT) with an isolated data directory under
+$TMPDIR/openshop-tests (override OPENSHOP_TMP_BASE). It never touches the
+committed seed. The data directory and server log are left in place as evidence
+and the exact paths are printed at the end.
 """
 from __future__ import annotations
 
@@ -19,6 +20,7 @@ import socket
 import sqlite3
 import subprocess
 import sys
+import tempfile
 import time
 import unittest
 import uuid
@@ -36,8 +38,8 @@ from packages.commerce import db as dbutil  # noqa: E402
 from packages.commerce.models import CARRIERS  # noqa: E402
 
 HOST = "127.0.0.1"
-PORT = 8865
-TMP_BASE = Path("/hf3fs-jd/data/tmp/openshop")
+PORT = int(os.environ.get("OPENSHOP_SELLER_TEST_PORT", "8865"))
+TMP_BASE = Path(os.environ.get("OPENSHOP_TMP_BASE", str(Path(tempfile.gettempdir()) / "openshop-tests")))
 CST = timezone(timedelta(hours=8))
 FORBIDDEN_RESPONSE_KEYS = {
     "address",

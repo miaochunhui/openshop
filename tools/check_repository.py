@@ -662,7 +662,8 @@ class RepositoryGate:
                 continue
             if "router.add(" not in text:
                 result.fail(rel, "route module registers no route via router.add()")
-        render_re = re.compile(r"\bexport\s+(?:async\s+)?function\s+render\b")
+        direct_export_re = re.compile(r"\bexport\s+(?:default\s+)?(?:async\s+)?function\s+render\b")
+        export_list_re = re.compile(r"\bexport\s*\{[^}]*\brender\b[^}]*\}")
         for rel in REQUIRED_PAGE_FILES:
             path = self.root / rel
             if not path.is_file():
@@ -673,7 +674,7 @@ class RepositoryGate:
             except (OSError, UnicodeDecodeError) as exc:
                 result.fail(rel, f"cannot read page module: {type(exc).__name__}")
                 continue
-            if not render_re.search(text):
+            if not (direct_export_re.search(text) or export_list_re.search(text)):
                 result.fail(rel, "page module does not export render()")
 
     def check_placeholder_stubs(self, result: CheckResult) -> None:
@@ -860,6 +861,11 @@ class RepositoryGate:
                         result.fail(rel, item)
         for path in self.files_with_suffix({".js", ".mjs"}):
             rel = self.relative(path)
+            # Test harnesses intentionally embed hostile remote-resource
+            # fixtures to prove that the browser/external-request detector can
+            # go red. They are never loaded by the product runtime.
+            if rel.startswith(("tests/", "tools/")):
+                continue
             try:
                 text = self.read_text(path)
             except (OSError, UnicodeDecodeError):
@@ -1002,11 +1008,16 @@ class RepositoryGate:
                 target = self._validate_browser_ref(result, match.group(0), rel, path.parent, context="JavaScript asset literal")
                 if target:
                     referenced.add(target)
-            for specifier in self._js_imports(text):
-                if specifier.startswith(".") or specifier.startswith("/"):
-                    target = self._validate_browser_ref(result, specifier, rel, path.parent, context="JavaScript module import")
-                    if target:
-                        referenced.add(target)
+            # Import resolution is a browser-asset constraint only for the
+            # runtime web tree. Node test harnesses import sibling helpers via
+            # relative paths that are not under web/ and must not be treated as
+            # missing browser assets.
+            if rel.startswith("web/"):
+                for specifier in self._js_imports(text):
+                    if specifier.startswith(".") or specifier.startswith("/"):
+                        target = self._validate_browser_ref(result, specifier, rel, path.parent, context="JavaScript module import")
+                        if target:
+                            referenced.add(target)
         for path in self.files_with_suffix({".json"}):
             rel = self.relative(path)
             try:

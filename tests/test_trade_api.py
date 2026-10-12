@@ -2,9 +2,10 @@
 """Real-HTTP trade acceptance suite.
 
 Runs the actual stdlib server on the dedicated port 8862 with a fresh data
-directory under /hf3fs-jd/data/tmp/openshop/. No in-process WSGI shortcut is
-used. Fixture-only DB edits are limited to addresses, stock and package/order
-shipping state where the contract has no buyer-controlled endpoint.
+directory under $TMPDIR/openshop-tests (override OPENSHOP_TMP_BASE or
+OPENSHOP_TRADE_TEST_PORT). No in-process WSGI shortcut is used. Fixture-only DB
+edits are limited to addresses, stock and package/order shipping state where
+the contract has no buyer-controlled endpoint.
 """
 from __future__ import annotations
 
@@ -15,6 +16,7 @@ import secrets
 import signal
 import subprocess
 import sys
+import tempfile
 import time
 import unittest
 import urllib.error
@@ -28,9 +30,9 @@ if str(REPO_ROOT) not in sys.path:
 
 from packages.commerce import db as dbutil  # noqa: E402
 
-PORT = 8862
+PORT = int(os.environ.get("OPENSHOP_TRADE_TEST_PORT", "8862"))
 BASE_URL = f"http://127.0.0.1:{PORT}"
-TMP_ROOT = Path("/hf3fs-jd/data/tmp/openshop/backend-trade")
+TMP_ROOT = Path(os.environ.get("OPENSHOP_TMP_BASE", str(Path(tempfile.gettempdir()) / "openshop-tests"))) / "backend-trade"
 _UNSET = object()
 
 
