@@ -209,6 +209,7 @@ function normalizeAvailableCoupons(couponData) {
       title: typeof raw.title === "string" && raw.title ? raw.title : (typeof def.title === "string" ? def.title : raw.code),
       threshold_cents: threshold,
       discount_cents: discount,
+      scope: typeof raw.scope === "string" ? raw.scope : (typeof def.scope === "string" ? def.scope : "all"),
       user_coupon_id: raw.user_coupon_id ?? null,
     });
   }
@@ -917,6 +918,8 @@ async function stageCheckoutAddressCoupon() {
   if (!page) throw new GuardViolation("buyer page was not created");
   if (!C.fixture) throw new GuardViolation("catalog fixture unavailable");
   const addAddressCandidates = [
+    page.locator('[data-testid="address-add"]'),
+    page.locator('[data-testid="address-add-empty"]'),
     page.locator('[data-testid="add-address"]'),
     page.locator('[data-testid="new-address"]'),
     page.getByRole("button", { name: /新增地址|添加地址|新建地址|使用新地址/ }),
@@ -1051,12 +1054,17 @@ async function stageCheckoutAddressCoupon() {
   if (!applied || !applied.quote || !applied.quote.coupon) {
     const subtotal = applied && applied.quote ? Number(applied.quote.subtotal_cents || 0) : 0;
     const usable = availableCoupons.filter((item) => item.threshold_cents <= subtotal);
-    if (usable.length === 0) {
-      throw new GuardViolation("no AVAILABLE coupon meets quote subtotal " + subtotal + "; coupons=" + JSON.stringify(availableCoupons));
+    // The seed cart item may belong to a category that excludes a scoped
+    // coupon. Use an unrestricted coupon for the main journey; scoped-coupon
+    // rejection remains covered by the API suite and the quote error state.
+    const journeyCoupons = usable.filter((item) => item.scope === "all");
+    if (journeyCoupons.length === 0) {
+      throw new GuardViolation("no AVAILABLE unrestricted coupon meets quote subtotal " + subtotal + "; coupons=" + JSON.stringify(availableCoupons));
     }
-    const chosenCoupon = usable[0];
+    const chosenCoupon = journeyCoupons[0];
     let appliedVia = null;
     const couponSelectCandidates = [
+      page.locator('[data-testid="coupon-select"]'),
       page.locator('select[name="coupon_code"]'),
       page.locator('select[name="coupon"]'),
       page.locator('#coupon-code'),

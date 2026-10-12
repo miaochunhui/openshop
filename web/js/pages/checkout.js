@@ -265,7 +265,7 @@ export async function render(ctx) {
     return `<div class="coupon-picker">
       <div class="field coupon-picker__field">
         <label class="field-label" for="checkout-coupon">已领取的优惠券</label>
-        <select class="select" id="checkout-coupon" data-testid="coupon-select" ${busy() || quoting ? "disabled" : ""}>
+        <select class="select" id="checkout-coupon" name="coupon_code" data-testid="coupon-select" ${busy() || quoting ? "disabled" : ""}>
           <option value="">不使用优惠券</option>
           ${options}
         </select>
@@ -469,7 +469,7 @@ export async function render(ctx) {
           <section class="trade-card checkout-section" aria-labelledby="checkout-address-title">
             <div class="trade-section-head">
               <div><span class="trade-section-head__num">01</span><div><h2 id="checkout-address-title">收货地址</h2><p>由地址簿服务提供，选择后用于本单。</p></div></div>
-              <div class="cluster"><a class="link-arrow" href="/account?tab=addresses" data-link>管理地址</a><button class="btn btn--small btn--ghost" type="button" data-testid="address-add" data-add-address ${busy() ? "disabled" : ""}>+ 新增</button></div>
+              <div class="cluster"><a class="link-arrow" href="/account?tab=addresses" data-link>管理地址</a><button class="btn btn--small btn--ghost" type="button" data-testid="address-add" data-add-address aria-label="新增收货地址" ${busy() ? "disabled" : ""}>+ 新增地址</button></div>
             </div>
             ${addressChoicesHtml()}
           </section>
