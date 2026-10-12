@@ -125,7 +125,6 @@ async function renderRoute() {
           heading.setAttribute("tabindex", "-1");
           heading.focus({ preventScroll: true });
         }
-        app.scrollIntoView({ block: "start" });
       });
     }
   } catch (err) {

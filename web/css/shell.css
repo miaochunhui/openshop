@@ -111,7 +111,8 @@
   .mobile-tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 70; display: flex; justify-content: space-around; padding: 7px 8px calc(7px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: rgba(255, 250, 242, .96); backdrop-filter: blur(12px); }
   .mobile-tabbar a { position: relative; display: grid; gap: 2px; place-items: center; width: 64px; color: var(--muted); font-size: .65rem; }
   .mobile-tabbar a:hover, .mobile-tabbar a.is-active { color: var(--accent); }
-  .tab-icon { font-size: 1.25rem; line-height: 1.1; }
+  .tab-icon { display: grid; place-items: center; width: 22px; height: 22px; font-size: 1.25rem; line-height: 1.1; }
+  .tab-icon svg { width: 21px; height: 21px; }
   .tab-badge { position: absolute; top: -2px; right: 12px; min-width: 16px; height: 16px; padding-inline: 4px; border-radius: 8px; background: var(--accent); color: white; font-size: .58rem; text-align: center; line-height: 16px; }
   body { padding-bottom: 66px; }
   .footer-grid { grid-template-columns: 1.4fr 1fr; gap: 28px; padding: 38px 0 34px; }
