@@ -133,11 +133,14 @@ def unique_handle(conn: sqlite3.Connection, email: str) -> str:
     return "user_" + secrets.token_hex(6)
 
 
-def update_session_user(conn: sqlite3.Connection, session: sqlite3.Row, user_id: int) -> tuple[str | None, sqlite3.Row]:
-    """Attach the authenticated user and merge guest cart/favorites into their state.
+def update_session_user(conn: sqlite3.Connection, session: sqlite3.Row, user_id: int) -> tuple[str, sqlite3.Row]:
+    """Attach the authenticated user, merge guest state, and rotate the token.
 
-    Returns (new_guest_token, refreshed_session). If session was already attached
-    to a different user, caller must rotate a fresh session instead.
+    Locking a guest session to an authenticated identity must not preserve the
+    pre-auth bearer token; otherwise a planted guest cookie would survive the
+    privilege change. The caller must send the returned token in Set-Cookie.
+    If this session was already attached to a different user, the caller must
+    rotate a wholly fresh session instead.
     """
     current = session["user_id"]
     if current is not None and int(current) != int(user_id):
@@ -145,11 +148,15 @@ def update_session_user(conn: sqlite3.Connection, session: sqlite3.Row, user_id:
     gkey = guest_key(session)
     ukey = f"u:{int(user_id)}"
     models.merge_owner_state(conn, gkey, ukey)
-    conn.execute("UPDATE sessions SET user_id=? WHERE id=?", (int(user_id), session["id"]))
+    new_token = secrets.token_urlsafe(32)
+    conn.execute(
+        "UPDATE sessions SET user_id=?, token_hash=?, last_seen_at=? WHERE id=?",
+        (int(user_id), token_hash(new_token), dbutil.iso(), session["id"]),
+    )
     ensure_auto_coupons(conn, int(user_id))
     refreshed = dbutil.one(conn, "SELECT * FROM sessions WHERE id=?", (session["id"],))
     assert refreshed is not None
-    return None, refreshed
+    return new_token, refreshed
 
 
 def login_rate_limit(key: str, *, max_attempts: int = 8, window_seconds: int = 300) -> None:

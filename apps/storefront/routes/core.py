@@ -57,7 +57,6 @@ def register(router: Router) -> None:
                 csrf = auth.rotate_csrf(ctx.db, session["id"])
             if new_token:
                 _set_new_session(ctx, new_token)
-            auth.reset_rate_limit(f"register:{ctx.client_ip}")
             payload = auth.session_payload(ctx.db, refreshed, user_id=user_id, csrf=csrf)
             return payload
         except sqlite3.IntegrityError as exc:
@@ -71,6 +70,9 @@ def register(router: Router) -> None:
         password = body.get("password")
         if not isinstance(password, str) or not password:
             raise ApiError(401, "INVALID_CREDENTIALS", "邮箱或密码不正确")
+        # Two budgets: per identifiable account and per source. The second one
+        # stops credential spraying across many identifiers and bounds PBKDF2 CPU.
+        auth.login_rate_limit(f"login-ip:{ctx.client_ip}", max_attempts=8, window_seconds=300)
         auth.login_rate_limit(f"login:{ctx.client_ip}:{identifier.lower()[:80]}")
         user = dbutil.one(
             ctx.db,
@@ -93,8 +95,9 @@ def register(router: Router) -> None:
             auth.reset_rate_limit(f"login:{ctx.client_ip}:{identifier.lower()[:80]}")
             return auth.session_payload(ctx.db, new_session, csrf=new_csrf)
         with dbutil.transaction(ctx.db):
-            _, refreshed = auth.update_session_user(ctx.db, session, int(user["id"]))
+            new_token, refreshed = auth.update_session_user(ctx.db, session, int(user["id"]))
             csrf = auth.rotate_csrf(ctx.db, session["id"])
+        _set_new_session(ctx, new_token)
         auth.reset_rate_limit(f"login:{ctx.client_ip}:{identifier.lower()[:80]}")
         return auth.session_payload(ctx.db, refreshed, user_id=int(user["id"]), csrf=csrf)
 
@@ -120,9 +123,9 @@ def register(router: Router) -> None:
             assert fresh is not None
             return auth.session_payload(ctx.db, fresh, csrf=csrf)
         with dbutil.transaction(ctx.db):
-            _, refreshed = auth.update_session_user(ctx.db, session, int(user["id"]))
+            new_token, refreshed = auth.update_session_user(ctx.db, session, int(user["id"]))
             csrf = auth.rotate_csrf(ctx.db, session["id"])
-        auth.reset_rate_limit(f"demo:{ctx.client_ip}")
+        _set_new_session(ctx, new_token)
         return auth.session_payload(ctx.db, refreshed, user_id=int(user["id"]), csrf=csrf)
 
     @router.add("POST", "/api/auth/logout", auth="public")

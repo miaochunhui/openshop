@@ -263,6 +263,12 @@ class Handler(BaseHTTPRequestHandler):
 
     def _serve_static_or_spa(self, parsed) -> None:
         path = unquote(parsed.path)
+        # Reject control characters (notably NUL) before Path touches them.
+        # Without this, Path.resolve() raises ValueError outside the API error
+        # boundary and the client gets an empty connection reset.
+        if any(ord(ch) < 0x20 or ord(ch) == 0x7F for ch in path):
+            self._send(400, "Bad Request\n", content_type="text/plain; charset=utf-8")
+            return
         if path == "/favicon.ico":
             self.send_response(302)
             self.send_header("Location", "/web/assets/brand/favicon.svg")
@@ -279,11 +285,15 @@ class Handler(BaseHTTPRequestHandler):
             rel = path.lstrip("/")
         else:
             rel = "index.html"
-        candidate = (REPO_ROOT / rel).resolve()
+        try:
+            candidate = (REPO_ROOT / rel).resolve()
+        except (OSError, ValueError):
+            self._send(404, "Not Found\n", content_type="text/plain; charset=utf-8")
+            return
         is_asset = path.startswith("/web/")
         try:
             inside = candidate.is_relative_to(REPO_ROOT) and candidate.is_relative_to(WEB_ROOT)
-        except ValueError:
+        except (OSError, ValueError):
             inside = False
         if inside and candidate.is_file() and candidate.name != "index.html":
             content_type = STATIC_MIME.get(candidate.suffix.lower()) or mimetypes.guess_type(candidate.name)[0] or "application/octet-stream"

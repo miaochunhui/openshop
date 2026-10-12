@@ -74,7 +74,10 @@ class RequestContext:
         self.method = method.upper()
         self.path = path
         self.raw_query = raw_query
-        self.query = parse_qs(raw_query, keep_blank_values=True, max_num_fields=100)
+        try:
+            self.query = parse_qs(raw_query, keep_blank_values=True, max_num_fields=100)
+        except ValueError as exc:
+            raise ApiError(400, "VALIDATION_ERROR", "查询参数过多或格式无效") from exc
         self.headers = {k.lower(): v for k, v in headers.items()}
         self.body = body
         self.db = db
