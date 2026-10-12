@@ -1,44 +1,44 @@
 # 变更记录
 
-本项目处于 **v0.1.0 发布候选**阶段。下面条目记录准备内容，**不代表已经打标签、发布、部署或公开上线**。正式发布必须完成 [docs/RELEASE.md](docs/RELEASE.md) 的门槛与授权流程。
+本项目当前状态为 **v0.1.0 本地源码验收版**。本地 API、真实 Chromium、标准库测试和固定仓库门已通过；**未公开部署、未推送远端仓库**。正式生产发布仍需 [docs/RELEASE.md](docs/RELEASE.md) 中的授权、远端 CI、部署与回滚演练。
 
-准备日期：2026-10-12。发布日期：待定，成功授权并按版本发布后才填写。
+记录日期：2026-10-13（Asia/Shanghai）。公开发布日期：待定。
 
-## [Unreleased]
-
-- 集成期间修复与验收证据在维护者指定的集成分支汇合后补充。
-
-## [0.1.0] — 发布候选（未发布）
+## [0.1.0] — 本地源码验收版（未公开发布）
 
 ### Added
 
-- 全新的 [README.md](README.md)：开集定位、三种供给、真实边界、显式数据目录/固定端口快速开始、演示账号、功能/架构、测试、目录与许可。
-- 开源项目治理文档：[CONTRIBUTING.md](CONTRIBUTING.md)、[SECURITY.md](SECURITY.md)、本行为准则 [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) 与 [docs/OPEN-SOURCE.md](docs/OPEN-SOURCE.md)。
-- [docs/INSTALL.md](docs/INSTALL.md)：Python 3.10+ 本地运行、独立数据目录、健康检查、测试与生产边界。
-- [.github/workflows/ci.yml](.github/workflows/ci.yml)：只读权限的 Python 标准库测试、仓库门自检与仓库门；不访问凭据、不在 CI 中安装外部包。
-- [tools/check_repository.py](tools/check_repository.py)：真实仓库门，含正/负控 `--selftest`。检查第三方运行时资源、内联脚本、秘密形态、占位残留、JSON/JS/Python/HTML 完整性、资产引用、文档链接、CSS `:root` token 重复、CI/部署策略与运行时第三方依赖。
-- [deploy/](deploy/)：非 root systemd 模板、外置状态目录、只读释放树、加固选项、journal 日志、启动健康检查以及安装/回滚样例。
-- [docs/RELEASE.md](docs/RELEASE.md)：固定版本候选、检查清单、制品/校验和步骤以及发布/回滚尚未执行的声明。
+- 多边商品发现与比较：首页、分类、搜索分面、商品图集、最多三种供给报价、SKU、店铺信息和评价；18 件原创虚构商品、10 家虚构店铺、54 条示例评价。
+- 完整买方链路：游客购物车合并、注册/一键演示登录、地址簿、优惠券、服务端报价、幂等下单、模拟支付、订单/包裹/物流时间线、取消、确认收货与评价。
+- 真实拼团：邀请码、按已支付成员计算的公开进度、并发名额控制、成团/满员状态；过期在查看/参与/支付时校验。
+- 商家工作台：仅本店数据概览、商品/库存/优惠、订单发货、掩码买家信息、整单单店售后审批/拒绝。
+- 原生 ES Module + 无构建步骤的响应式前端，原创 SVG 商品/品牌资产与完整移动端底栏、键盘焦点、跳过导航。
+- 标准库 HTTP/SQLite 后端：PBKDF2 密码、会话与 CSRF、服务端价格/优惠/库存权威、SQLite WAL 与显式写事务、结构化错误码。
+- 独立审查与验收：44 探针安全审计、标准库测试、API QA、真实 Chromium 11 阶段 E2E、仓库门负控自检。
+- 发布工程：Apache-2.0 LICENSE、README/CONTRIBUTING/SECURITY/CODE_OF_CONDUCT、安装/架构/API/数据/测试文档、GitHub Actions 只读 CI、非 root systemd 模板与发布/回滚说明。
+- 5 张收版截图位于 `docs/screenshots/`；13 张全链路验收截图保存在测试证据目录。
 
-### Changed
+### Fixed
 
-- README 不再使用默认数据目录进行快速开始；文档与部署统一采用固定本地端口 `8780` 和显式 `--data-dir`。
-- 明确说明项目未公开部署，不提供生产容量结论；所有演示身份与内容均为虚构，支付为模拟。
-
-### Security
-
-- CI 顶层权限为只读、取消持久化 checkout 凭据，不引用 secrets。
-- 仓库门 fail closed：发现疑似凭据只打印文件/行号与模式名，不打印凭据值。
-- 发布与部署模板要求明确授权，禁止触碰既有 oss-* 服务、Caddy、DNS 或证书。
-
-### Known limitations / not claimed
-
-- 不声称通过安全审计、生产压测或公网发布；真实支付、物流和身份/KYC 均不在此实现范围。
-- 当前产品的完整功能、浏览器验收与测试通过必须以实际 CI/集成结果为准；本变更集只负责开源发布工程部分。
-- systemd 模板未被本次任务安装或执行，回滚过程仍待授权演练。
-- 本候选在尚未合入全部产品实现的树上，仓库门会如实 FAIL（缺失测试、路由/页面占位等）；不得放宽门禁求绿。
+- 会话权限提升时轮换 token 与 CSRF（F-01）。
+- 成功注册不再重置 IP 注册限速桶（F-02）。
+- 密码登录增加跨 identifier 的 IP 总闸，阻止凭据喷洒（F-03）。
+- 超过字段上限的 query 返回 400，而不是 500（F-04）。
+- 静态路径 NUL/控制字符拒绝并保证服务持续可用（F-05）。
+- 窄屏分类横向滑轨的 2px 页面溢出；评价表单控件命名；不可用优惠券场景；商家订单页验收导航。
 
 ### Verification
 
-- 仓库门自检、当前树门禁、本地烟雾测试、语法检查与原始判定输出保存在发布证据目录，并由负责人随发布审查归档。
-- 许可保持 Apache-2.0，未修改 [LICENSE](LICENSE)。
+- `OPENSHOP_ACCEPTANCE verdict=PASS`：真实 API **35 PASS / 0 FAIL**，真实 Chromium **11 PASS / 0 FAIL / 0 BLOCKED**，13 张截图，0 console/page error、0 外链请求。
+- 可移植 `python3 -B -m unittest discover -s tests -v`：**21 tests PASS**。
+- `REPOSITORY_GATE verdict=PASS checks=19 failures=0 warnings=1`；`--selftest` 20 cases / 19 negative controls PASS。
+- 安全 finding F-01～F-05 全部修复，逐 finding probe 转 PASS。
+- 命令、覆盖、证据与环境依赖见 [docs/testing.md](docs/testing.md) 和 [docs/peer-review-core-api.md](docs/peer-review-core-api.md)。
+
+### Known limitations / not claimed
+
+- 未公开部署、未 push、未在目标 GitHub 触发远程 CI。
+- 完整三轮并发专项套件因执行席 agent 基础设施失败未交付；已有真实并发超卖/幂等/拼团容量探针。
+- 拼团到期无后台自动取消/退款任务；售后仅整单单店铺。
+- 无真实支付、物流、KYC、风控、生产容量、跨实例会话/限速、TLS/Caddy 或灾备演练；本地源码验收不等于生产发布。
+- 当前协作容量为 8 个 leader + Lead，不声称 512 并发；agent 失败与替换上限见交付记录。
