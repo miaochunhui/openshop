@@ -28,7 +28,7 @@ python3 -B tools/rehearse_release.py --selftest --out-dir /path/to/empty-evidenc
 | 公网完整购物 Chromium | **11 PASS / 0 FAIL**，13 截图、0 errors，真实模拟支付/发货/收货/评价 |
 | 公网 AI 浏览器 + API | **PASS**：真实模型、Secure/HttpOnly Cookie、CSRF 403、401、采纳、409 |
 | 仓库门自检 | 20 cases / 19 negative controls PASS |
-| 仓库门 `--check` | **PASS 19 checks / 0 failures / 2 non-blocking warnings**（Actions tag-pin；离线门未抓取 source 外链） |
+| 仓库门 `--check` | **PASS 19 checks / 0 failures**；非阻断 warnings = Actions tag-pin + 离线未抓取各文档外链（数量以当次输出为准） |
 | 发布演练负控 | **10/10 controls PASS** |
 | API 验收 | **35 PASS / 0 FAIL** |
 | Chromium E2E | **11 PASS / 0 FAIL / 0 BLOCKED**，13 截图 |
@@ -75,7 +75,7 @@ CONCURRENCY_ACCEPTANCE verdict=PASS rounds=3 port=8881 elapsed_seconds=32.582
 ```
 
 CI 的同样步骤以系统临时目录运行（v0.2.0 结果 `CONCURRENCY_ACCEPTANCE verdict=PASS ... elapsed_seconds=32.582`，日志 `/hf3fs-jd/data/tmp/openshop/lead/v020-final-concurrency-20261013T083052.log`）。
-同一套件由 backend-trade 席提交、Lead 独立复跑后进入 CI；未 push，未把它当作多进程或容量证明。
+同一套件由 backend-trade 席提交、Lead 独立复跑后进入 CI；它随后随公开仓推送，但仍不证明多进程或容量。
 
 ## 4. 完整真实浏览器验收
 
@@ -191,8 +191,9 @@ server_boots=4 restarts=3
 
 - 本地发布演练的范围、10 个负控、真实归档/解包/启动检查见 [docs/RELEASE-REHEARSAL.md](RELEASE-REHEARSAL.md)。
 - CI 配置顺序：标准库测试（含 AI fake provider 集成测试）→ 三轮并发 → 独立 44 探针安全审计 → 仓库门 selftest → 仓库门；远端配置只有只读权限，不安装依赖、不部署。
-- 本轮在本机以相同命令模拟全绿；**没有在远端 GitHub 实际触发 CI**。systemd、DNS、TLS 与两台 Caddy 边缘已经实际部署，详见 [deployment.md](deployment.md)；代码回滚已演练，边缘回滚未执行，远端 Git 发布未执行。
-- 公网只读源码：https://openshop.ai4everyone.top/web/source/openshop-0.2.0.tar.gz（tag 对应归档）。
+- 本轮本机以相同命令全绿；[GitHub Actions](https://github.com/miaochunhui/openshop/actions/workflows/ci.yml) 由 master push 触发。终态与逐 job 结论以 Actions 和当次外部证据为准，静态文档不冒充 CI PASS。
+- systemd、DNS、TLS 与两台 Caddy 边缘已经实际部署，详见 [deployment.md](deployment.md)；代码回滚已演练，Caddy 边缘回滚未执行。外部公开仓、发布/回滚边界见 [repositories.md](repositories.md)。
+- 公网与外部源码入口：[GitHub](https://github.com/miaochunhui/openshop)、[Gitee](https://gitee.com/sdfwefqaa/openshop)、本站 tag 归档 https://openshop.ai4everyone.top/web/source/openshop-0.2.0.tar.gz。
 
 ## 7. 未覆盖 / 明确不宣称
 
@@ -201,6 +202,6 @@ server_boots=4 restarts=3
 - 真实浏览器依赖当前开发机的 Chromium/Playwright/3FS 路径；CI 不运行主浏览器套件。公网 E2E 与 AI 浏览器验收为手工编排的真实运行，不是远端 CI 阶段。
 - systemd 安装、应用切换、DNS、Let’s Encrypt 与两台上游 Caddy 热重载已实际执行；回滚演练进行了代码回滚，发现前进切换必须显式 restart，并已修正。Caddy 边缘回滚备份/命令存在但本次未执行；没有生产数据迁移。
 - AI 每日额度、单进程 IP 窗口、模型供应商配额与延迟；模型定性文案可能不精确；服务重启清空内存方案/IP 窗口。
-- 未创建外部公开 Git 仓库，未 push，未在远端 CI 运行；公开只读源码由本站归档提供。原因见 docs/STATUS.md。
+- 外部公开 Git 仓与 GitHub Actions 已接入；CI 结论以 Actions 页面和外部交接证据为准。发布工具有独立的 dry-run/selftest，不自动重试；两 token 文件未改。Gitee 空仓不能公开，故先私有推送后切公开。
 - 拼团到期无后台自动取消退款；售后仅整单单店铺；无真实资金/物流/KYC/风控。
 - 商品、店铺、人物、评价、订单、支付与物流均为虚构/模拟。

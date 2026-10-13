@@ -1,9 +1,9 @@
 # 公网部署与回滚记录
 
-更新时间：2026-10-13 08:55（Asia/Shanghai）
+更新时间：2026-10-13 12:22（Asia/Shanghai）
 公网入口：https://openshop.ai4everyone.top/
 运行版本：0.2.0
-阶段：**已公网运行，滚动切换已演练；外部 Git 托管/远端 CI 未执行。**
+阶段：**已公网运行，滚动切换已演练；外部公开仓与远端 CI 已接入。**
 
 本文只记录**已执行**的生产变更与可复核证据，不包含模型 API key、cookie 或任何凭据。规范说明与未覆盖边界在文末。
 
@@ -131,13 +131,27 @@ IPAddressDeny=any 与显式 IPAddressAllow，仅允许回环（健康检查）�
    /web/source/openshop-0.2.0.tar.gz）及其 .sha256；源码包不含运行数据库和凭据。
 7. 记录公网证据；出现任何失败按上一节回滚。
 
-## 外部 Git / CI 边界
+## 外部 Git 与 CI
 
-本次没有创建外部 GitHub/Gitee 新仓库，也没有 push 或远端 CI。现有 GitHub
-凭据被既有工具限制在 miaochunhui/openmath 私有仓，Gitee SSH 只对既有仓库
-有写权限，此次没有获得新建公开 OpenShop 仓库的授权目标/凭据。没有读取或
-绕过这些凭据。代替形态是本站公开只读源码归档和本地 annotated tag/Git 历史。
-若维护者提供新的公开仓库目标或授权链，可补做 push、远端 CI 现读核验和发布链接。
+2026-10-13 新增并公开：
+
+- GitHub：https://github.com/miaochunhui/openshop
+- Gitee：https://gitee.com/sdfwefqaa/openshop
+- GitHub Actions：https://github.com/miaochunhui/openshop/actions/workflows/ci.yml
+
+发布工具为 tools/publish_public_repos.py，由操作者显式传入 external token
+文件路径；工具不会修改 token、现有 GitHub credential helper、Gitee SSH
+登录或全局 Git 配置。GitHub HTTPS 只使用命令级、repo-scoped credential
+pipe。工具默认 dry-run，目标仓库和 v0.2.0 tag target 写死，无 force/删除/
+自动重试，推送前扫描完整可达 Git 对象与工作树中的 token 字面值。
+
+服务器不变量：Gitee **空仓不能被设为公开**（服务返回 422）。因此最终
+launch 顺序是：创建 GitHub 公开空仓；向新 private Gitee 推 master+tag；
+向 GitHub 推 master+tag；Gitee 有内容后执行 visibility PATCH；两端匿名
+refs 复核。该约束和只读回滚计划记录在 docs/repositories.md。
+
+这次生产部署本身、systemd unit、Caddy、DNS、TLS 不因外部 Git 发布而改变。
+远端 CI 结果只在 GitHub Actions 页面/交接证据中声称通过；静态文档不代替现读。
 
 ## 这个部署不是生产级保证
 

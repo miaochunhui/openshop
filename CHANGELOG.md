@@ -1,8 +1,24 @@
 # 变更记录
 
-本项目当前状态为 **v0.2.0 公网演示在线**：https://openshop.ai4everyone.top/。真实 API、真实 Chromium、三轮并发、44 探针安全审计、29 个标准库测试（含 AI 假 provider 的真实 HTTP/安全集成测试与可信代理解析单测）、仓库门、真实模型 AI 与公网完整购物 E2E 均已通过。DNS、Let’s Encrypt 证书、两台上游 Caddy、systemd 应用与代码回滚已实际执行；公开只读源码由本站归档提供。**外部 GitHub/Gitee 新仓与远端 CI 未执行**，边界见 docs/STATUS.md。
+本项目当前状态为 **v0.2.0 公网演示在线**：https://openshop.ai4everyone.top/。真实 API、真实 Chromium、三轮并发、44 探针安全审计、29 个标准库测试（含 AI 假 provider 的真实 HTTP/安全集成测试与可信代理解析单测）、仓库门、真实模型 AI 与公网完整购物 E2E 均已通过。DNS、Let’s Encrypt 证书、两台上游 Caddy、systemd 应用与代码回滚已实际执行；公开只读源码由本站归档提供。源码同时公开于 [GitHub](https://github.com/miaochunhui/openshop) 与 [Gitee](https://gitee.com/sdfwefqaa/openshop)，远端 CI 使用 [GitHub Actions](https://github.com/miaochunhui/openshop/actions/workflows/ci.yml)。
 
 记录日期 / 公开发布日期：2026-10-13（Asia/Shanghai）。
+
+## [Unreleased] — 外部公开仓、远端 CI 与受控发布
+
+### Added
+
+- 新增 GitHub `miaochunhui/openshop` 与 Gitee `sdfwefqaa/openshop` 两个新公开代码仓，并接入 GitHub Actions 工作流；CI 运行记录见 [Actions](https://github.com/miaochunhui/openshop/actions/workflows/ci.yml)。
+- 新增发布工具 `tools/publish_public_repos.py`：目标仓库和 release commit 写死、默认 dry-run、只推 master + annotated tag v0.2.0、无 force/delete、无自动重试；token 仅从 operator 提供的外部文件读取，推送前扫描完整待发送对象和工作树的 token 字面量。
+- 新增 `docs/repositories.md`，记录公开仓、CI、凭据边界和只读回滚计划。
+
+### Notes
+
+- Gitee 服务端拒绝“空仓库设为公开”（实测 422）；最终发布流程是：创建公开 GitHub 仓 → 向新 private Gitee 仓推入 master+tag → 向 GitHub 推送 → Gitee 有内容后再改公开。
+- 未改动既有 OpenMath GitHub credential helper、Gitee SSH 登录、token 文件、全局 Git config；本工具的 GitHub helper 只在单条命令内生效且限定到本仓。
+- 外部 push/CI 的最终终态与逐 job 结论以操作者证据和 Actions 页面为准，不在本静态变更记录里冒充。
+
+## [0.2.0] — AI 买手中介与公网发布
 
 ## [0.2.0] — AI 买手中介与公网发布
 
@@ -30,7 +46,7 @@
 
 - AI 需要外部模型网络与配额，模型输出可能有不精确的定性描述；服务端 offer/SKU 身份、价格和库存是权威事实。
 - 单进程内存方案存储与每 IP 窗口；重启会丢失方案/窗口，不适合多实例。没有流式 AI 输出或多件自动组合。
-- 外部 GitHub/Gitee 新仓库、push 和远端 CI **未执行**；现有受限既有凭据没有跨仓使用。公开源码目前由本站只读归档提供，需要新的公开仓库目标和授权后才能补做远端 CI。
+- 外部 GitHub/Gitee 新仓库、push 和远端 CI 在 v0.2.0 发布当时未执行；已由后续 [Unreleased] 外部发布工作关闭，见上方与 docs/repositories.md。
 - TLS/反代/systemd 已实际部署；Caddy 边缘回滚仅保留逐机备份与命令，本次未执行；无生产容量/多实例/灾备/SLA。
 - 商品、支付、物流皆为虚构/模拟。
 

@@ -8,7 +8,9 @@ OpenShop（开集）是一个可自托管、可审阅的开源多边电商参考
 
 **状态（2026-10-13）：v0.2.0 公网演示在线。** 公开入口：<https://openshop.ai4everyone.top/>（HTTPS + HSTS + CSP；服务绑定受限 systemd 网络白名单，边缘仅由两台上游代理访问）。验证：API 35/35、Chromium 11/11（并已在公网再次跑通完整购物 11/11）、**29 个标准库测试**、3×7 并发、**44/44 安全探针**、仓库门 PASS；真实 deepseek-flash 模型在公网完成了 **AI 中介：自然语言 → 真实目录 → 服务端复价 → 确认加购**，Secure/HttpOnly Cookie、HSTS、0 console/page/外链错误。部署、回滚与现读证据见 [docs/STATUS.md](docs/STATUS.md) 和 [docs/deployment.md](docs/deployment.md)。这是非生产级演示，不提供 SLA。
 
-- **公开只读源码**：<https://openshop.ai4everyone.top/web/source/openshop-0.2.0.tar.gz>（同名 `.sha256` 紧邻可查），从最终 tag 生成；完整本地 Git 提交与 SHA 见本仓记录和最终交接。**没有 push 到外部 GitHub/Gitee，也没有远端 CI 实跑**：现有 GitHub 凭据被限定在既有 OpenMath 私有仓，Gitee SSH 只能访问既有仓，且没有新建公开仓库的显式目标/凭据；未绕过该凭据边界。
+- **公开代码仓库**：[GitHub](https://github.com/miaochunhui/openshop)（[GitHub Actions CI](https://github.com/miaochunhui/openshop/actions/workflows/ci.yml)） · [Gitee](https://gitee.com/sdfwefqaa/openshop)。GitHub Actions 在每次 master push 上运行与本地相同的完整测试/并发/安全审计/仓库门；运行记录以 Actions 页面为准。
+- **本站只读源码归档**：<https://openshop.ai4everyone.top/web/source/openshop-0.2.0.tar.gz>（同名 `.sha256` 紧邻可查），从 v0.2.0 annotated tag 生成。
+- 外部发布使用独立的 operator-supplied token 文件与 `tools/publish_public_repos.py`，不修改既有 OpenMath GitHub helper、Gitee SSH 登录或全局 Git 配置。新建仓、CI 边界与回滚路径见 [docs/repositories.md](docs/repositories.md)。
 
 > **真实边界**：全部商品、品牌、店铺、人物、评价与订单均为虚构演示数据；支付是明确标注的模拟流程，不产生真实扣款；AI 推荐受外部模型、网络和配额影响，不能替代服务端价格与库存事实；这是**非生产级**单进程参考实现，不提供生产级容量、可用性或安全承诺。
 
@@ -130,12 +132,12 @@ python3 -B tools/check_repository.py --check
 - 标准库测试默认把隔离数据写到系统临时目录；可用 `OPENSHOP_TMP_BASE`、`OPENSHOP_CATALOG_TEST_PORT`、`OPENSHOP_TRADE_TEST_PORT`、`OPENSHOP_SELLER_TEST_PORT` 覆盖。本轮为 **29 tests PASS**：原有 22 项 + AI 假 provider 的真实 HTTP/安全集成测试与辅助测试 3 项 + 可信代理 IP 单测 4 项。
 - 并发验收在全新数据目录上用真实 HTTP 连续跑 **3 轮 × 7 场景**：8 并发抢 1 件库存、并发幂等建单、券领取/核销竞态、拼团名额与支付竞态、取消竞态、pay/cancel 竞态。可用 `OPENSHOP_CONCURRENCY_TEST_PORT`、`OPENSHOP_CONCURRENCY_EVIDENCE_ROOT` 覆盖端口与证据目录。
 - 独立安全审查：**44/44 probes PASS，39/39 controls PASS，5/5 findings 修复可回归**。限速控制通过同库原地进程重启获得干净额度，seller 权限由 guest 401、buyer 403、seller 200 + 自身店铺匹配验证；完整原始记录见 [docs/peer-review-core-api.md](docs/peer-review-core-api.md)。
-- 仓库门已现读 **PASS**：19 项检查 0 failures（2 个非阻断 warnings：GitHub Actions checkout 按 tag 固定；离线门不抓取 README 内本站 source 外链）。`--selftest` 带 19 个仓库门负控；发布演练另有 10 个负控全部通过。
+- 仓库门已现读 **PASS**：19 项检查 0 failures；非阻断 warnings 为 GitHub Actions checkout 按 tag 固定，以及离线门不抓取文档外链（文件数与数量以当次门禁输出为准）。`--selftest` 带 19 个仓库门负控；发布演练另有 10 个负控全部通过。
 - 完整真实浏览器验收由 `tools/qa/run_acceptance.py` 编排，使用真实后端、真实 Chromium、真实 cookie/CSRF 和 SQLite；本轮本地为 **API 35 PASS / 0 FAIL、浏览器 11 PASS / 0 FAIL、13 张截图、0 控制台错误、0 外链请求、0 横向溢出**。
 - **公网全购物旅程**：同一套真实 Chromium 以 `--allow-public-host` 显式授权目标 `openshop.ai4everyone.top`，在线上完成搜索→商品→加购→登录合并→新地址/优惠券→服务端报价→模拟支付→商家发货→买家确认收货→评价，以及 390px 移动订单页；**11/11 PASS、13 张公网截图、0 console/page/外链错误**。订单 `OS20261013004340PLSF`。证据：`/hf3fs-jd/data/tmp/openshop/deploy/public-full-e2e-20261013T084320/`。
 - 另有真实浏览器补验：真实自营拼团由 1/2 已付款发起，再以第二位真实注册买家经 UI 参团并付款到 **FULL 2/2**；商家工作台经 UI 把报价库存从 **26 改为 27**，PATCH 200 且刷新后持久化。浏览器错误 0。
 - **AI 真实链路**：真实 deepseek-flash 模型完成从自然语言委托到真实 offer/SKU 校验、服务端复价与一次性方案的中介调用；本地与公网 HTTP 验收均验证 CSRF 403、未登录 401、模型仅被调用一次、方案采纳购物车增加、方案复用 409、**订单数仍为 0**；公网真实 Chromium 完成登录→AI→采纳链路，17.3 秒模型调用、Secure/HttpOnly 会话 Cookie、HSTS/CSP 通过，桌面/390px 无溢出，0 console/page/外链错误。失败也保留：1,100 输出 token 上限曾返回空 content，服务端正确拒绝而未伪造结果；一次证据写出路径不可写导致验收退出，已换可写目录重跑并保留边界。详见 [docs/ai-mediator.md](docs/ai-mediator.md) 与 [docs/testing.md](docs/testing.md)。
-- CI 配置会依次执行标准库测试（含 AI 假 provider 的真实 HTTP 集成测试）、真实三轮并发验收、44 探针安全审计、仓库门自检和仓库门；本轮在本机模拟同一命令全绿。**远端 GitHub Actions 尚未实际触发**，且公开源码暂通过本站只读归档而非外部 Git 托管提供；这是明确的剩余发布边界。
+- GitHub Actions 配置会依次执行标准库测试（含 AI 假 provider 的真实 HTTP 集成测试）、真实三轮并发验收、44 探针安全审计、仓库门自检和仓库门；本机以同一命令全绿，远端结果与逐 job 结论见 [Actions](https://github.com/miaochunhui/openshop/actions/workflows/ci.yml)。外部 Git 只通过新增的两个公开仓提供，未改动既有凭据。
 - 仓库门需要系统 `node` 做 JS 语法检查；运行产品本身不需要 Node。
 - 安全说明见 [SECURITY.md](SECURITY.md)，独立审查与修复记录见 [docs/peer-review-core-api.md](docs/peer-review-core-api.md)。
 
@@ -147,7 +149,7 @@ python3 -B tools/check_repository.py --check
 - 拼团过期只能在查看/参与/支付路径被拒绝，没有后台自动取消和退款任务。
 - 售后目前只支持整单单店铺；多店铺退货退款不在 MVP 内。
 - 未做真实支付、真实物流、KYC、生产容量、跨实例会话/限速和灾备；TLS 由现有 infra Caddy 边缘终结，证书/HSTS 已有现读证据，但不构成生产安全或 SLA 认证。
-- **公网入口和本站源码归档已发布；未创建外部 GitHub/Gitee 新仓库、未 push、未跑远端 CI**。现有公开 Git 写入链没有可用于新建 OpenShop 仓库的授权目标/凭据，未绕过既有凭据边界。需要维护者提供目标远端或授权后才能迁移到外部 Git 托管。
+- **外部公开仓已建立，远端 CI 由 GitHub Actions 执行**：[GitHub](https://github.com/miaochunhui/openshop) / [Gitee](https://gitee.com/sdfwefqaa/openshop)；CI 结果以 [Actions](https://github.com/miaochunhui/openshop/actions/workflows/ci.yml) 页面为准。Gitee 服务端要求空仓不能公开，因此初始发布必须先在私有 Gitee 推入源码再切公开；发布工具无隐式重试，失败会停下留证。
 - 运行环境使用 systemd 网络地址白名单和可信反代 IP 解析；这些是单机控制，不是 DDoS 防护或分布式配额。
 
 ## 目录
@@ -170,9 +172,11 @@ python3 -B tools/check_repository.py --check
 
 贡献方式见 [CONTRIBUTING.md](CONTRIBUTING.md)。安全问题请不要开公开 issue，按 [SECURITY.md](SECURITY.md) 私下联系维护者。社区行为准则见 [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)；开源边界、素材来源和第三方依赖政策见 [docs/OPEN-SOURCE.md](docs/OPEN-SOURCE.md)；变更记录见 [CHANGELOG.md](CHANGELOG.md)。
 
-生产安装、DNS、Let’s Encrypt 证书、两台上游 Caddy 边缘和公网切换已于 **2026-10-13** 完成，详情、备份与回滚入口见 [docs/deployment.md](docs/deployment.md) 和 [docs/STATUS.md](docs/STATUS.md)。`deploy/` 记录的是本部署形式的配置与操作手册；**没有修改任何 oss-* 服务**。外部 Git 仓库和远端 CI 仍未发布，原因与精确边界见上。
+生产安装、DNS、Let’s Encrypt 证书、两台上游 Caddy 边缘和公网切换已于 **2026-10-13** 完成，详情、备份与回滚入口见 [docs/deployment.md](docs/deployment.md) 和 [docs/STATUS.md](docs/STATUS.md)。`deploy/` 记录的是本部署形式的配置与操作手册；**没有修改任何 oss-* 服务**。外部公开仓、GitHub Actions CI、发布工具、凭据边界与只读回滚计划见 [docs/repositories.md](docs/repositories.md)。
 
-公开只读源码归档：[openshop-0.2.0.tar.gz](https://openshop.ai4everyone.top/web/source/openshop-0.2.0.tar.gz) 与同名 `.sha256`。
+- GitHub：<https://github.com/miaochunhui/openshop>
+- Gitee：<https://gitee.com/sdfwefqaa/openshop>
+- 本站只读源码归档：[openshop-0.2.0.tar.gz](https://openshop.ai4everyone.top/web/source/openshop-0.2.0.tar.gz) 与同名 `.sha256`。
 
 ## 许可
 
@@ -180,4 +184,4 @@ python3 -B tools/check_repository.py --check
 
 ## English
 
-OpenShop is an audit-friendly, self-hosted open-source marketplace reference implementation: three offer types, real group-buying state, a grounded AI buying mediator, a stdlib-only Python backend, SQLite, and vanilla ES modules with no build step or third-party runtime dependencies for the browser. It is live at https://openshop.ai4everyone.top/ with HTTPS/HSTS. The fictional seed includes 18 products, 10 shops and 54 reviews. Acceptance passed 35 real-HTTP API checks, 11 real-Chromium stages both locally and again against the public deployment, a 44-probe security audit with 39 controls, a three-round seven-scenario concurrency suite, 29 standard-library tests, plus public-browser evidence of a complete search-to-review shopping journey, a completed two-person group buy, a persisted seller inventory update, and a live-model AI mediation-to-cart flow. A read-only source archive is available at https://openshop.ai4everyone.top/web/source/openshop-0.2.0.tar.gz; no external GitHub/Gitee repository or remote CI is claimed because no authorized create/push credential for a new repository was available, and existing scoped credentials were not bypassed. The AI endpoint requires an operator-provided OpenAI-compatible model gateway; prompts and recent conversation are disclosed to that provider. Payments are simulated and all catalog identities are fictional. Deployment and rollback evidence are recorded in docs/STATUS.md and docs/deployment.md; there is no production-scale, availability or capacity guarantee. See [docs/INSTALL.md](docs/INSTALL.md), [docs/ai-mediator.md](docs/ai-mediator.md) and [docs/testing.md](docs/testing.md). Licensed under Apache-2.0.
+OpenShop is an audit-friendly, self-hosted open-source marketplace reference implementation: three offer types, real group-buying state, a grounded AI buying mediator, a stdlib-only Python backend, SQLite, and vanilla ES modules with no build step or third-party runtime dependencies for the browser. It is live at https://openshop.ai4everyone.top/ with HTTPS/HSTS and mirrored publicly at https://github.com/miaochunhui/openshop and https://gitee.com/sdfwefqaa/openshop, with GitHub Actions CI at https://github.com/miaochunhui/openshop/actions/workflows/ci.yml. The fictional seed includes 18 products, 10 shops and 54 reviews. Acceptance passed 35 real-HTTP API checks, 11 real-Chromium stages both locally and again against the public deployment, a 44-probe security audit with 39 controls, a three-round seven-scenario concurrency suite, 29 standard-library tests, plus public-browser evidence of a complete search-to-review shopping journey, a completed two-person group buy, a persisted seller inventory update, and a live-model AI mediation-to-cart flow. Gitee does not permit an empty repository to be public, so the launch tool first pushes into the new private Gitee repository and only then makes it public; see docs/repositories.md for the bounded publication, CI and rollback procedure. A read-only source archive remains available at https://openshop.ai4everyone.top/web/source/openshop-0.2.0.tar.gz. The AI endpoint requires an operator-provided OpenAI-compatible model gateway; prompts and recent conversation are disclosed to that provider. Payments are simulated and all catalog identities are fictional. Deployment and rollback evidence are recorded in docs/STATUS.md, docs/deployment.md and docs/repositories.md; there is no production-scale, availability or capacity guarantee. See [docs/INSTALL.md](docs/INSTALL.md), [docs/ai-mediator.md](docs/ai-mediator.md) and [docs/testing.md](docs/testing.md). Licensed under Apache-2.0.

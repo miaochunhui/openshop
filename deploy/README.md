@@ -5,8 +5,9 @@
 公开只读源码：https://openshop.ai4everyone.top/web/source/openshop-0.2.0.tar.gz
 
 这是 **2026-10-13 已实际执行的 v0.2.0 部署形态**，不是自动部署器。
-更新/回滚前必须备份并核对目标。没有修改任何 oss-* 服务，也没有把运行
-数据或 API key 放进发布树或 Git。
+任何安装、更新、回滚或重启都必须获得明确的运维授权、先备份并核对目标；
+本手册本身不会自动触碰服务。没有修改任何 oss-* 服务，也没有把运行数据
+或 API key 放进发布树或 Git。
 
 ## 文件
 
@@ -94,8 +95,8 @@ sha256 903c7f29dca90c8643d9fff8ac9511c4941d97ec8c4bb112979d60da868a7987
 
 ## 边界
 
-- 外部 GitHub/Gitee 新仓、push、远端 CI **未执行**。本站只读源码归档是当前公开入口；
-  既有受限凭据没有跨项目使用。需要维护者给出新的公开仓库目标或授权路径。
+- 外部公开仓已建立：[GitHub](https://github.com/miaochunhui/openshop) / [Gitee](https://gitee.com/sdfwefqaa/openshop)；CI 见 [GitHub Actions](https://github.com/miaochunhui/openshop/actions/workflows/ci.yml)。
+  发布工具、凭据边界、Gitee 空仓不能公开的服务端约束和只读回滚见 [docs/repositories.md](../docs/repositories.md)。既有凭据和登录链未被修改。
 - 单实例、单进程 AI 方案/限额；无多实例、容量、灾备或 SLA。
 - AI 依赖外部模型网络/配额；模型定性描述可能不精确；价格/库存/供给以服务端为准。
 - 所有商品、人物、评价、支付与物流均为虚构/模拟；支付不产生真实扣款。

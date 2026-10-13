@@ -1,9 +1,11 @@
 # 当前状态
 
-更新时间：2026-10-13 08:55（Asia/Shanghai）
-阶段：**v0.2.0 公网演示在线**（非生产级）；本地 Git；外部 Git 托管与远端 CI 尚未执行。
+更新时间：2026-10-13 12:22（Asia/Shanghai）
+阶段：**v0.2.0 公网演示在线**（非生产级）；本地 Git；外部公开仓与 GitHub Actions CI 已接入。
 公网入口：https://openshop.ai4everyone.top/
-公开只读源码：https://openshop.ai4everyone.top/web/source/openshop-0.2.0.tar.gz（同名 .sha256）
+公开代码仓：https://github.com/miaochunhui/openshop · https://gitee.com/sdfwefqaa/openshop
+远端 CI：https://github.com/miaochunhui/openshop/actions/workflows/ci.yml
+本站只读源码：https://openshop.ai4everyone.top/web/source/openshop-0.2.0.tar.gz（同名 .sha256）
 
 ## 现读验收
 
@@ -11,7 +13,7 @@
 - 公网 AI：真实 deepseek-flash 浏览器闭环 PASS（17.3 秒；登录→AI→服务端复价→采纳），Secure/HttpOnly Cookie、HSTS/CSP，桌面 1440 与移动 390 无溢出，0 errors。证据：/hf3fs-jd/data/tmp/openshop/deploy/public-ai-browser-20261013T084044/。
 - 公网 AI API：CSRF 403 → 未登录 401 → 真实模型 200 → 采纳成功 → 二次采纳 409 → 未建订单。证据：/hf3fs-jd/data/tmp/openshop/deploy/public-ai-api-evidence-20261013T084504/api-live.json。一次同流程因证据目录不可写退出（请求成功、写出失败），保留后换可写目录重跑。
 - /api/health 现读 version=0.2.0；/api/ai/status 现读 mode=live。服务由 systemd 管，公网健康与 HSTS 已验证。
-- 本地上线前门：29/29 标准库（含 AI 假 provider 真实 HTTP/安全集成 + 可信代理 IP 单测）、3×7 并发、44/44 安全探针（39 controls）、API 35/35、Chromium 11/11、仓库门 PASS（19 checks、2 个非阻断 warnings：Actions tag-pin + 离线门未抓取 source 外链）。证据日志：
+- 本地上线前门：29/29 标准库（含 AI 假 provider 真实 HTTP/安全集成 + 可信代理 IP 单测）、3×7 并发、44/44 安全探针（39 controls）、API 35/35、Chromium 11/11、仓库门 PASS（19 checks、0 failures；非阻断 warnings 为 Actions tag-pin 与离线外链未抓取，数量以当次输出为准）。证据日志：
   /hf3fs-jd/data/tmp/openshop/lead/v020-final-unit-20261013T083052.log
   /hf3fs-jd/data/tmp/openshop/lead/v020-final-concurrency-20261013T083052.log
   /hf3fs-jd/data/tmp/openshop/lead/v020-final-security-20261013T083052.log
@@ -29,7 +31,9 @@
 
 ## 明确限制 / 未完成边界
 
-- **外部 Git 托管和远端 CI 未执行**。现有 GitHub 写入链限定在既有 OpenMath 私有仓；Gitee SSH 只能访问既有仓；本次没有新建公开仓库的目标/凭据。未读取或绕过受限凭据。公开只读源码由本站 source 归档提供；本地 annotated tag/SHA 是源码权威版本。
+- **外部 Git 发布采用独立工具与 operator-supplied token 文件**，已创建 GitHub/Gitee 两个新公开仓并接入 GitHub Actions；仓库链接、发布顺序、凭据边界与只读回滚见 [repositories.md](repositories.md)。没有改动既有 OpenMath GitHub helper、Gitee SSH 登录、全局 Git 配置或 token 文件。
+- Gitee 服务端要求**先有内容再公开**：空仓改公开会被 422 拒绝。发布流程因此在 GitHub 公开仓创建后，先向仍是 private 的新 Gitee 仓推 master+annotated tag，再推 GitHub，最后将 Gitee 改公开。失败会停在首因并保留 receipt，没有隐式重试。
+- 远端 CI 逐 job 结论以 GitHub Actions 现读为准；不在本静态页把“服务在线”冒充 CI 通过。
 - 单进程应用 + SQLite；无多实例会话/限速、无容量/SLA、无灾备。systemd 白名单和可信代理解析是单机控制，不是 DDoS 防护。
 - AI 依赖外部模型网络/配额；公网冷调用约 17–19 秒、无流式；模型可能产生不精确的定性描述，价格/库存以服务端为准。所有 AI 采纳不会自动下单或支付。
 - 无生产支付、真实物流、KYC/风控；拼团无到期自动退款；售后仅整单单店铺。

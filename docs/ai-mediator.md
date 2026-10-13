@@ -98,4 +98,4 @@ CI 安全且可复跑的测试（本地假 provider，真实 HTTP、真实 SQLit
 - 单进程内存限流与单进程方案存储；没有跨实例、持久化 plan 或多实例 AI 配额。
 - 每日/每 IP 配额是**成本上限**，不是防滥用或反机器人系统的完整替代。
 - 公网已部署并由两台上游 Caddy 终结 TLS；代码回滚已演练（含一次前进时未 restart 的失误与修正）。证据和入口见 docs/deployment.md、docs/STATUS.md；本地/演示验证不等于生产 SLA。
-- 没有外部 GitHub/Gitee 远端或远端 CI；公开只读源码由本站 source 归档提供，原因与未越界凭据边界见 docs/STATUS.md。
+- 外部源码公开于 GitHub/Gitee，CI 由 GitHub Actions 执行；见 docs/repositories.md。真实模型调用仍由人工公网验收（不使用远端 CI 的 token/费用），自动化 CI 只用 fake provider。

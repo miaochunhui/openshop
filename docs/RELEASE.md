@@ -6,10 +6,12 @@
 ## 当前状态（先读）
 
 - 公网入口：https://openshop.ai4everyone.top/，HTTPS/HSTS/CSP，真实购物 E2E 11/11 与真实 AI 闭环已在公网通过。
-- 公开只读源码：https://openshop.ai4everyone.top/web/source/openshop-0.2.0.tar.gz（与同名 .sha256）。
+- 公开代码仓：https://github.com/miaochunhui/openshop · https://gitee.com/sdfwefqaa/openshop；远端 CI：https://github.com/miaochunhui/openshop/actions/workflows/ci.yml。
+- 本站只读源码：https://openshop.ai4everyone.top/web/source/openshop-0.2.0.tar.gz（与同名 .sha256）。
 - 本地与在线门：29 标准库测试、3×7 并发、API 35/35、Chromium 11/11、44/44 安全探针、仓库门 PASS。
 - 用户已明确提供本次公网/开源发布授权。部署者操作既有 infra 链；边缘配置投放沿用仓库既有工具要求的 zyj2 身份。
-- **外部 GitHub/Gitee 新仓、远端 CI 未做**：当前环境没有新建公开 OpenShop 仓库的授权目标/凭据。既有 GitHub token 被工具限定在 OpenMath 私有仓，未被读取或跨仓使用；Gitee SSH 只对既有仓有写权限。不得把本站只读源码说成外部 Git 仓库发布或远端 CI 通过。
+- 外部 Git 由独立工具与 operator-supplied token 文件发布为两个**新**公开仓；既有 OpenMath GitHub helper、Gitee SSH、全局 Git config 与 token 文件未被修改。GitHub Actions 的逐 job 终态以 Actions 页面和当次外部证据为准。
+- Gitee 服务端禁止空仓公开（422）；launch 必须先向 private Gitee 仓推送 master+tag，有内容后再切公开；不得以隐式重试或替代凭据绕过。
 - 本站源码/演示不是生产级安全、容量或 SLA 认证；所有商品、人物与支付/物流都是虚构/模拟。
 
 ## 发布前置门
@@ -119,11 +121,13 @@
 - unit/EAI env 配置摘要（不含密钥）、IP 白名单、两机 PID 和 public health；
 - 公网完整购物 E2E、AI 浏览器、AI API 证据；
 - 回滚数据备份 SHA、切换/restart 输出；
-- 外部 Git/CI 阻塞与未覆盖边界。
+- 外部 Git 两仓的创建 receipt、push receipt、匿名 refs 复核、GitHub Actions run/job 终态；
+- 外部发布失败/修复首因、token 未泄漏扫描、只读 rollback-plan 输出。
 
-## 明确外部阻塞/未覆盖
+## 明确限制 / 未覆盖
 
-- 没有外部公开 Git 仓和远端 CI；只读源码在 OpenShop 本站。需要维护者指定新的公开仓库并授权一条不越界的推送/建仓路径。
+- 外部 Git 已发布到新建公开仓；GitHub Actions 逐 job 结果以 Actions 页面和外部证据为准，不用本静态文档冒充。
+- 本页/本站归档不包含 token；两个 token 文件与现有 credential helper/SSH 未变更。
 - 只跑了单机单进程；没有容量、多机、分布式限速/会话或灾备证明。
 - Caddy 边缘回滚没有执行；模型供应商网络/配额是外部依赖。
 - 所有商品、支付、物流均为演示。

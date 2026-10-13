@@ -4,7 +4,7 @@
 
 OpenShop（开集）是一个**可自托管、可审阅的电商参考实现**。目标不是伪装成一个已规模化运营的平台，而是把多边供给、服务端权威计价、模拟支付、订单/售后与商家操作做成可阅读、可运行、可检查的代码。
 
-当前状态是 v0.2.0 公网演示在线：https://openshop.ai4everyone.top/。真实 API/浏览器、公网完整购物 E2E、三轮并发、44/44 安全探针（39/39 controls）、29 个标准库测试、真实模型 AI 中介与仓库门均已通过。公开只读源码由本站归档提供（见 README）；没有创建外部 GitHub/Gitee 新仓或远端 CI，也没有通过外部生产容量、性能或公网渗透审计。OpenShop 不声称与任何现有电商平台存在关联、授权或背书。
+当前状态是 v0.2.0 公网演示在线：https://openshop.ai4everyone.top/。真实 API/浏览器、公网完整购物 E2E、三轮并发、44/44 安全探针（39/39 controls）、29 个标准库测试、真实模型 AI 中介与仓库门均已通过。源码公开于 [GitHub](https://github.com/miaochunhui/openshop) 和 [Gitee](https://gitee.com/sdfwefqaa/openshop)，并使用 [GitHub Actions](https://github.com/miaochunhui/openshop/actions/workflows/ci.yml) 做远端 CI；本站另有只读源码归档。没有通过外部生产容量、性能或公网渗透审计。OpenShop 不声称与任何现有电商平台存在关联、授权或背书。
 
 ## 许可
 
@@ -32,7 +32,7 @@ OpenShop（开集）是一个**可自托管、可审阅的电商参考实现**�
 - [tools/check_repository.py](../tools/check_repository.py) 提供 fail-closed 的仓库检查与带正/负控的 `--selftest`；[.github/workflows/ci.yml](../.github/workflows/ci.yml) 会运行标准库测试、门禁自检与当前树门禁。
 - “通过”只以当前提交上的现跑输出为准。历史截图、口头声明或一次本地启动不能代替测试和门禁。未完成树上的门禁失败必须保留并修复，不能通过放宽规则消除。
 - 固定发布绑定提交、tag、归档 SHA-256、发布演练与部署证据；当前线上与回滚记录见 [deployment.md](deployment.md) 与 [RELEASE.md](RELEASE.md)。
-- 公开源码当前通过本站只读归档提供；没有获得可安全新建公开 Git 仓库并推送的授权目标/凭据，因此没有 push、没有远端 CI。不要用受限的既有项目凭据冒充本项目的远端发布。
+- 公开只读源码可通过 [GitHub](https://github.com/miaochunhui/openshop)、[Gitee](https://gitee.com/sdfwefqaa/openshop) 或本站 tag 归档获取；远端 CI 工作流见 [Actions](https://github.com/miaochunhui/openshop/actions/workflows/ci.yml)。外部发布使用独立 token 文件和受控工具，没有改动既有 OpenMath GitHub helper、Gitee SSH 登录或全局 Git 配置；细节和回滚见 [repositories.md](repositories.md)。
 
 ## 治理与贡献
 

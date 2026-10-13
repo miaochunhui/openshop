@@ -6,7 +6,7 @@
 
 **目标**：从固定 annotated tag 生成可审计的源码归档，在**解包后的树**上重新执行测试与仓库门，再启动解包服务检查真实 HTTP 路径；同时用临时夹具证明工具会在脏树、坏 tag、危险归档和不健康服务上 fail closed。
 
-**非目标**：push、远端 CI、公网入口、DNS/TLS/Caddy、systemd 安装、生产数据、真实支付/物流、自动回滚或 SLA。当前任务没有执行这些动作。
+**非目标**：push、远端 CI、公网入口、DNS/TLS/Caddy、systemd 安装、生产数据、真实支付/物流、自动回滚或 SLA。这个本地 rehearsal 工具本身不执行这些动作；实际外部源码发布和 GitHub Actions 由 [docs/repositories.md](repositories.md) 描述的独立流程负责。
 
 ## 负控自检
 
