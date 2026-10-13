@@ -1,6 +1,6 @@
 # 安装与本地运行
 
-本页只覆盖**本地/受控环境**运行 OpenShop 的复现步骤。项目尚未发布上线；生产安装、TLS 入口、服务常驻和回滚仍待独立授权，模板见 [deploy/README.md](../deploy/README.md)，发布门槛见 [docs/RELEASE.md](RELEASE.md)。
+本页覆盖**本地/受控环境**运行 OpenShop 的复现步骤，并说明已经部署的 v0.2.0 公网形态。线上入口、系统配置、回滚与证据见 [docs/deployment.md](deployment.md)、[deploy/README.md](../deploy/README.md) 和 [docs/RELEASE.md](RELEASE.md)。
 
 ## 前置条件
 
@@ -66,8 +66,15 @@ curl -fsS http://127.0.0.1:8780/api/health
 | `--catalog` / `OPENSHOP_CATALOG` | `data/catalog.json` | 只使用仓库内虚构种子 |
 | `--log-level` / `OPENSHOP_LOG_LEVEL` | `INFO` | 终端/journal 日志级别 |
 | `OPENSHOP_SECURE_COOKIES` | 未设置 | 在已授权的 HTTPS 终结场景设为 `1`；本地 HTTP 开发不要开启 |
+| `OPENSHOP_TRUSTED_PROXIES` | 未设置 | 逗号分隔的可信反代 IP/CIDR；只有来自这些 peer 时才接受 X-Forwarded-For |
+| `OPENSHOP_AI_ENABLED` | 由 endpoint/key 决定 | AI 中介开关；缺少任一依赖即显式 unavailable |
+| `OPENSHOP_AI_BASE_URL` | 未设置 | OpenAI 兼容网关的 v1 根地址，仅服务端使用 |
+| `OPENSHOP_AI_MODEL` / `_MODEL_LABEL` | deepseek-flash / DeepSeek Flash | 请求模型与页面展示名 |
+| `OPENSHOP_AI_API_KEY_FILE` | 未设置 | key 文件路径；或使用 CREDENTIALS_DIRECTORY 下的 openshop_ai_token |
+| `OPENSHOP_AI_*_DAILY_LIMIT` / `_IP_WINDOW_LIMIT` | 代码默认 80/6/4 | 全站/每用户每日与每 IP 窗口限额；生产值在服务器环境文件 |
+| `OPENSHOP_AI_TIMEOUT_SECONDS` / `_MAX_OUTPUT_TOKENS` | 55 / 4000 | 上游超时与输出上限；推理型模型过低会返回空 content |
 
-生产 unit 通过 systemd 的 `StateDirectory=openshop` 把状态放在 `/var/lib/openshop`，并设置 Secure Cookie；公网使用前必须有 HTTPS 终结，相关入口变更不在本任务范围内。
+AI 的 endpoint、真实 key 和线上额度不应提交进 Git；生产示例见 [deploy/openshop.env.example](../deploy/openshop.env.example) 与 [deploy/systemd/openshop.service](../deploy/systemd/openshop.service)。生产 unit 通过 systemd 的 `StateDirectory=openshop` 把状态放在 `/var/lib/openshop`，设置 Secure Cookie，并用 LoadCredential 注入模型 key；公网入口必须是 HTTPS。AI 是否真实可用由 `/api/ai/status` 与真实调用验收，不以页面文案判断。
 
 ## 测试与仓库门
 
@@ -85,6 +92,6 @@ python3 -B tools/check_repository.py --check
 
 ## 生产与回滚
 
-**不属于本地安装步骤。** 任何生产发布必须由负责人书面授权，按 [deploy/README.md](../deploy/README.md) 的模板评审、备份、原子切链与健康检查流程执行。当前仓库任务没有安装 systemd unit，也没有触碰现有 oss-* 服务、Caddy、DNS 或证书。
+**生产状态**：本项目的 v0.2.0 已于 2026-10-13 部署到 https://openshop.ai4everyone.top/；实证、DNS/TLS/Caddy、systemd IP 白名单、回滚与源码归档见 [docs/deployment.md](deployment.md) 和 [docs/RELEASE.md](RELEASE.md)。重新部署必须由负责人明确授权、备份并核对目标。
 
-数据是单个 SQLite 数据库；备份应在适当时机（例如由运营者停止服务后）对外置数据目录做一致性快照，并在升级前确认 schema 兼容性。没有自动回滚、迁移或生产 SLA 承诺。安全边界与支持范围见 [SECURITY.md](../SECURITY.md)。
+数据是单个 SQLite 数据库；备份应在运营者停止服务后对外置数据目录做一致性快照，并在升级前确认 schema 兼容性。没有自动迁移或多实例部署能力，也没有生产 SLA。生产更新在切换 release 后**必须 restart**，否则运行进程仍执行旧代码（本次演练实际踩到）。安全边界与支持范围见 [SECURITY.md](../SECURITY.md)。

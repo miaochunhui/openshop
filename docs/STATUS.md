@@ -1,41 +1,47 @@
 # 当前状态
 
-更新时间：2026-10-13 Asia/Shanghai
-阶段：**v0.1.2 本地源码验收版**；本地 Git；**未推送远端、未公开部署**。
+更新时间：2026-10-13 08:55（Asia/Shanghai）
+阶段：**v0.2.0 公网演示在线**（非生产级）；本地 Git；外部 Git 托管与远端 CI 尚未执行。
+公网入口：https://openshop.ai4everyone.top/
+公开只读源码：https://openshop.ai4everyone.top/web/source/openshop-0.2.0.tar.gz（同名 .sha256）
 
 ## 现读验收
 
-- `OPENSHOP_ACCEPTANCE verdict=PASS`：真实 API **35 PASS / 0 FAIL**；真实 Chromium **11 阶段 PASS / 0 FAIL**；13 张截图；0 console/page error、0 外链请求。
-- 并发：**3 轮 × 7 场景 PASS**。覆盖 stock=1 的 8 路抢购、并发幂等、券领取/核销竞态、拼团名额与支付、取消竞态、pay/cancel 竞态；无 500/transport，终态一致。
-- 标准库 `unittest discover`：**22 tests PASS**；独立安全审计：**44/44 probes PASS，39/39 controls PASS，5/5 findings 修复回归 PASS**；发布演练负控：**10/10 controls PASS**。
-- 仓库门：**PASS**，19 checks、0 failures、1 个非阻断 warning（Actions checkout 按 tag 固定而非 SHA）。
-- 全链路真实路径已覆盖：浏览 → 搜索 → 商品 → 购物车 → 一键买家登录 → 新地址/优惠券 → 服务端报价 → 建单/幂等 → 模拟支付 → 商家真实发货 → 买家确认收货 → 评价 → 评价聚合。
-- 18 件虚构商品、8 类、10 家店、43 个报价、55 个 SKU、54 条评价、14 个拼团报价。
-- 安全审查 5 个 Low 全部修复；整合后 seller RBAC control 与三个限速 control 合法隔离，整包现读全绿；CI 已新增 44 探针步骤。
-- 真实浏览器补验：自营拼团从 1/2 付款到第二位真实买家经 UI 付款成团 2/2；商家库存经 UI 写入 26→27 并持久化；两轮浏览器错误均 0。
-- 最近 v0.1.2 全链路证据：`/hf3fs-jd/data/tmp/openshop/qa/final-v012-20261013T020433/acceptance-20261013T020433138177-779413/`。安全审计证据：`/hf3fs-jd/data/tmp/openshop/peer-review/v012-ci-20261013T020217/run-20261012T180226534835-728303/`。并发 durable 证据：`/hf3fs-jd/data/tmp/openshop/trade-concurrency-final/run-20261012T171926741056/`。
-- 拼团真实交互：`/hf3fs-jd/data/tmp/openshop/lead/group-join-evidence/202610121746293/`；库存真实交互：`/hf3fs-jd/data/tmp/openshop/lead/group-inventory-evidence/20261012174325/`。
+- 公网真实 API/浏览器全购物旅程：**API 35/35**；公网 Chromium **11/11**（搜索→商品→购物车→登录→地址/券→报价→模拟支付→商家发货→确认收货→评价；另含 390px 移动订单）。13 张公网截图，0 console/page/external/API errors。订单 OS20261013004340PLSF。证据：/hf3fs-jd/data/tmp/openshop/deploy/public-full-e2e-20261013T084320/。
+- 公网 AI：真实 deepseek-flash 浏览器闭环 PASS（17.3 秒；登录→AI→服务端复价→采纳），Secure/HttpOnly Cookie、HSTS/CSP，桌面 1440 与移动 390 无溢出，0 errors。证据：/hf3fs-jd/data/tmp/openshop/deploy/public-ai-browser-20261013T084044/。
+- 公网 AI API：CSRF 403 → 未登录 401 → 真实模型 200 → 采纳成功 → 二次采纳 409 → 未建订单。证据：/hf3fs-jd/data/tmp/openshop/deploy/public-ai-api-evidence-20261013T084504/api-live.json。一次同流程因证据目录不可写退出（请求成功、写出失败），保留后换可写目录重跑。
+- /api/health 现读 version=0.2.0；/api/ai/status 现读 mode=live。服务由 systemd 管，公网健康与 HSTS 已验证。
+- 本地上线前门：29/29 标准库（含 AI 假 provider 真实 HTTP/安全集成 + 可信代理 IP 单测）、3×7 并发、44/44 安全探针（39 controls）、API 35/35、Chromium 11/11、仓库门 PASS（19 checks、2 个非阻断 warnings：Actions tag-pin + 离线门未抓取 source 外链）。证据日志：
+  /hf3fs-jd/data/tmp/openshop/lead/v020-final-unit-20261013T083052.log
+  /hf3fs-jd/data/tmp/openshop/lead/v020-final-concurrency-20261013T083052.log
+  /hf3fs-jd/data/tmp/openshop/lead/v020-final-security-20261013T083052.log
+  /hf3fs-jd/data/tmp/openshop/qa/final-v020-20261013T083310/
+- AI 安全/限额：按登录账号每日 4 次、每 IP 3 次/10 分钟、全站每日 60 次；模型输出只作推荐，必须回到服务端真实 offer/SKU 与价格校验。全局/用户额度持久化 SQLite；IP 窗口和一次性 15 分钟方案为单进程内存，服务重启会清空方案/IP 窗口。密钥通过 systemd LoadCredential，不进入 Git/环境文件明文。
+- 历史 v0.1.2 拼团 FULL 2/2、商家库存 26→27 补验与 44 探针证据仍保留。
 
-详细命令与证据落点见 [testing.md](testing.md)、[RELEASE-REHEARSAL.md](RELEASE-REHEARSAL.md)，安全报告见 [peer-review-core-api.md](peer-review-core-api.md)。
+## 公网变更
 
-## 明确限制
+- DNS：openshop.ai4everyone.top A 43.135.70.136，DNSPod RecordId 2429400643；DNSPod Describe 与公共解析复核一致。
+- TLS：Let’s Encrypt SAN=openshop.ai4everyone.top，issuer YE1，有效期至 2027-01-10；crt 644、key 600，crt/key 已同步 .183/.184 两台上游。NO_RESTART=1 签发，未重启其他边缘。
+- Caddy：openshop 独立 SNI 块在 .183/.184 热重载；两次 VALIDATE_OK，主进程 PID 未变，备份见 /etc/gitlab-edge/Caddyfile.bak.20261013T083907 与 .083927。公网响应带 HSTS、CSP、nosniff、frame deny 等。
+- 应用：openshop.service（专用非 root 用户，/opt/openshop/current，/var/lib/openshop）。systemd IPAddressAllow 只含回环、两台上游 .183/.184、模型网关与 DNS，IPAddressDeny=any。未授权本机 LAN 源直连 8790 超时；两台上游直连健康 200。边缘 IP 同时是可信反代，以便从 XFF 解析真实客户端用于限速。
+- 回滚：v0.1.2 回滚实际执行并恢复 0.2.0；过程发现“仅切 current + systemctl start 不会重启已运行进程”，已用 restart 修正。数据快照 /var/backups/openshop/rollback-20261013T085046/ (sha256 903c7f29…)。Caddy 两机各有独立回滚备份与命令；本次未执行边缘回滚。详见 docs/deployment.md。
 
-- **尚未公开发布 / 未 push 远端 / 未在远端 GitHub 实跑 CI**：需要明确的仓库与生产入口授权。v0.1.2 与所有证据均为本地源码交付，不是线上服务。
-- 并发测试只覆盖单机单进程 SQLite + loopback + 直连 DB fixture；不覆盖多进程/多机、文件系统锁超时、卖家售后审批并发、拼团过期并发或容量压测。
-- 发布演练只做本地归档、解包测试、门禁与启动/登录健康；**systemd 安装、线上切换、TLS/反代、生产数据迁移与回滚演练均未执行**。
-- 拼团到期无后台自动取消/退款任务；售后仅整单单店铺；无真实支付、物流、KYC、风控或灾备。
-- 商品、品牌、店铺、人物、评价、订单、支付与物流均为虚构或模拟内容。
+## 明确限制 / 未完成边界
+
+- **外部 Git 托管和远端 CI 未执行**。现有 GitHub 写入链限定在既有 OpenMath 私有仓；Gitee SSH 只能访问既有仓；本次没有新建公开仓库的目标/凭据。未读取或绕过受限凭据。公开只读源码由本站 source 归档提供；本地 annotated tag/SHA 是源码权威版本。
+- 单进程应用 + SQLite；无多实例会话/限速、无容量/SLA、无灾备。systemd 白名单和可信代理解析是单机控制，不是 DDoS 防护。
+- AI 依赖外部模型网络/配额；公网冷调用约 17–19 秒、无流式；模型可能产生不精确的定性描述，价格/库存以服务端为准。所有 AI 采纳不会自动下单或支付。
+- 无生产支付、真实物流、KYC/风控；拼团无到期自动退款；售后仅整单单店铺。
+- 商品、品牌、人物、评价、订单、支付与物流均为虚构或模拟内容。
+- 本次部署由现有 infra 操作链执行；边缘配置投放使用仓库既有 apply-edge-block.sh 的 zyj2 身份要求。没有更改既有凭据、OpenMath/FreeChat/oss-* 服务。
 
 ## 协作容量实情
 
-- 本任务按 infra B1 只建立 **8 个 durable native leader + Lead**，未使用 512 并发；协作容量受固定 8 席和可用工具限制。
-- 过程中多席 agent 回合发生失败/无收尾；durable 补位新席被 8 席上限拒绝，两个 fresh 强模型 subagent 也无输出。Lead 接管了失败席的集成与验收。
-- 后续 Lead **恢复已有 backend-trade 席**完成 task-9：分支 `seat/trade-concurrency-v2` 提交 `b05928d`，Lead cherry-pick 为集成提交并独立复跑三轮 PASS；又**恢复已有 backend-catalog 席**完成 task-13：提交 `448a30c`，Lead 独立复跑 44/44 探针通过。这些说明至少两次将已完成任务合理分给既有空闲席，但不把它夸大为主代理之外的 512 并行。
-- task-12 的本地发布演练工具与负控由 Lead 直接完成；任务板 task-1..13 全部 completed；未执行生产发布动作。完整失败/补位经过见最终交接件，不能把交付描述成“512 agent 完成”。
+- infra B1 固定上限 **8 个 durable 强模型 leader + Lead**，无私有 worker 池；**没有 512 并发，也不声称 8 席持续满载**。
+- 本轮可核对活跃峰值：Lead + 1 个既有 storefront-flow 席；该席认领 task-14 后未产出即 inactive，Lead 接管 AI 前端实现。没有证据支持更高的实际并发峰值。
+- 成功补位/复用：此前 backend-trade 完成 task-9（Lead cherry-pick 并复跑三轮），backend-catalog 完成 task-13（Lead 覆盖复跑 44/44）。累计可核对成功补位 2 席次；task-14 的一次补位失败，Lead 接管。
+- 早期多席 agent 失败/无收尾，durable 新席创建被 8 席上限拒绝，两个 fresh 强模型 subagent 无输出；详见最终交接件。
+- 不能把本交付描述成“512 agent 完成”。
 
-## 交付位置
-
-- 产品仓库：`/data/dev/openshop`，分支 `master`。
-- 本地演示服务（如仍在运行）：`http://127.0.0.1:8780/`，只绑定 loopback，不是公网入口。
-- 最终验收截图与 JSON 在 `/hf3fs-jd/data/tmp/openshop/qa/` 下的全绿 run 目录；入仓的精选截图在 [docs/screenshots/](screenshots/)。
-- 本地源码 tag/归档与对应 SHA 在最终封版交接记录中列出。
+详细命令、门与证据见 docs/testing.md、docs/deployment.md；安全报告见 docs/peer-review-core-api.md。

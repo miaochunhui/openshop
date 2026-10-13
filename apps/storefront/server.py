@@ -148,7 +148,7 @@ class OpenShopHTTPServer(ThreadingHTTPServer):
 
 
 class Handler(BaseHTTPRequestHandler):
-    server_version = "OpenShop/0.1"
+    server_version = "OpenShop/0.2"
     sys_version = ""
     protocol_version = "HTTP/1.1"
 

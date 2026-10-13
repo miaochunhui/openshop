@@ -1,6 +1,6 @@
 # 测试与验收
 
-本页记录 OpenShop **v0.1.2** 的现读验收口径、命令、证据和环境边界。结论只对下方的运行时刻负责。
+本页记录 OpenShop **v0.2.0** 的现读验收口径、命令、证据和环境边界。结论只对下方的运行时刻负责。
 
 ## 1. 分层门
 
@@ -8,6 +8,7 @@
 python3 -B tools/smoke_server.py
 python3 -B -m unittest discover -s tests -v
 python3 -B tests/test_trade_concurrency.py
+python3 -B tests/test_ai_mediator.py -v
 python3 -B tests/test_peer_review_probes.py
 python3 -B tools/check_repository.py --selftest
 python3 -B tools/check_repository.py --check
@@ -21,11 +22,13 @@ python3 -B tools/rehearse_release.py --selftest --out-dir /path/to/empty-evidenc
 | 门 | 结果 |
 | --- | --- |
 | 冒烟 | PASS（会话/CSRF/demo 登录登出） |
-| `unittest discover` | **22 tests PASS** |
+| `unittest discover` | **29 tests PASS**（含 AI 假 provider 真实 HTTP 安全集成与可信代理 IP 单测） |
 | 并发验收 | **3 rounds × 7 scenarios PASS** |
 | 独立安全审计 | **44/44 probes PASS；39/39 controls PASS；5/5 findings 回归 PASS** |
+| 公网完整购物 Chromium | **11 PASS / 0 FAIL**，13 截图、0 errors，真实模拟支付/发货/收货/评价 |
+| 公网 AI 浏览器 + API | **PASS**：真实模型、Secure/HttpOnly Cookie、CSRF 403、401、采纳、409 |
 | 仓库门自检 | 20 cases / 19 negative controls PASS |
-| 仓库门 `--check` | **PASS 19 checks / 0 failures / 1 non-blocking warning** |
+| 仓库门 `--check` | **PASS 19 checks / 0 failures / 2 non-blocking warnings**（Actions tag-pin；离线门未抓取 source 外链） |
 | 发布演练负控 | **10/10 controls PASS** |
 | API 验收 | **35 PASS / 0 FAIL** |
 | Chromium E2E | **11 PASS / 0 FAIL / 0 BLOCKED**，13 截图 |
@@ -36,10 +39,11 @@ python3 -B tools/rehearse_release.py --selftest --out-dir /path/to/empty-evidenc
 
 - `OPENSHOP_TMP_BASE`：自定义临时根。
 - `OPENSHOP_CATALOG_TEST_PORT`、`OPENSHOP_TRADE_TEST_PORT`、`OPENSHOP_SELLER_TEST_PORT`：三套真实 HTTP 测试的端口覆盖。
-- 本轮 `unittest discover`：**22 tests PASS**（含发布演练负控的正式测试）。
-- CI 使用只读权限，不安装依赖、不注入凭据、不访问外部网络。
+- 本轮 `unittest discover`：**29 tests PASS**（22 项原有门 + 3 项 AI + 4 项可信代理；含发布演练负控的正式测试）。
+- 新增 `tests/test_ai_mediator.py` 用本地 OpenAI-compatible fake provider 启真实服务器和真实 SQLite，覆盖 CSRF 403、未登录 401、真实供给校验、服务端价格覆盖、模型只调用一次、采纳不建单、二次采纳 409、用户额度 429。
+- CI 使用只读权限，不安装依赖、不注入凭据、不访问外部网络；AI 测试不会调用真实模型。
 
-最近本地日志：`/hf3fs-jd/data/tmp/openshop/lead/v012-unit-20261013T020217.log`（同一 CI 批次：标准库 → 并发 → 安全审计 → 仓库门）。
+最近本地日志：`/hf3fs-jd/data/tmp/openshop/lead/v020-final-unit-20261013T083052.log`。
 
 ## 3. 三轮真实并发验收
 
@@ -64,13 +68,13 @@ OPENSHOP_CONCURRENCY_EVIDENCE_ROOT=/path/to/durable-evidence \
 本轮（3FS durable evidence）：
 
 ```text
-CONCURRENCY_ACCEPTANCE verdict=PASS rounds=3 port=8881 elapsed_seconds=37.631
-/hf3fs-jd/data/tmp/openshop/trade-concurrency-final/run-20261012T171926741056/
+CONCURRENCY_ACCEPTANCE verdict=PASS rounds=3 port=8881 elapsed_seconds=32.582
+/hf3fs-jd/data/tmp/openshop/concurrency-v020/run-20261013T003147689442/
   acceptance.json  console.log
   round-1..3/{summary.json,server.log,scenario-*.json,data}
 ```
 
-CI 的同样步骤以系统临时目录运行（v0.1.2 本地模拟结果 `CONCURRENCY_ACCEPTANCE verdict=PASS ... elapsed_seconds=3.427`，日志 `/hf3fs-jd/data/tmp/openshop/lead/v012-concurrency-20261013T020217.log`）。
+CI 的同样步骤以系统临时目录运行（v0.2.0 结果 `CONCURRENCY_ACCEPTANCE verdict=PASS ... elapsed_seconds=32.582`，日志 `/hf3fs-jd/data/tmp/openshop/lead/v020-final-concurrency-20261013T083052.log`）。
 同一套件由 backend-trade 席提交、Lead 独立复跑后进入 CI；未 push，未把它当作多进程或容量证明。
 
 ## 4. 完整真实浏览器验收
@@ -82,10 +86,10 @@ CI 的同样步骤以系统临时目录运行（v0.1.2 本地模拟结果 `CONCU
 ```bash
 python3 -B tools/qa/run_acceptance.py \
   --api-port 8874 --browser-port 8875 \
-  --out-root /hf3fs-jd/data/tmp/openshop/qa/final-v012-<stamp>
+  --out-root /hf3fs-jd/data/tmp/openshop/qa/final-v020-<stamp>
 ```
 
-最近一次 v0.1.2 全绿：
+最近一次本地 v0.2.0 全绿（公网复跑另见下）：
 
 ```text
 OPENSHOP_ACCEPTANCE verdict=PASS rc=0
@@ -99,7 +103,7 @@ screenshots=13
 证据目录：
 
 ```text
-/hf3fs-jd/data/tmp/openshop/qa/final-v012-20261013T020433/acceptance-20261013T020433138177-779413/
+/hf3fs-jd/data/tmp/openshop/qa/final-v020-20261013T083310/acceptance-20261013T083310656811-836095/
   acceptance-summary.json
   api/api-summary.json
   browser/browser-summary.json
@@ -121,6 +125,41 @@ screenshots=13
 10. E2E-10 真实 390px 移动截图、无横向溢出；
 11. E2E-11 最终审计（动作次数、截图、仿真支付披露、无 mock）。
 
+### 公网完整购物 E2E（v0.2.0，真实 HTTPS + 真实 Chromium）
+
+2026-10-13 08:43 以同一套真实浏览器脚本显式授权公网目标
+https://openshop.ai4everyone.top，跑完 11 个阶段：
+
+- 首页真实目录、搜索→商品、真实加购、游客购物车在演示买家登录后合并；
+- 新地址与服务端报价、可用券、服务端总价与模拟支付；
+- 商家真实发货，买家看到承运商/运单号并确认收货，提交评价；
+- 真实 390px 移动首页与移动订单页，无横向溢出；
+- 11/11 PASS、13 张公网截图、0 console/page/external/API errors；
+  订单 OS20261013004340PLSF，测试账户/数据均在公开演示库。
+
+公网入口证据：
+    /hf3fs-jd/data/tmp/openshop/deploy/public-full-e2e-20261013T084320/
+
+### AI 中介真实模型证据（v0.2.0）
+
+- 本地真实网关探针：模型 deepseek-flash，真实目录 18 商品/43 报价；
+  首次 1,100 输出 token 上限返回空 content，服务端返回
+  AI_INVALID_RESPONSE（未伪造），提高到 4,000 后返回合法 JSON。
+- 自动化测试：本地 fake provider 真 HTTP（29 tests 之一），模型不触网。
+- 真实 API（公网 HTTPS）：
+    CSRF 403、未登录 401、模型 200、采纳、二次采纳 409、无订单；
+    deepseek-flash 19.2 秒、9643 prompt tokens、3060 completion tokens。
+  证据：/hf3fs-jd/data/tmp/openshop/deploy/public-ai-api-evidence-20261013T084504/api-live.json
+- 真实 Chromium（公网 HTTPS）：
+    在线 AI 状态、demo 买家登录、真实模型、服务端价格、方案采纳；
+    Secure/HttpOnly session cookie、HSTS/CSP、0 console/page/external
+    errors；桌面 1440 与移动 390 两个视口均无溢出。
+  证据：/hf3fs-jd/data/tmp/openshop/deploy/public-ai-browser-20261013T084044/
+  截图已入仓 docs/screenshots/ai-mediator-page-desktop.png、
+  ai-mediator-plan-desktop.png、ai-mediator-adopted-mobile.png。
+- 一次公网 AI API 流程已成功但写证据目录权限失败，脚本退出非 PASS；
+  保留该记录并以可写目录重跑得到上述 PASS，未把它当第一次全绿。
+
 ### 真实拼团与商家库存补验（人工真实运行）
 
 在 11 阶段浏览器旅程之外，另用真实 Chromium 对 8780 本地服务做了两项交互（记录时运行 v0.1.1，v0.1.2 仅有版本号差异；完整 11 阶段已在 v0.1.2 重跑）：
@@ -140,25 +179,28 @@ v0.1.1 的第一次全量复跑在 E2E-05 假红：3FS 上冷 `GET /api/cart` �
 
 `OPENSHOP_API_ACCEPTANCE verdict=PASS pass=35 fail=0` 覆盖健康检查、Cookie/CSRF、角色隔离、注册/登录、购物车合并、目录/搜索/评价、地址越权、优惠券/报价、幂等建单、支付仅 demo、商家发货、确认收货、评价聚合、取消/售后、并发超卖与 actions 权威等。详细阶段判定在 `api/api-summary.json`。
 
-独立 44 探针审计见 [docs/peer-review-core-api.md](peer-review-core-api.md)。v0.1.2 整包现已 **44/44 probes PASS、39/39 controls PASS、5/5 finding 回归 PASS**，无失败、无 skip、无白名单。旧 seller-stub scope 已替换为 guest 401 / buyer 403 / seller 200 且店铺匹配的真实 RBAC；三个限速 control 通过同库原地进程重启获得干净的内存限速桶，session/CSRF 和 SQLite 数据保留。
+独立 44 探针审计见 [docs/peer-review-core-api.md](peer-review-core-api.md)。v0.2.0 整包现已 **44/44 probes PASS、39/39 controls PASS、5/5 finding 回归 PASS**，无失败、无 skip、无白名单。旧 seller-stub scope 已替换为 guest 401 / buyer 403 / seller 200 且店铺匹配的真实 RBAC；三个限速 control 通过同库原地进程重启获得干净的内存限速桶，session/CSRF 和 SQLite 数据保留。AI 另有自动化安全控制（CSRF、登录、配额、供给校验、一次性方案、订单未创建）与真实公网验证。
 
 ```text
 PEER_REVIEW verdict=PASS probes=44 controls=39 failures=0 findings=0
 server_boots=4 restarts=3
-/hf3fs-jd/data/tmp/openshop/peer-review/v012-ci-20261013T020217/run-20261012T180226534835-728303/
+/hf3fs-jd/data/tmp/openshop/peer-review-v020/run-20261013T003220467815-815132/
 ```
 
 ## 6. 发布演练与 CI
 
 - 本地发布演练的范围、10 个负控、真实归档/解包/启动检查见 [docs/RELEASE-REHEARSAL.md](RELEASE-REHEARSAL.md)。
-- CI 配置顺序：标准库测试 → 三轮并发 → 独立 44 探针安全审计 → 仓库门 selftest → 仓库门；都只有只读权限，不安装依赖、不部署。
-- 本轮在本机以相同命令模拟全绿；**没有在远端 GitHub 实际触发 CI**，也没有 push、部署或修改 DNS/TLS/Caddy/systemd。
+- CI 配置顺序：标准库测试（含 AI fake provider 集成测试）→ 三轮并发 → 独立 44 探针安全审计 → 仓库门 selftest → 仓库门；远端配置只有只读权限，不安装依赖、不部署。
+- 本轮在本机以相同命令模拟全绿；**没有在远端 GitHub 实际触发 CI**。systemd、DNS、TLS 与两台 Caddy 边缘已经实际部署，详见 [deployment.md](deployment.md)；代码回滚已演练，边缘回滚未执行，远端 Git 发布未执行。
+- 公网只读源码：https://openshop.ai4everyone.top/web/source/openshop-0.2.0.tar.gz（tag 对应归档）。
 
 ## 7. 未覆盖 / 明确不宣称
 
 - 并发只覆盖单进程 SQLite、单机 loopback、直连 DB 构造的 fixture；没有多进程/多机、文件系统锁超时、卖家售后审批并发、拼团过期并发、长压测或容量/SLA 证据。
-- 安全审计只覆盖 API/夹具可及的面；未覆盖真实 TLS/HSTS/Caddy、浏览器 XSS 渲染、多进程分布式限速、拼团过期清理，也不是公网渗透测试或生产合规证明。
-- 真实浏览器依赖当前开发机的 Chromium/Playwright/3FS 路径；CI 不运行主浏览器套件。新增拼团/库存证据是手工真实运行，不是自动化 CI 阶段。
-- 未执行 systemd 安装、线上切换、TLS/反代、生产迁移和回滚演练。
+- 安全审计的 44 探针仍只覆盖 API/夹具可及的面（AI 另有本节列出的自动化与在线验证）；它没有覆盖分布式配额、Caddy 配置回滚、拼团过期清理或公网渗透，不是合规证明。
+- 真实浏览器依赖当前开发机的 Chromium/Playwright/3FS 路径；CI 不运行主浏览器套件。公网 E2E 与 AI 浏览器验收为手工编排的真实运行，不是远端 CI 阶段。
+- systemd 安装、应用切换、DNS、Let’s Encrypt 与两台上游 Caddy 热重载已实际执行；回滚演练进行了代码回滚，发现前进切换必须显式 restart，并已修正。Caddy 边缘回滚备份/命令存在但本次未执行；没有生产数据迁移。
+- AI 每日额度、单进程 IP 窗口、模型供应商配额与延迟；模型定性文案可能不精确；服务重启清空内存方案/IP 窗口。
+- 未创建外部公开 Git 仓库，未 push，未在远端 CI 运行；公开只读源码由本站归档提供。原因见 docs/STATUS.md。
 - 拼团到期无后台自动取消退款；售后仅整单单店铺；无真实资金/物流/KYC/风控。
 - 商品、店铺、人物、评价、订单、支付与物流均为虚构/模拟。

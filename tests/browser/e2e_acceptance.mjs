@@ -139,15 +139,18 @@ function parseArgs(argv) {
   return args;
 }
 
-function assertLocalBaseUrl(baseUrl) {
+function assertBrowserBaseUrl(baseUrl, allowPublicHost = "") {
   let parsed;
   try {
     parsed = new URL(baseUrl);
   } catch {
     throw new Error("invalid --base-url: " + baseUrl);
   }
-  if (parsed.protocol !== "http:" || !["127.0.0.1", "localhost"].includes(parsed.hostname)) {
-    throw new Error("browser acceptance only targets a local QA server, got " + baseUrl);
+  const isLocal = parsed.protocol === "http:" && ["127.0.0.1", "localhost"].includes(parsed.hostname);
+  const publicHost = String(allowPublicHost || "").trim().toLowerCase();
+  const isExplicitPublic = Boolean(publicHost) && parsed.protocol === "https:" && parsed.hostname === publicHost && !parsed.port;
+  if (!isLocal && !isExplicitPublic) {
+    throw new Error("browser acceptance only targets a local QA server or the explicitly named HTTPS public host, got " + baseUrl);
   }
   return parsed.origin;
 }
@@ -707,7 +710,7 @@ async function setupAndRun() {
   C.playwrightPath = args.playwright || DEFAULT_PLAYWRIGHT;
   C.chromiumPath = args.chromium || DEFAULT_CHROMIUM;
   try {
-    C.baseUrl = assertLocalBaseUrl(args["base-url"]);
+    C.baseUrl = assertBrowserBaseUrl(args["base-url"], args["allow-public-host"] || "");
     const prepared = prepareOutputDir(args["out-dir"]);
     C.outDir = args["out-dir"];
     C.screenshotsDir = prepared.screenshotsDir;

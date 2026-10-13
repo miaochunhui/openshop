@@ -1,6 +1,8 @@
 # Peer Review：核心 / 认证 / 目录 / 交易 API 安全审计
 
-> **2026-10-13 task-13 三方整合后复验（agent run on v0.1.1）**：v0.1.1 ce6378c 上，固定命令单次串行运行 44/44 probes PASS；F-01～F-05 五个 finding 回归探针均 PASS；controls=39、failures=0、findings=0。此前 3 个非 finding 红项已用现行 seller RBAC 检查替换过时 scope，并通过同库原地进程重启隔离两个限速控制，详见文末「三方整合后复验」。本页下方保留完整历史快照。
+> **2026-10-13 v0.2.0 公网发布验收（当前）**：在 v0.2.0（新增 AI 中介、可信代理 IP 解析、公开边缘/部署 unit）上，Lead 重新运行完整安全审计：`PEER_REVIEW verdict=PASS probes=44 controls=39 failures=0 findings=0 server_boots=4 restarts=3`。本轮运行证据：`/hf3fs-jd/data/tmp/openshop/peer-review-v020/run-20261013T003220467815-815132/`；对应本机日志 `/hf3fs-jd/data/tmp/openshop/lead/v020-final-security-20261013T083052.log`。AI 另有独立自动化测试（CSRF 403、未登录 401、配额 429、一次性方案 409、不建订单）与公网真实浏览器/API 验收；公开部署后重新确认 HSTS/CSP/Secure Cookie。该审计仍不是公网渗透、分布式限速或 Caddy 边缘回滚的完整证明。
+>
+> **2026-10-13 task-13 三方整合后复验（historical agent run on v0.1.1）**：v0.1.1 ce6378c 上，固定命令单次串行运行 44/44 probes PASS；F-01～F-05 五个 finding 回归探针均 PASS；controls=39、failures=0、findings=0。此前 3 个非 finding 红项已用现行 seller RBAC 检查替换过时 scope，并通过同库原地进程重启隔离两个限速控制，详见文末「三方整合后复验」。本页下方保留完整历史快照。
 >
 > **2026-10-13 Lead 整合验收（v0.1.2，最终发布口径）**：将 `448a30c` cherry-pick 到 master 并升级版本后，Lead 重新独立运行整套安全审查：`PEER_REVIEW verdict=PASS probes=44 controls=39 failures=0 findings=0`，通过同一个 44/44 结果。证据：`/hf3fs-jd/data/tmp/openshop/peer-review/v012-ci-20261013T020217/run-20261012T180226534835-728303/run-summary.json`。CI 已加入该真实 44 探针步骤；仍不等于公网渗透、TLS/HSTS/真实反代、多进程限速或浏览器 XSS 的完整证明。
 >

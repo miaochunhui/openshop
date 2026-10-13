@@ -2,7 +2,7 @@
 
 OpenShop 在传统商城之外提供一个**中立的 AI 买手中介**：买家用自己的语言说出「买什么、预算、何时要、是否接受拼团」，AI 先理解需求，再从服务端提供的真实在售 offer/SKU 中挑选一件主推荐，解释匹配与取舍，经买家确认后才加入购物车。AI 不创建订单、不支付，也不改写价格和库存。
 
-线上入口：站内 /ai（部署状态与公网地址见 docs/STATUS.md）。源文件：web/js/pages/ai.js、web/js/pages/ai_view.js、web/css/ai.css。
+公网入口：**https://openshop.ai4everyone.top/ai**（已在 2026-10-13 上线并通过真实模型验收；状态与限制见 docs/STATUS.md）。源文件：web/js/pages/ai.js、web/js/pages/ai_view.js、web/css/ai.css。
 
 ## 它做什么
 
@@ -46,7 +46,9 @@ AI 由环境变量控制：
 - OPENSHOP_AI_USER_DAILY_LIMIT：每登录账号每日上限（默认 6）。
 - OPENSHOP_AI_IP_WINDOW_LIMIT / OPENSHOP_AI_IP_WINDOW_SECONDS：每 IP 滑动窗口（默认 4 次 / 600 秒）。
 
-生产示例见 deploy/openshop.env.example。实际生产配置位于服务器的 /etc/openshop/openshop.env；key 文件不能进入 Git。systemd 模板从 /etc/openshop/openshop_ai.token 加载凭据，以 0400 的临时 credential 暴露给服务进程。
+生产示例见 deploy/openshop.env.example。实际生产配置位于服务器的 /etc/openshop/openshop.env；key 文件不能进入 Git。systemd 从 /etc/openshop/openshop_ai.token 加载凭据，以 0400 的临时 credential 暴露给服务进程。线上值是全站每日 60、每登录账号每日 4、每 IP 每 10 分钟 3。
+
+公网入口由两台 Caddy 上游反代；应用 systemd 只允许这些上游和模型/DNS 端点的 IP，并设置 OPENSHOP_TRUSTED_PROXIES。应用仅对来自这两个上游的连接解析 X-Forwarded-For，按真实客户端 IP 计限额；不要通过公网直接暴露 8790，也不要放宽可信代理。
 
 ## API
 
@@ -78,13 +80,15 @@ CI 安全且可复跑的测试（本地假 provider，真实 HTTP、真实 SQLit
 
 真实模型与浏览器证据（2026-10-13，Asia/Shanghai）：
 
-- 真实 OpenAI 兼容模型 deepseek-flash 连通性探针 PASS。
-- /api/ai/mediate 真实调用 PASS：9,643 prompt tokens、2,289 completion tokens、约 15 秒；返回合法 JSON 与真实 offer / SKU。
-- 完整 HTTP：CSRF 403 → 登录 401 → 模型 1 次 → 方案采纳购物车 0→1 → 二次采纳 409 → 订单 0 张。
-- 真实 Chromium：AI 状态在线 → demo 买家登录 → /ai 提交 → 真实模型方案 → 采纳 → 购物车角标更新；桌面 1440 与移动 390 无横向溢出，console/page/外链错误均为 0。
-- 失败保留：首次 1,100 输出 token 上限导致响应无最终 content，服务端正确返回 AI_INVALID_RESPONSE 而非伪造成功；提高到 4,000 后通过。
-
-证据目录与截图路径见 docs/testing.md 与最终交接件。真实模型需要外网与付费网关，未在 GitHub Actions 中调用；CI 只跑假 provider 的真实 HTTP 集成测试。
+- 真实 OpenAI 兼容模型 deepseek-flash 连通性探针 PASS；公网 AI 服务当前 mode=live，页面/接口版本 0.2.0。
+- 公网真实 Chromium：https://openshop.ai4everyone.top/ai，demo 买家登录 → 真实模型 17.3 秒 → 服务端校验与复价 → 采纳 → 购物车角标更新；Secure/HttpOnly Cookie、HSTS/CSP 通过；桌面 1440 与移动 390 无横向溢出，console/page/外链错误均为 0。
+  证据：/hf3fs-jd/data/tmp/openshop/deploy/public-ai-browser-20261013T084044/
+- 公网 HTTPS API：CSRF 403 → 未登录 401 → 真实模型 200（19.2 秒、9643 prompt tokens、3060 completion tokens）→ 采纳 → 二次采纳 409 → 未创建订单。
+  证据：/hf3fs-jd/data/tmp/openshop/deploy/public-ai-api-evidence-20261013T084504/api-live.json
+- 线上限额生效证据：每账号每日 4、每 IP 3 次/10 分钟、全站每日 60；状态接口现读 global/user usage。
+- 失败保留：首次 1,100 输出 token 上限导致响应无最终 content，服务端正确返回 AI_INVALID_RESPONSE；提高到 4,000 后通过。一次公网 API 验收实际请求成功但证据目录不可写而退出，非 AI 失败；换可写目录重跑 PASS，保留两段记录。
+- 自动化测试：tests/test_ai_mediator.py（CI 可跑）并作为 29 个标准库测试的一部分；不使用真实模型。公网证据截图已入仓 docs/screenshots/ai-mediator-*.png。
+- 真实模型需要外网与付费网关，未在 GitHub Actions 中调用；CI 只跑假 provider 的真实 HTTP 集成测试。
 
 ## 已知限制
 
@@ -93,4 +97,5 @@ CI 安全且可复跑的测试（本地假 provider，真实 HTTP、真实 SQLit
 - 模型可能给出不精确的定性理由；价格/库存/供给身份以服务端为准。
 - 单进程内存限流与单进程方案存储；没有跨实例、持久化 plan 或多实例 AI 配额。
 - 每日/每 IP 配额是**成本上限**，不是防滥用或反机器人系统的完整替代。
-- 公共部署上线与生产回滚演练的现读结果记录在 docs/STATUS.md 和最终交接件；本地验证本身不等于生产 SLA。
+- 公网已部署并由两台上游 Caddy 终结 TLS；代码回滚已演练（含一次前进时未 restart 的失误与修正）。证据和入口见 docs/deployment.md、docs/STATUS.md；本地/演示验证不等于生产 SLA。
+- 没有外部 GitHub/Gitee 远端或远端 CI；公开只读源码由本站 source 归档提供，原因与未越界凭据边界见 docs/STATUS.md。

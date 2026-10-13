@@ -6,7 +6,9 @@ OpenShop（开集）是一个可自托管、可审阅的开源多边电商参考
 
 后端只依赖 Python 标准库与 SQLite，前端为原生 ES Module。没有构建步骤、第三方运行时依赖、CDN、外部字体或分析脚本，便于本地运行和代码审阅。AI 中介可在服务端选择接入 OpenAI 兼容模型网关；浏览器本身仍不加载任何外链。
 
-**状态（2026-10-13）：v0.2.0 AI 中介候选发布。** 传统购物的真实 API 验收 35/35、真实 Chromium 11/11、44/44 安全探针、3×7 并发与固定仓库门保持通过；新增 25 个标准库测试中的 AI 真实 HTTP/安全集成测试通过，并已用真实模型网关与真实 Chromium 完成 **AI 中介：自然语言 → 真实目录 → 服务端复价 → 确认加购** 闭环。公开入口、DNS/TLS、边缘和回滚状态以 [docs/STATUS.md](docs/STATUS.md) 的现读记录为准；本地验收本身不等于生产 SLA。
+**状态（2026-10-13）：v0.2.0 公网演示在线。** 公开入口：<https://openshop.ai4everyone.top/>（HTTPS + HSTS + CSP；服务绑定受限 systemd 网络白名单，边缘仅由两台上游代理访问）。验证：API 35/35、Chromium 11/11（并已在公网再次跑通完整购物 11/11）、**29 个标准库测试**、3×7 并发、**44/44 安全探针**、仓库门 PASS；真实 deepseek-flash 模型在公网完成了 **AI 中介：自然语言 → 真实目录 → 服务端复价 → 确认加购**，Secure/HttpOnly Cookie、HSTS、0 console/page/外链错误。部署、回滚与现读证据见 [docs/STATUS.md](docs/STATUS.md) 和 [docs/deployment.md](docs/deployment.md)。这是非生产级演示，不提供 SLA。
+
+- **公开只读源码**：<https://openshop.ai4everyone.top/web/source/openshop-0.2.0.tar.gz>（同名 `.sha256` 紧邻可查），从最终 tag 生成；完整本地 Git 提交与 SHA 见本仓记录和最终交接。**没有 push 到外部 GitHub/Gitee，也没有远端 CI 实跑**：现有 GitHub 凭据被限定在既有 OpenMath 私有仓，Gitee SSH 只能访问既有仓，且没有新建公开仓库的显式目标/凭据；未绕过该凭据边界。
 
 > **真实边界**：全部商品、品牌、店铺、人物、评价与订单均为虚构演示数据；支付是明确标注的模拟流程，不产生真实扣款；AI 推荐受外部模型、网络和配额影响，不能替代服务端价格与库存事实；这是**非生产级**单进程参考实现，不提供生产级容量、可用性或安全承诺。
 
@@ -27,7 +29,17 @@ OpenShop（开集）是一个可自托管、可审阅的开源多边电商参考
 
 </details>
 
-截图由真实本地服务和 Chromium 生成，不含 mock 后端。完整 13 张验收截图位于测试证据目录（路径见 [docs/testing.md](docs/testing.md)）。
+### AI 中介（公网真实模型）
+
+| AI 页面 | 真实模型方案 |
+| --- | --- |
+| ![AI 中介公网页面](docs/screenshots/ai-mediator-page-desktop.png) | ![AI 中介真实方案](docs/screenshots/ai-mediator-plan-desktop.png) |
+
+![AI 中介移动端采纳后页面](docs/screenshots/ai-mediator-adopted-mobile.png)
+
+![公网订单支付后的真实页面](docs/screenshots/public-order-paid-desktop.png)
+
+原有购物截图由真实本地服务和 Chromium 生成；AI 页面截图和上面的订单页来自 `https://openshop.ai4everyone.top/` 的公开 HTTPS、真实账户/数据和真实模型运行，不是 mock。公网全购物旅程与 AI 的完整证据路径见 [docs/testing.md](docs/testing.md)。
 
 ## 快速开始
 
@@ -115,26 +127,28 @@ python3 -B tools/check_repository.py --check
 
 本地发布归档与负控另见 [docs/RELEASE-REHEARSAL.md](docs/RELEASE-REHEARSAL.md) 和 `python3 -B tools/rehearse_release.py --help`。
 
-- 标准库测试默认把隔离数据写到系统临时目录；可用 `OPENSHOP_TMP_BASE`、`OPENSHOP_CATALOG_TEST_PORT`、`OPENSHOP_TRADE_TEST_PORT`、`OPENSHOP_SELLER_TEST_PORT` 覆盖。本轮为 **25 tests PASS**（新增 AI 假 provider 的真实 HTTP/安全集成测试与 JSON 解析/价格清洗辅助测试）。
+- 标准库测试默认把隔离数据写到系统临时目录；可用 `OPENSHOP_TMP_BASE`、`OPENSHOP_CATALOG_TEST_PORT`、`OPENSHOP_TRADE_TEST_PORT`、`OPENSHOP_SELLER_TEST_PORT` 覆盖。本轮为 **29 tests PASS**：原有 22 项 + AI 假 provider 的真实 HTTP/安全集成测试与辅助测试 3 项 + 可信代理 IP 单测 4 项。
 - 并发验收在全新数据目录上用真实 HTTP 连续跑 **3 轮 × 7 场景**：8 并发抢 1 件库存、并发幂等建单、券领取/核销竞态、拼团名额与支付竞态、取消竞态、pay/cancel 竞态。可用 `OPENSHOP_CONCURRENCY_TEST_PORT`、`OPENSHOP_CONCURRENCY_EVIDENCE_ROOT` 覆盖端口与证据目录。
 - 独立安全审查：**44/44 probes PASS，39/39 controls PASS，5/5 findings 修复可回归**。限速控制通过同库原地进程重启获得干净额度，seller 权限由 guest 401、buyer 403、seller 200 + 自身店铺匹配验证；完整原始记录见 [docs/peer-review-core-api.md](docs/peer-review-core-api.md)。
-- 仓库门已现读 **PASS**：19 项检查 0 failures（1 个非阻断 warning：GitHub Actions 的 checkout action 使用 tag 而非 SHA 固定）。`--selftest` 带 19 个仓库门负控；发布演练另有 10 个负控全部通过。
-- 完整真实浏览器验收由 `tools/qa/run_acceptance.py` 编排，使用真实后端、真实 Chromium、真实 cookie/CSRF 和 SQLite；本轮为 **API 35 PASS / 0 FAIL、浏览器 11 PASS / 0 FAIL、13 张截图、0 控制台错误、0 外链请求、0 横向溢出**。命令、机器依赖和证据路径见 [docs/testing.md](docs/testing.md)。
+- 仓库门已现读 **PASS**：19 项检查 0 failures（2 个非阻断 warnings：GitHub Actions checkout 按 tag 固定；离线门不抓取 README 内本站 source 外链）。`--selftest` 带 19 个仓库门负控；发布演练另有 10 个负控全部通过。
+- 完整真实浏览器验收由 `tools/qa/run_acceptance.py` 编排，使用真实后端、真实 Chromium、真实 cookie/CSRF 和 SQLite；本轮本地为 **API 35 PASS / 0 FAIL、浏览器 11 PASS / 0 FAIL、13 张截图、0 控制台错误、0 外链请求、0 横向溢出**。
+- **公网全购物旅程**：同一套真实 Chromium 以 `--allow-public-host` 显式授权目标 `openshop.ai4everyone.top`，在线上完成搜索→商品→加购→登录合并→新地址/优惠券→服务端报价→模拟支付→商家发货→买家确认收货→评价，以及 390px 移动订单页；**11/11 PASS、13 张公网截图、0 console/page/外链错误**。订单 `OS20261013004340PLSF`。证据：`/hf3fs-jd/data/tmp/openshop/deploy/public-full-e2e-20261013T084320/`。
 - 另有真实浏览器补验：真实自营拼团由 1/2 已付款发起，再以第二位真实注册买家经 UI 参团并付款到 **FULL 2/2**；商家工作台经 UI 把报价库存从 **26 改为 27**，PATCH 200 且刷新后持久化。浏览器错误 0。
-- **AI 真实链路**：真实 deepseek-flash 模型完成从自然语言委托到真实 offer/SKU 校验、服务端复价与一次性方案的中介调用；HTTP 验收验证 CSRF 403、未登录 401、模型仅被调用一次、方案采纳购物车 0→1、方案复用 409、**订单数仍为 0**；真实 Chromium 完成登录→AI→采纳链路，桌面/390px 无溢出，0 console/page/外链错误。失败也保留：1,100 输出 token 上限曾返回空 content，服务端正确拒绝而未伪造结果。详见 [docs/ai-mediator.md](docs/ai-mediator.md) 与 [docs/testing.md](docs/testing.md)。
-- CI 配置会依次执行标准库测试（含 AI 假 provider 的真实 HTTP 集成测试）、真实三轮并发验收、44 探针安全审计、仓库门自检和仓库门；本轮在本机模拟同一命令全绿。**远端 GitHub Actions 尚未实际触发。**
+- **AI 真实链路**：真实 deepseek-flash 模型完成从自然语言委托到真实 offer/SKU 校验、服务端复价与一次性方案的中介调用；本地与公网 HTTP 验收均验证 CSRF 403、未登录 401、模型仅被调用一次、方案采纳购物车增加、方案复用 409、**订单数仍为 0**；公网真实 Chromium 完成登录→AI→采纳链路，17.3 秒模型调用、Secure/HttpOnly 会话 Cookie、HSTS/CSP 通过，桌面/390px 无溢出，0 console/page/外链错误。失败也保留：1,100 输出 token 上限曾返回空 content，服务端正确拒绝而未伪造结果；一次证据写出路径不可写导致验收退出，已换可写目录重跑并保留边界。详见 [docs/ai-mediator.md](docs/ai-mediator.md) 与 [docs/testing.md](docs/testing.md)。
+- CI 配置会依次执行标准库测试（含 AI 假 provider 的真实 HTTP 集成测试）、真实三轮并发验收、44 探针安全审计、仓库门自检和仓库门；本轮在本机模拟同一命令全绿。**远端 GitHub Actions 尚未实际触发**，且公开源码暂通过本站只读归档而非外部 Git 托管提供；这是明确的剩余发布边界。
 - 仓库门需要系统 `node` 做 JS 语法检查；运行产品本身不需要 Node。
 - 安全说明见 [SECURITY.md](SECURITY.md)，独立审查与修复记录见 [docs/peer-review-core-api.md](docs/peer-review-core-api.md)。
 
 ### 已知限制
 
-- AI 中介依赖外部 OpenAI 兼容模型网络与已授权配额；模型不可用时会显式失败，不会用假回答兜底。单次真实调用约 11–15 秒，未做流式输出。
+- AI 中介依赖外部 OpenAI 兼容模型网络与已授权配额；模型不可用时会显式失败，不会用假回答兜底。公网冷调用约 17–19 秒，未做流式输出；线上限额为每账号每日 4 次、每 IP 3 次/10 分钟、全站每日 60 次。
 - AI 的全局/每用户额度写入 SQLite，每 IP 窗口和方案存储是**单进程内存**：重启会清空方案和 IP 窗口，不适用于多实例部署；外部模型可能产生不精确的定性描述，服务端价格/库存/供给身份才是事实来源。
 - 三轮并发验收覆盖 7 个场景，但只针对**单进程 SQLite、单机 loopback、直接 DB 构造的 fixture**；不覆盖多进程/多机、文件系统或锁超时、卖家售后审批并发、拼团过期并发，也不构成性能/容量压测或 SLA。
 - 拼团过期只能在查看/参与/支付路径被拒绝，没有后台自动取消和退款任务。
 - 售后目前只支持整单单店铺；多店铺退货退款不在 MVP 内。
-- 未做真实支付、真实物流、KYC、生产容量、TLS 终结、跨实例会话/限速和灾备。
-- **未公开部署、未推送远端仓库**：这需要明确的生产发布/仓库发布授权与入口配置。
+- 未做真实支付、真实物流、KYC、生产容量、跨实例会话/限速和灾备；TLS 由现有 infra Caddy 边缘终结，证书/HSTS 已有现读证据，但不构成生产安全或 SLA 认证。
+- **公网入口和本站源码归档已发布；未创建外部 GitHub/Gitee 新仓库、未 push、未跑远端 CI**。现有公开 Git 写入链没有可用于新建 OpenShop 仓库的授权目标/凭据，未绕过既有凭据边界。需要维护者提供目标远端或授权后才能迁移到外部 Git 托管。
+- 运行环境使用 systemd 网络地址白名单和可信反代 IP 解析；这些是单机控制，不是 DDoS 防护或分布式配额。
 
 ## 目录
 
@@ -147,7 +161,7 @@ python3 -B tools/check_repository.py --check
 | `tests/` | 标准库验收测试入口；发布时必须由 CI 实际发现并运行 |
 | `docs/` | 产品、架构、API/数据契约、安装、开源与发布流程 |
 | `tools/` | 仓库门与本地烟雾测试工具 |
-| `deploy/` | 非 root systemd 模板、健康检查与安装/回滚样例 |
+| `deploy/` | 非 root systemd、AI 凭据/环境示例、健康检查与安装/回滚手册 |
 | `.github/workflows/` | 最小权限、无凭据、无网络安装的 CI |
 
 目录表对应当前可运行版本；测试、仓库门和真实浏览器验收均随交付保留。运行数据不进入 Git。
@@ -156,7 +170,9 @@ python3 -B tools/check_repository.py --check
 
 贡献方式见 [CONTRIBUTING.md](CONTRIBUTING.md)。安全问题请不要开公开 issue，按 [SECURITY.md](SECURITY.md) 私下联系维护者。社区行为准则见 [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)；开源边界、素材来源和第三方依赖政策见 [docs/OPEN-SOURCE.md](docs/OPEN-SOURCE.md)；变更记录见 [CHANGELOG.md](CHANGELOG.md)。
 
-生产安装、TLS 入口、公网发布和远端仓库推送均未在本仓库任务中执行。`deploy/` 只是需要单独授权的模板，不会自动触碰任何既有服务、DNS、证书或反向代理。
+生产安装、DNS、Let’s Encrypt 证书、两台上游 Caddy 边缘和公网切换已于 **2026-10-13** 完成，详情、备份与回滚入口见 [docs/deployment.md](docs/deployment.md) 和 [docs/STATUS.md](docs/STATUS.md)。`deploy/` 记录的是本部署形式的配置与操作手册；**没有修改任何 oss-* 服务**。外部 Git 仓库和远端 CI 仍未发布，原因与精确边界见上。
+
+公开只读源码归档：[openshop-0.2.0.tar.gz](https://openshop.ai4everyone.top/web/source/openshop-0.2.0.tar.gz) 与同名 `.sha256`。
 
 ## 许可
 
@@ -164,4 +180,4 @@ python3 -B tools/check_repository.py --check
 
 ## English
 
-OpenShop is an audit-friendly, self-hosted open-source marketplace reference implementation: three offer types, real group-buying state, a grounded AI buying mediator, a stdlib-only Python backend, SQLite, and vanilla ES modules with no build step or third-party runtime dependencies for the browser. The fictional seed includes 18 products, 10 shops and 54 reviews. Local acceptance passed 35 real-HTTP API checks, 11 real-Chromium browser stages, a 44-probe security API audit with 39 controls, a three-round seven-scenario concurrency suite, 25 standard-library tests, plus real-browser evidence of a completed two-person group buy, a persisted seller inventory update, and a live-model AI mediation-to-cart flow. The AI endpoint requires an operator-provided OpenAI-compatible model gateway; prompts and recent conversation are disclosed to that provider. Payments are simulated and all catalog identities are fictional. Public deployment and rollback evidence are recorded in docs/STATUS.md; there is no production-scale, availability or capacity guarantee. See [docs/INSTALL.md](docs/INSTALL.md), [docs/ai-mediator.md](docs/ai-mediator.md) and [docs/testing.md](docs/testing.md). Licensed under Apache-2.0.
+OpenShop is an audit-friendly, self-hosted open-source marketplace reference implementation: three offer types, real group-buying state, a grounded AI buying mediator, a stdlib-only Python backend, SQLite, and vanilla ES modules with no build step or third-party runtime dependencies for the browser. It is live at https://openshop.ai4everyone.top/ with HTTPS/HSTS. The fictional seed includes 18 products, 10 shops and 54 reviews. Acceptance passed 35 real-HTTP API checks, 11 real-Chromium stages both locally and again against the public deployment, a 44-probe security audit with 39 controls, a three-round seven-scenario concurrency suite, 29 standard-library tests, plus public-browser evidence of a complete search-to-review shopping journey, a completed two-person group buy, a persisted seller inventory update, and a live-model AI mediation-to-cart flow. A read-only source archive is available at https://openshop.ai4everyone.top/web/source/openshop-0.2.0.tar.gz; no external GitHub/Gitee repository or remote CI is claimed because no authorized create/push credential for a new repository was available, and existing scoped credentials were not bypassed. The AI endpoint requires an operator-provided OpenAI-compatible model gateway; prompts and recent conversation are disclosed to that provider. Payments are simulated and all catalog identities are fictional. Deployment and rollback evidence are recorded in docs/STATUS.md and docs/deployment.md; there is no production-scale, availability or capacity guarantee. See [docs/INSTALL.md](docs/INSTALL.md), [docs/ai-mediator.md](docs/ai-mediator.md) and [docs/testing.md](docs/testing.md). Licensed under Apache-2.0.

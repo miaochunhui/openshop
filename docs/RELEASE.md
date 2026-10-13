@@ -1,120 +1,129 @@
 # 发布与回滚流程
 
-## 当前状态（务必先读）
+更新时间：2026-10-13 08:55（Asia/Shanghai）
+目标版本：**v0.2.0**（公网演示已上线；最终 annotated tag、完整 SHA 与归档 SHA 以最终交接为准）
 
-- 目标版本：`v0.1.2`，**本地源码验收版**。22 个标准库测试、三轮并发、**44/44 探针安全审计**、真实 Chromium 验收、仓库门与发布演练负控已通过；详见 [testing.md](testing.md) 和 [RELEASE-REHEARSAL.md](RELEASE-REHEARSAL.md)。
-- **未公开部署、未 push、未在远程 GitHub 运行 CI，也未安装/演练 systemd 服务。** 本地源码 tag/归档不等同于生产发布。
-- OpenShop 是虚构数据 + 模拟支付的非生产级参考实现。不能用本地启动、HTTP 200 或“服务还活着”代替发布验收。
-- 任何公开部署、DNS、证书、反向代理、生产入口、远端推送或生产数据变更均需项目负责人的**明确授权**，不因本地验收通过而自动获得。
+## 当前状态（先读）
 
-发布前必须逐条完成下列门槛并留下可复核原始输出。门禁或测试失败时只能修问题、等待产品完成或取消发布；不得放宽检查求绿。
+- 公网入口：https://openshop.ai4everyone.top/，HTTPS/HSTS/CSP，真实购物 E2E 11/11 与真实 AI 闭环已在公网通过。
+- 公开只读源码：https://openshop.ai4everyone.top/web/source/openshop-0.2.0.tar.gz（与同名 .sha256）。
+- 本地与在线门：29 标准库测试、3×7 并发、API 35/35、Chromium 11/11、44/44 安全探针、仓库门 PASS。
+- 用户已明确提供本次公网/开源发布授权。部署者操作既有 infra 链；边缘配置投放沿用仓库既有工具要求的 zyj2 身份。
+- **外部 GitHub/Gitee 新仓、远端 CI 未做**：当前环境没有新建公开 OpenShop 仓库的授权目标/凭据。既有 GitHub token 被工具限定在 OpenMath 私有仓，未被读取或跨仓使用；Gitee SSH 只对既有仓有写权限。不得把本站只读源码说成外部 Git 仓库发布或远端 CI 通过。
+- 本站源码/演示不是生产级安全、容量或 SLA 认证；所有商品、人物与支付/物流都是虚构/模拟。
 
-## 版本与负责人
+## 发布前置门
 
-| 项 | 要求 |
-| --- | --- |
-| 版本 | 语义化版本，本次候选 v0.1.2；必须与 `APP_VERSION`、页脚、CHANGELOG、tag 和文档一致 |
-| 发布提交 | 维护者指定的集成分支上经审阅的固定 commit SHA，不能是未提交工作树 |
-| 发布负责人 | 由维护者在明确授权下指定，负责签署/批准部署与回滚决策 |
-| 发布窗口 | 明确开始/结束时间、影响面和回滚点；不得与无关生产变更混做 |
+在固定、干净 commit 上原样运行：
 
-## 发布前门槛
+    git status --short
+    git log -1 --format="%H %s"
+    python3 -B -m unittest discover -s tests -v
+    python3 -B tests/test_trade_concurrency.py
+    python3 -B tests/test_ai_mediator.py -v
+    python3 -B tests/test_peer_review_probes.py
+    python3 -B tools/check_repository.py --selftest
+    python3 -B tools/check_repository.py --check
 
-1. 所有产品变更已合入指定集成分支；没有未合入的实现被 README 或发布说明宣称完成。
-2. 工作树干净，无运行数据库、日志、截图临时件、`__pycache__/` 或未跟踪凭据混入归档。
-3. 固定提交上原样运行：
+要求：
 
-```bash
-git status --short
-git log -1 --format="%H %s"
+1. 工作树干净；没有运行数据库、日志、缓存、截图临时件或凭据进入归档。
+2. 测试、并发、44 探针、仓库门全部真实 PASS；不得用白名单、skip 或放宽断言求绿。
+3. AI 集成测试使用本地 fake provider，不依赖真实模型/密钥/外网；真实 AI 另以公网浏览器与 API 验收，保存原始记录。
+4. 主路径浏览器和公网购物 E2E 均已通过：13 张截图、0 console/page/external/API errors，包含模拟支付、商家发货、确认收货与评价。
+5. systemd unit、健康检查、IP 地址白名单、可信反代、DNS/TLS/边缘和回滚都已现读演练或记录；Caddy 边缘回滚除外，备份和命令存在但本次未执行。
+6. 版本必须与 APP_VERSION、页脚、CHANGELOG、tag 和健康接口一致（v0.2.0）。
 
-python3 -B -m unittest discover -s tests -v
-python3 -B tests/test_trade_concurrency.py
-python3 -B tests/test_peer_review_probes.py
-python3 -B tools/check_repository.py --selftest
-python3 -B tools/check_repository.py --check
-```
+任何失败都停止发布；保留第一失败证据，修问题后重新跑全部门，而不是删除/放宽门。
 
-4. 上述命令的原始 verdict 全部成功；真实 HTTP 负控、三轮并发、44 探针安全审计和仓库门正/负控必须通过，不能因白名单被“调绿”。
-5. CI 配置覆盖标准库测试、三轮并发、44 探针安全审计、仓库门自检与门禁。**本轮只在本机按相同命令模拟全绿，尚未在远端 GitHub 实际触发 CI**；生产发布前仍必须在目标提交、目标远端留下可追溯的 CI 成功记录。
-6. 主路径浏览器验收已完成并留存真实 Chromium、13 张截图和 0 错误证据；另有人工真实浏览器证据覆盖拼团 2/2 与商家库存写入。生产发布前仍需由授权验收人补做独立的键盘/无障碍与部署验收。标准库/API 门禁不能替代浏览器/部署验收。
-7. 用新的数据目录做一次从零启动烟雾检查，健康端点返回 200/`ok` 和 `demo:true`；日志里无 unexpected traceback。
-8. 文档中所有本地链接有效；许可证保持 Apache-2.0；商品/人物均为虚构、支付标记为模拟、没有上线或 512 并发等未经证实声明。
-9. systemd unit、健康检查脚本、安装与回滚步骤需完成安全评审，并在 staging/等效环境演练并记录原样输出。本轮未完成这一部署演练。
+## 固定制品
 
-任何一项不满足即停止发布。
+- annotated tag：v0.2.0（在最终集成提交上创建）。
+- 源码归档由 git archive 从 tag 生成，不能从脏树 tar 打包。
+- 发布演练：tools/rehearse_release.py --tag v0.2.0 --out-dir <external-evidence>；
+  它验证干净树、tag 指向 HEAD、归档边界、SHA-256、解包测试/门禁、
+  真实启动健康、demo 登录、目录和干净停止。summary 和日志外置。
+- 本站 source 归档必须是最终 tag 的同一字节集；旁边提供 SHA-256。
+- 实际生产固定 release 目录为 /opt/openshop/releases/<tag 或固定 SHA>，
+  root:root 只读；/opt/openshop/current 原子切换。
 
-## 制品
+## 部署形态（已执行）
 
-- 本轮可以并已经做的是**本地源码封版**：在固定 `master` commit 上创建本地 annotated tag、生成 `git archive` tar 包与 SHA-256，并在隔离目录复验测试、门禁、登录与健康。它不构成远程 GitHub release 或线上部署。
-- 没有上传任何制品、没有修改远端仓库、没有生成生产 systemd release。
-- 生产发布只能从同一个固定 commit 重新构建并保存原始输出，不得以本地脏树代替：
+- DNS：openshop.ai4everyone.top A 43.135.70.136，DNSPod RecordId 2429400643。
+- TLS：Let’s Encrypt 单域证书，两台上游 /opt/docs-site/runtime/tls/openshop.crt|key，
+  crt 644/key 600/docsweb；有效期至 2027-01-10。
+- Caddy：独立子域块，.183/.184 双机 validate 后 SIGUSR1 热重载，主 PID 不变；
+  每机有 Caddyfile.bak。<timestamp> 回滚备份。
+- 应用：openshop.service，非 root 用户 openshop，0.0.0.0:8790；
+  systemd IPAddressDeny=any + 白名单（回环、.183/.184、模型网关和 DNS 解析器）。
+  本机非白名单 LAN 源访问 8790 实测超时；.183/.184 直连健康 200。
+- 可信反代：OPENSHOP_TRUSTED_PROXIES=.183/.184；只对这些源接受 XFF。
+- 数据：/var/lib/openshop/openshop.sqlite3，外置 StateDirectory，0700。
+- AI 凭据：/etc/openshop/openshop_ai.token（0600 root）通过 systemd LoadCredential；
+  服务里只出现 0400 credential。非秘密环境在 /etc/openshop/openshop.env（0600 root）。
+  密钥不在 Git/报告/本页中。
+- 线上限额：每登录账号每日 4 次，每 IP 3 次/10 分钟，全站每日 60 次；
+  最多 2 个并行上游请求。全局/用户额度持久化 SQLite，IP 窗口/方案为单进程内存。
 
-```bash
-git status --short
-git tag -a v0.1.2 -m "OpenShop v0.1.2"
-git archive --format=tar.gz --prefix=openshop-0.1.2/ -o /path/to/openshop-0.1.2.tar.gz v0.1.2
-sha256sum /path/to/openshop-0.1.2.tar.gz > /path/to/openshop-0.1.2.tar.gz.sha256
-tar -tzf /path/to/openshop-0.1.2.tar.gz
-```
+详细拓扑、证据与命令见 docs/deployment.md。
 
-- 在干净目录校验 SHA-256 后解包，再跑发布前门槛中的测试与门禁。
-- 检查归档只包含该版本跟踪的源码/文档，不包含数据库、日志、凭据、缓存或临时证据。
-- 不要为了赶时间从临时准备分支直接发布；发布提交必须经过集成和回归。
-- 生产发布前还必须让远端 CI 在该固定 commit 成功、完成部署与回滚演练，并由授权负责人批准。
+## 切换（必须在改动 current 后 restart）
 
-### 本地演练工具
-
-标记完成后可运行 [tools/rehearse_release.py](../tools/rehearse_release.py)。它只操作本地文件与 loopback：
-
-```bash
-# 负控自检：不需要 release tag / Node / Chromium
-python3 -B tools/rehearse_release.py --selftest --out-dir /path/to/empty-selftest-evidence
-
-# 真实源码演练：要求干净树和指向 HEAD 的 annotated tag
-python3 -B tools/rehearse_release.py --tag v0.1.2 --out-dir /path/to/empty-release-evidence
-```
-
-该工具会验证工作树干净、tag 是 annotated 且指向 HEAD、归档边界无脏文件，计算 SHA-256 并写出文件清单，从解包树重新跑标准库测试和仓库门，再从解包树启动真实服务并检查 `/healthz`、`/api/health`、`/api/session`→demo buyer 登录→目录 API、`/api/home` 与首页 shell，干净停止后写出 `release-summary.json` 与原始日志。**它不会 push、上传、安装 systemd 或修改任何网络入口。**
-
-负控范围、证据、失败语义和未覆盖的部署/回滚边界见 [docs/RELEASE-REHEARSAL.md](RELEASE-REHEARSAL.md)。
-
-## 部署
-
-完整安装与回滚样例见 [deploy/README.md](../deploy/README.md)。部署阶段的强制约束：
-
-- 只操作 `openshop.service`；不得改动任何现有 oss-* 服务、Caddy、DNS 或证书配置。
-- 代码释放到 root 所有、只读的 `/opt/openshop/releases/0.1.2`，通过 `/opt/openshop/current` 切换；非 root `openshop` 账号运行，只监听 `127.0.0.1:8780`。
-- 数据目录外置为 `/var/lib/openshop`。升级前做一致性备份，保留当前 unit、旧 release 和日志。
-- 公网 HTTPS 终结由获授权运营者在独立变更中提供；服务保持回环监听。
-- 部署不是本发布流程自动执行的步骤。任何命令执行前必须完成授权和备份。
+1. 备份数据和当前 unit/current 目标；记录旧 release。
+2. 将已验证归档解入新 root:root 只读 release 目录。
+3. 原子更新 /opt/openshop/current。
+4. **systemctl restart openshop.service**。只切 symlink 后 systemctl start 对已运行进程是 no-op；本次演练真实踩过，保留记录。
+5. 等 ExecStartPost 健康检查 PASS；核 /api/health 版本、/api/ai/status、公网浏览器。
+6. 失败则按回滚操作恢复旧 release 并 restart；必要时恢复数据备份。
 
 ## 回滚
 
-回滚同样需要明确授权，并且要区分“只回代码”和“数据也需要恢复”：
+已执行一次代码回滚演练（2026-10-13 08:50）：
 
-1. 停止 `openshop.service`，记录当前 commit/unit/数据和 journal。
-2. 备份 `/var/lib/openshop`；不要只复制正在写入的 SQLite 主文件而忽略 WAL。
-3. 若数据仍然兼容，按 deploy/README.md 原子地把 `/opt/openshop/current` 指向已知旧版本，重启该 unit 并重新做健康检查。
-4. 若数据库/schema 不兼容，保持服务停止，恢复已校验的数据备份；不要盲跑旧代码去碰新数据。
-5. 在事件记录中写清触发条件、命令、原始输出、恢复点、残留风险和后续修复负责人。
+- service stop → 一致数据备份
+  /var/backups/openshop/rollback-20261013T085046/openshop-data.tar.gz
+  sha256 903c7f29dca90c8643d9fff8ac9511c4941d97ec8c4bb112979d60da868a7987；
+- current → /opt/openshop/releases/0.1.2，start 后公网健康 version=0.1.2，
+  /api/ai/status 404（旧版无 AI，符合预期），首页仍可用；
+- 切回 0.2.0 时第一次忘了 restart，symlink 已变但进程仍为 0.1.2；
+  随后 systemctl restart，公网恢复 0.2.0、AI live。该人为操作失误未隐瞒。
+- 数据 schema 与购物数据在切换中保留；演练动作完成后服务 0.2.0 active。
 
-回滚演练尚未执行。没有自动迁移保证，也没有生产 SLA。
+规范化步骤：
 
-## 发布后证据归档
+    systemctl stop openshop.service
+    tar -C /var/lib -czf <backup>/openshop-data.tar.gz openshop
+    # 记录 unit、current target、journal
+    ln -s /opt/openshop/releases/0.1.2 /opt/openshop/current.next
+    mv -Tf /opt/openshop/current.next /opt/openshop/current
+    systemctl start openshop.service
+    # 验证；切回新版本同样必须 restart
+    systemctl restart openshop.service
 
-至少保留以下内容，访问权限要限制且不得含凭据：
+若 schema 不兼容，不要盲跑旧代码；保持停止并恢复数据备份。
 
-- 发布 commit SHA、tag、对应集成分支与审批记录；
-- CI 原样输出；标准库测试、`--selftest`、`--check` 的原始 verdict；
-- 浏览器验收记录（命令/截图/DOM 或人工步骤与结果）；
-- 制品 SHA-256、校验结果、归档文件清单；
-- 从零启动健康输出、部署后健康输出、unit 配置与 journal 摘要；
-- 回滚点、数据备份位置与恢复演练结果；
-- 未覆盖边界和已知限制。
+边缘回滚（本次未执行，维护窗口执行）：
 
-只有上述证据完整且版本负责人明确批准后，才能把版本称为已发布。“已在本地跑起来”不等于已发布；未经实际授权和证据，不得写线上地址、上线时间或生产可用性。
+    sudo -n -u zyj2 bash ops/oss-alt-web/apply-edge-block.sh openshop 192.168.1.183 --rollback
+    sudo -n -u zyj2 bash ops/oss-alt-web/apply-edge-block.sh openshop 192.168.1.184 --rollback
 
-## 本次准备交付的边界
+使用逐机最近 Caddyfile.bak.*；回滚前先验证目标备份、保留输出并重新探公网。
 
-本次交付可运行的源码、22 个标准库测试、三轮并发、44 探针安全审计、真实 Chromium 验收与拼团/库存真实交互证据、开源文档、CI 配置、仓库门与发布演练工具/负控。Lead 会完成本地源码 tag、归档、SHA-256 与解包启动复验；但**没有**公开上线、push 远端、运行远端 CI、安装 systemd unit、配置 DNS/TLS/Caddy、接触生产凭据或执行回滚。生产发布与回滚仍待明确授权、操作负责人和演练窗口。
+## 发布后证据
+
+已保留/需继续保留：
+
+- commit/tag、归档、SHA-256、release-summary；
+- 单元/并发/安全/门禁/浏览器原始 verdict；
+- DNS Describe 前后证据、证书 SAN/有效期、两机 Caddy 备份与 validate 输出；
+- unit/EAI env 配置摘要（不含密钥）、IP 白名单、两机 PID 和 public health；
+- 公网完整购物 E2E、AI 浏览器、AI API 证据；
+- 回滚数据备份 SHA、切换/restart 输出；
+- 外部 Git/CI 阻塞与未覆盖边界。
+
+## 明确外部阻塞/未覆盖
+
+- 没有外部公开 Git 仓和远端 CI；只读源码在 OpenShop 本站。需要维护者指定新的公开仓库并授权一条不越界的推送/建仓路径。
+- 只跑了单机单进程；没有容量、多机、分布式限速/会话或灾备证明。
+- Caddy 边缘回滚没有执行；模型供应商网络/配额是外部依赖。
+- 所有商品、支付、物流均为演示。

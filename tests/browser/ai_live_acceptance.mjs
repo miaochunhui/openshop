@@ -105,7 +105,30 @@ async function main() {
     await page.waitForSelector('#modal-root .modal', { state: "detached", timeout: 20000 }).catch(() => {});
     await page.waitForSelector('[data-testid="ai-quota"]', { timeout: 20000 });
     await page.waitForSelector('#ai-input:not([disabled])', { timeout: 20000 });
+    const sessionCookie = (await context.cookies(baseUrl)).find((cookie) => cookie.name === "openshop_session");
+    if (!sessionCookie || !sessionCookie.secure || !sessionCookie.httpOnly) {
+      throw new Error("public HTTPS session cookie must be Secure and HttpOnly");
+    }
+    const healthResponse = await context.request.get(baseUrl.replace(/\/$/, "") + "/api/health");
+    const publicHeaders = healthResponse.headers();
+    const hsts = String(publicHeaders["strict-transport-security"] || "");
+    const csp = String(publicHeaders["content-security-policy"] || "");
+    if (!hsts.includes("max-age=") || !csp.includes("default-src 'self'")) {
+      throw new Error("HSTS or CSP header missing on public HTTPS");
+    }
+    summary.security = {
+      https: new URL(baseUrl).protocol === "https:",
+      hsts,
+      csp_present: csp.includes("default-src 'self'"),
+      session_cookie_secure: Boolean(sessionCookie && sessionCookie.secure),
+      session_cookie_http_only: Boolean(sessionCookie && sessionCookie.httpOnly),
+    };
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.waitForTimeout(250);
+    await page.screenshot({ path: path.join(screenshots, "01-ai-page-desktop-1440.png") });
+    summary.screenshots.push(path.join(screenshots, "01-ai-page-desktop-1440.png"));
     summary.stages.push({ id: "AI-02-login", status: "PASS", user_surface: "demo-buyer modal" });
+    summary.stages.push({ id: "AI-02b-security", status: "PASS", hsts: Boolean(hsts), secure_cookie: Boolean(sessionCookie && sessionCookie.secure) });
 
     summary.current_stage = "request-real-ai";
     const brief = "我想买一副降噪耳机，预算 1000 元以内，希望两天内到，帮我比较自营和品牌店，并给一个现在就能加入购物车的方案。";
@@ -123,8 +146,10 @@ async function main() {
     const priceText = await page.locator('[data-testid="ai-recommendation"] .price').first().innerText();
     if (!reasonText.includes("为什么是它")) throw new Error("Grounded reason is not rendered");
     if (errors.console.length || errors.page.length) throw new Error("Console/page errors before adoption");
-    await page.screenshot({ path: path.join(screenshots, "01-ai-result-desktop-1440.png"), fullPage: true });
-    summary.screenshots.push(path.join(screenshots, "01-ai-result-desktop-1440.png"));
+    await page.evaluate(() => document.getElementById("ai-result-region")?.scrollIntoView({ block: "start" }));
+    await page.waitForTimeout(300);
+    await page.screenshot({ path: path.join(screenshots, "02-ai-result-desktop-1440.png") });
+    summary.screenshots.push(path.join(screenshots, "02-ai-result-desktop-1440.png"));
     summary.stages.push({
       id: "AI-03-real-mediation",
       status: "PASS",
@@ -148,20 +173,29 @@ async function main() {
     const adoptedText = (await page.locator('[data-testid="ai-adopted"]').innerText()).trim();
     if (page.url() !== urlBeforeAdopt) throw new Error("Page unexpectedly navigated during adoption");
     const cartBadge = await page.locator("#cart-badge").innerText();
-    await page.screenshot({ path: path.join(screenshots, "02-ai-adopted-desktop-1440.png"), fullPage: true });
-    summary.screenshots.push(path.join(screenshots, "02-ai-adopted-desktop-1440.png"));
+    await page.waitForTimeout(4200);
+    await page.evaluate(() => document.getElementById("ai-result-region")?.scrollIntoView({ block: "start" }));
+    await page.waitForTimeout(300);
+    await page.screenshot({ path: path.join(screenshots, "03-ai-adopted-desktop-1440.png") });
+    summary.screenshots.push(path.join(screenshots, "03-ai-adopted-desktop-1440.png"));
     summary.stages.push({ id: "AI-04-adopt", status: "PASS", confirmation: adoptedText.slice(0, 160), cart_badge: cartBadge, page_stayed_on_ai: true });
 
     summary.current_stage = "mobile-390";
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.waitForTimeout(400);
-    const mobileOverflow = await overflow(page);
-    await page.screenshot({ path: path.join(screenshots, "03-ai-adopted-mobile-390.png"), fullPage: true });
-    summary.screenshots.push(path.join(screenshots, "03-ai-adopted-mobile-390.png"));
-    summary.mobile = mobileOverflow;
-    if (mobileOverflow.overflow) throw new Error("Horizontal overflow at 390px");
-    const desktopOverflow = await page.evaluate(() => ({ innerWidth: window.innerWidth, scrollWidth: document.documentElement.scrollWidth }));
-    summary.stages.push({ id: "AI-05-mobile", status: "PASS", viewport: "390x844", overflow: mobileOverflow, note: "desktop viewport was 1440x1000 before resize", desktop_width_at_end: desktopOverflow.innerWidth });
+    await page.waitForTimeout(300);
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.waitForTimeout(250);
+    const mobileTopOverflow = await overflow(page);
+    await page.screenshot({ path: path.join(screenshots, "04-ai-page-mobile-390.png") });
+    summary.screenshots.push(path.join(screenshots, "04-ai-page-mobile-390.png"));
+    await page.evaluate(() => document.getElementById("ai-result-region")?.scrollIntoView({ block: "start" }));
+    await page.waitForTimeout(250);
+    const mobileResultOverflow = await overflow(page);
+    await page.screenshot({ path: path.join(screenshots, "05-ai-adopted-mobile-390.png") });
+    summary.screenshots.push(path.join(screenshots, "05-ai-adopted-mobile-390.png"));
+    summary.mobile = { top: mobileTopOverflow, result: mobileResultOverflow };
+    if (mobileTopOverflow.overflow || mobileResultOverflow.overflow) throw new Error("Horizontal overflow at 390px");
+    summary.stages.push({ id: "AI-05-mobile", status: "PASS", viewport: "390x844", overflow_top: mobileTopOverflow, overflow_result: mobileResultOverflow });
 
     summary.current_stage = "final-guards";
     if (errors.console.length) throw new Error("Console errors: " + errors.console.join(" | "));

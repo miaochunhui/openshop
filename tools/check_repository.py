@@ -624,8 +624,28 @@ class RepositoryGate:
         missing = [label for label, term in README_TERMS if term not in text]
         if missing:
             result.fail("README.md", "missing required content: " + ", ".join(missing))
+        # Public-launch copy is allowed only after this repository has an explicit
+        # deployment record: both README and docs/deployment.md name the public
+        # origin, and the record documents TLS, rollback and the external boundary.
+        # This preserves the original fail-closed behavior for a pre-launch tree
+        # while letting a genuinely deployed release tell the truth. It is a
+        # documentation gate, not proof that a remote service is alive.
+        deployment_record = self.root / "docs/deployment.md"
+        public_record_ok = False
+        public_origin = "https://openshop.ai4everyone.top/"
+        if deployment_record.is_file() and public_origin in text:
+            try:
+                deployment_text = self.read_text(deployment_record)
+            except (OSError, UnicodeDecodeError):
+                deployment_text = ""
+            public_record_ok = all(
+                needle in deployment_text
+                for needle in (public_origin, "公网入口", "TLS", "回滚", "外部 Git")
+            )
         for label, pattern in FORBIDDEN_README_PATTERNS:
             if pattern.search(text):
+                if label == "public launch/release claim" and public_record_ok:
+                    continue
                 result.fail("README.md", f"forbidden public claim: {label}")
         if re.search(r"\b512\b", text):
             result.warn("README.md", "contains the number 512; review that it is not a capacity claim")
