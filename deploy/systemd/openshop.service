@@ -1,10 +1,11 @@
 # SPDX-License-Identifier: Apache-2.0
-# TEMPLATE ONLY. Do not install or start without explicit production authorization.
-# Review paths, Python version, service account and backup plan first.
+# Production-oriented template. Review hosts, Python version, service account,
+# non-secret environment file, credential source and backup plan before install.
 [Unit]
-Description=OpenShop 开集 storefront (template; demo / non-production)
+Description=OpenShop 开集 storefront
 Documentation=file:/opt/openshop/current/docs/INSTALL.md
-After=network.target
+After=network-online.target
+Wants=network-online.target
 StartLimitIntervalSec=60
 StartLimitBurst=5
 
@@ -16,10 +17,15 @@ WorkingDirectory=/opt/openshop/current
 Environment=PYTHONDONTWRITEBYTECODE=1
 Environment=OPENSHOP_SECURE_COOKIES=1
 Environment=OPENSHOP_LOG_LEVEL=INFO
+Environment=OPENSHOP_TRUSTED_PROXIES=192.168.1.183,192.168.1.184
+EnvironmentFile=/etc/openshop/openshop.env
+# Load the model gateway credential from a root-only file. The service sees a
+# mode-0400 systemd credential, never the source path's contents in an env var.
+LoadCredential=openshop_ai_token:/etc/openshop/openshop_ai.token
 StateDirectory=openshop
 StateDirectoryMode=0700
-ExecStart=/usr/bin/python3 -B /opt/openshop/current/apps/storefront/server.py --host 127.0.0.1 --port 8780 --data-dir /var/lib/openshop
-ExecStartPost=/usr/bin/python3 -B /opt/openshop/current/deploy/healthcheck.py --url http://127.0.0.1:8780/healthz --wait-seconds 10 --timeout 2
+ExecStart=/usr/bin/python3 -B /opt/openshop/current/apps/storefront/server.py --host 0.0.0.0 --port 8790 --data-dir /var/lib/openshop
+ExecStartPost=/usr/bin/python3 -B /opt/openshop/current/deploy/healthcheck.py --url http://127.0.0.1:8790/healthz --wait-seconds 10 --timeout 2
 Restart=on-failure
 RestartSec=3
 TimeoutStopSec=20
@@ -46,12 +52,17 @@ RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
 SystemCallArchitectures=native
 SystemCallFilter=@system-service
 SystemCallErrorNumber=EPERM
-IPAddressAllow=127.0.0.1/32 ::1/128
+# The process listens on the LAN because the public Caddy edge runs on two
+# separate hosts. The BPF allowlist restricts acceptable remote addresses:
+# loopback for health, the two edge hosts for inbound proxying, and only the
+# configured model gateway plus DNS resolvers for outbound AI traffic.
+# Update these addresses if the edge or model-gateway network changes.
+IPAddressAllow=127.0.0.1/32 ::1/128 192.168.1.183/32 192.168.1.184/32 192.168.208.213/32 192.168.208.223/32 114.114.114.114/32
 IPAddressDeny=any
 StandardOutput=journal
 StandardError=journal
 SyslogIdentifier=openshop
-TasksMax=64
+TasksMax=128
 LimitNOFILE=4096
 
 [Install]

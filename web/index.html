@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="/web/css/trade.css">
   <link rel="stylesheet" href="/web/css/seller.css">
   <link rel="stylesheet" href="/web/css/theme.css">
+  <link rel="stylesheet" href="/web/css/ai.css">
 </head>
 <body>
   <a class="skip-link" href="#app">跳到主要内容</a>
@@ -64,13 +65,14 @@
       <div class="container nav-inner">
         <a class="nav-home" href="/" data-link>首页</a>
         <div id="category-links" class="category-links"><span class="nav-skeleton">正在摆摊…</span></div>
+        <a class="nav-ai" href="/ai" data-link>AI 中介</a>
         <a class="nav-deal" href="/search?sort=price_asc" data-link>今日好价 <span aria-hidden="true">↗</span></a>
       </div>
     </nav>
     <div id="mobile-drawer" class="mobile-drawer" hidden>
       <div class="drawer-head"><b>逛逛分类</b><button class="icon-btn" id="drawer-close" type="button" aria-label="关闭菜单">×</button></div>
       <div id="drawer-categories" class="drawer-categories"></div>
-      <div class="drawer-links"><a href="/account" data-link>我的账户</a><a href="/cart" data-link>购物车</a><a href="/seller" data-link>商家工作台</a></div>
+      <div class="drawer-links"><a href="/ai" data-link>AI 中介</a><a href="/account" data-link>我的账户</a><a href="/cart" data-link>购物车</a><a href="/seller" data-link>商家工作台</a></div>
     </div>
     <div id="nav-scrim" class="nav-scrim" hidden></div>
   </header>
@@ -87,14 +89,14 @@
         <b>OPENSHOP <em>开集</em></b>
         <p>逛得开，买得值。<br>一个把交易讲清楚的开源电商实验。</p>
       </div>
-      <div class="footer-column"><b>逛逛</b><a href="/search?sort=rating" data-link>口碑好物</a><a href="/search?sort=price_asc" data-link>今日好价</a><a href="/search?category=home" data-link>居家生活</a><a href="/search?category=digital" data-link>数码影音</a></div>
+      <div class="footer-column"><b>逛逛</b><a href="/ai" data-link>AI 中介</a><a href="/search?sort=rating" data-link>口碑好物</a><a href="/search?sort=price_asc" data-link>今日好价</a><a href="/search?category=home" data-link>居家生活</a><a href="/search?category=digital" data-link>数码影音</a></div>
       <div class="footer-column"><b>安心买</b><a href="/help" data-link>配送与售后</a><a href="/help" data-link>拼团说明</a><a href="/about" data-link>演示支付声明</a><a href="/help" data-link>隐私与数据</a></div>
       <div class="footer-column"><b>参与</b><a href="/about" data-link>开源说明</a><a href="/seller" data-link>商家工作台</a><a href="/account" data-link>我的订单</a><a href="/about" data-link>贡献指南</a></div>
     </div>
     <div class="container footer-bottom">
       <span>© 2026 OpenShop Contributors · Apache-2.0</span>
       <span>演示环境 · 商品、店铺、评价均为虚构 · 不进行真实扣款</span>
-      <span id="build-stamp">OpenShop v0.1.2</span>
+      <span id="build-stamp">OpenShop v0.2.0</span>
     </div>
   </footer>
   <div id="toast-region" class="toast-region" role="status" aria-live="polite"></div>

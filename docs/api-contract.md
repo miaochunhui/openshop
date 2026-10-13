@@ -366,9 +366,19 @@ Seller overview 返回字段：
 Carrier 固定 `["青鸟速运","江海快递","晨风同城"]`；tracking_no 6-24 位字母数字。
 Refund decision：approve -> Order REFUNDED，写事件并恢复库存/优惠券；reject -> Order 恢复原状态，写事件，保留 reason。仅 REQUESTED 可决定；重复/越权 403/409。
 
-### 2.6 健康
+### 2.6 AI 中介
 
-`GET /api/health` -> `{"ok":true,"app":"openshop","version":"0.1.2","demo":true}`（不套 data 信封，供探针直读）。
+中立的 AI 买手会将买家自然语言委托匹配到服务端真实在售 offer/SKU，再经服务端复价与一次性方案确认加入购物车。配置、隐私、限额与边界见 docs/ai-mediator.md。
+
+- GET /api/ai/status（public）：启用状态、模式（live/unavailable）、模型展示名、限额与用量；登录时返回个人当日剩余额度。
+- POST /api/ai/mediate（需登录；要求会话 CSRF）：body 为 message（2..500 字）与可选的 history（最多 6 条 user/assistant 消息，总长受限）。成功返回 request_id、mode、model_label、latency_ms、answer、needs、questions、一个 recommendation（包含服务端校验后的 product/shop/offer/sku 与 unit_price_cents、plan_id）或 null、最多 3 个 alternatives、disclosure、quota。模型不能决定真实价格；服务端只接受目录中真实成对的 offer_id + sku_id。
+- POST /api/ai/plans/{plan_id}/adopt（需登录；要求会话 CSRF）：将一次性、当前用户绑定、15 分钟方案加入购物车；仍然执行现有库存和普通/拼团购物车规则。重复或过期返回 409，方案不存在返回 404/409；不会创建订单或支付。
+- 错误码：400 VALIDATION_ERROR；401 AUTH_REQUIRED；403 CSRF_FAILED；409 AI_PLAN_EXPIRED；429 AI_RATE_LIMIT / AI_BUSY；502 AI_INVALID_RESPONSE；503 AI_UNAVAILABLE；504 AI_TIMEOUT。
+- 单进程强制每日全局/每用户额度、每 IP 滑动窗口和最多 2 个并行上游请求。外部模型未配置时 AI 关闭，其他商城功能不受影响。CI 采用本地 fake OpenAI-compatible provider 做真实 HTTP 集成测试，无外网依赖。
+
+### 2.7 健康
+
+`GET /api/health` -> `{"ok":true,"app":"openshop","version":"0.2.0","demo":true}`（不套 data 信封，供探针直读）。
 `GET /healthz` -> 纯文本 `ok`。
 
 ## 3. 前端调用约定

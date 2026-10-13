@@ -2,13 +2,13 @@
 
 > 逛得开，买得值。
 
-OpenShop（开集）是一个可自托管、可审阅的开源多边电商参考实现。它把**官方自营、品牌旗舰、源头工厂**三种供给放进同一套发现、比较、下单与售后体验里：同一件商品可以并排比较谁发货、多久到、贵在哪里。当前种子包含 18 件虚构商品、10 家虚构店铺和 54 条示例评价。
+OpenShop（开集）是一个可自托管、可审阅的开源多边电商参考实现。它把**官方自营、品牌旗舰、源头工厂**三种供给放进同一套发现、比较、下单与售后体验里：同一件商品可以并排比较谁发货、多久到、贵在哪里；再用**中立的 AI 买手中介**把这些真实供给翻译成买家能确认的购物方案。当前种子包含 18 件虚构商品、10 家虚构店铺和 54 条示例评价。
 
-后端只依赖 Python 标准库与 SQLite，前端为原生 ES Module。没有构建步骤、第三方运行时依赖、CDN、外部字体或分析脚本，便于本地运行和代码审阅。
+后端只依赖 Python 标准库与 SQLite，前端为原生 ES Module。没有构建步骤、第三方运行时依赖、CDN、外部字体或分析脚本，便于本地运行和代码审阅。AI 中介可在服务端选择接入 OpenAI 兼容模型网关；浏览器本身仍不加载任何外链。
 
-**状态（2026-10-13）：v0.1.2 本地源码验收版。** 真实 API 验收 35/35、真实 Chromium 端到端 11/11 阶段、44/44 安全探针（39 controls）、三轮并发验收（每轮 7 场景）和 22 个标准库测试全部通过，固定仓库门 PASS；13 张最终验收截图覆盖浏览、加购、结算、模拟支付、商家发货、买家收货和评价。另有真实浏览器补验覆盖拼团 1/2→2/2 完整成团和商家库存 26→27 写入。当前**只在本地运行，未公开部署、未推送远端仓库**。
+**状态（2026-10-13）：v0.2.0 AI 中介候选发布。** 传统购物的真实 API 验收 35/35、真实 Chromium 11/11、44/44 安全探针、3×7 并发与固定仓库门保持通过；新增 25 个标准库测试中的 AI 真实 HTTP/安全集成测试通过，并已用真实模型网关与真实 Chromium 完成 **AI 中介：自然语言 → 真实目录 → 服务端复价 → 确认加购** 闭环。公开入口、DNS/TLS、边缘和回滚状态以 [docs/STATUS.md](docs/STATUS.md) 的现读记录为准；本地验收本身不等于生产 SLA。
 
-> **真实边界**：全部商品、品牌、店铺、人物、评价与订单均为虚构演示数据；支付是明确标注的模拟流程，不产生真实扣款；这是**非生产级**单进程参考实现，不提供生产级容量、可用性或安全承诺，也未在公网发布。
+> **真实边界**：全部商品、品牌、店铺、人物、评价与订单均为虚构演示数据；支付是明确标注的模拟流程，不产生真实扣款；AI 推荐受外部模型、网络和配额影响，不能替代服务端价格与库存事实；这是**非生产级**单进程参考实现，不提供生产级容量、可用性或安全承诺。
 
 ## 界面
 
@@ -78,19 +78,26 @@ curl -fsS http://127.0.0.1:8780/api/health
 - **买方闭环**：游客购物车、一键演示登录与注册、地址簿、优惠券、服务端结算报价、模拟支付、订单与包裹、物流时间线、取消、确认收货和评价。
 - **真实拼团**：邀请码参团；公开进度只统计已付款成员；未满团不显示成团成功；查看、参与和支付路径都会校验团状态与 `expires_at`。**当前没有后台定时到期清理/自动退款任务**，该边界不会被 UI 伪装成已发生。
 - **售后与商家台**：整单且仅单店铺的模拟退款申请与商家审批；商家只能操作自己店铺的库存、发货和售后，只能看到掩码后的买家身份，不返回完整地址。
-- **明确不做**：真实资金、真实物流、身份/KYC、风控、推荐模型训练、多实例分布式事务和自动结算；没有生产容量与并发 SLA。
+- **AI 中介**：登录买家可用自然语言委托，AI 只从服务端真实 offer/SKU 中推荐一件主选与有限替代项，解释取舍；服务端复价、绑定用户的一次性方案与确认加购，不自动支付。未配置模型时明确关闭，限额、超时、限流和模型失败都有显式错误态；详见 [docs/ai-mediator.md](docs/ai-mediator.md)。
+- **明确不做**：真实资金、真实物流、身份/KYC、风控、推荐模型训练、多实例分布式事务和自动结算；AI 不自动下单/支付，也没有生产容量与并发 SLA。
+
+### AI 中介
+
+[AI 中介页](docs/ai-mediator.md) 是站内 `/ai`：买家说出需求后，服务端把真实商品、报价、SKU、库存、时效与拼团条件交给可选的 OpenAI 兼容模型；模型只能返回 JSON 候选，服务端复核供给 ID 并重新取价，形成一次性、登录用户绑定、15 分钟有效的方案。用户确认采纳后仍走现有购物车规则，不会自动建单或支付。未配置模型时页面明确显示未启用；请求受每日、每用户、每 IP 和并发上限约束。AI 会收到本次委托与最近对话，不接收账号、地址、订单或支付信息。
 
 ### 架构概览
 
 ```text
 Browser (vanilla ES modules, same-origin fetch)
   -> apps/storefront/server.py        Python 标准库 ThreadingHTTPServer
-       -> apps/storefront/routes/     auth/catalog, trade, seller JSON API
+       -> apps/storefront/routes/     auth/catalog, trade, seller, AI JSON API
        -> packages/commerce/          领域逻辑、服务端计价、鉴权、种子
+       -> packages/commerce/ai_*.py  供给快照、模型校验、配额与一次性方案
+       -> 可选 OpenAI-compatible AI gateway（仅服务端出站，浏览器不外链）
        -> SQLite (WAL)                --data-dir 下的单文件持久化
 ```
 
-同一来源同时提供 `/api` JSON、静态 `web/` 资源与健康检查。价格、优惠、库存和订单可执行状态均由服务端重算/判定；写请求要求会话 Cookie 与 CSRF 头；响应带 CSP 等安全头，页面不使用内联脚本或第三方资源。详细分层、请求生命周期和安全边界见 [docs/architecture.md](docs/architecture.md)，冻结的接口与数据约定见 [docs/api-contract.md](docs/api-contract.md) 和 [docs/data-contract.md](docs/data-contract.md)。
+同一来源同时提供 `/api` JSON、静态 `web/` 资源与健康检查。价格、优惠、库存和订单可执行状态均由服务端重算/判定；AI 中介只发送公开供给与买家本次委托/最近对话给模型，推荐中的供给 ID 再回到 SQLite 校验并复价。写请求要求会话 Cookie 与 CSRF 头；响应带 CSP 等安全头，页面不使用内联脚本或第三方资源。详细分层、请求生命周期和安全边界见 [docs/architecture.md](docs/architecture.md)，冻结的接口与数据约定见 [docs/api-contract.md](docs/api-contract.md) 和 [docs/data-contract.md](docs/data-contract.md)，AI 设计与部署配置见 [docs/ai-mediator.md](docs/ai-mediator.md)。
 
 支付接口只接受 `payment_method="demo"`，返回的元信息带 `demo:true`。任何“完成支付”都只代表模拟状态流转。
 
@@ -100,6 +107,7 @@ Browser (vanilla ES modules, same-origin fetch)
 python3 -B tools/smoke_server.py
 python3 -B -m unittest discover -s tests -v
 python3 -B tests/test_trade_concurrency.py
+python3 -B tests/test_ai_mediator.py -v
 python3 -B tests/test_peer_review_probes.py
 python3 -B tools/check_repository.py --selftest
 python3 -B tools/check_repository.py --check
@@ -107,18 +115,21 @@ python3 -B tools/check_repository.py --check
 
 本地发布归档与负控另见 [docs/RELEASE-REHEARSAL.md](docs/RELEASE-REHEARSAL.md) 和 `python3 -B tools/rehearse_release.py --help`。
 
-- 标准库测试默认把隔离数据写到系统临时目录；可用 `OPENSHOP_TMP_BASE`、`OPENSHOP_CATALOG_TEST_PORT`、`OPENSHOP_TRADE_TEST_PORT`、`OPENSHOP_SELLER_TEST_PORT` 覆盖。本轮为 **22 tests PASS**。
+- 标准库测试默认把隔离数据写到系统临时目录；可用 `OPENSHOP_TMP_BASE`、`OPENSHOP_CATALOG_TEST_PORT`、`OPENSHOP_TRADE_TEST_PORT`、`OPENSHOP_SELLER_TEST_PORT` 覆盖。本轮为 **25 tests PASS**（新增 AI 假 provider 的真实 HTTP/安全集成测试与 JSON 解析/价格清洗辅助测试）。
 - 并发验收在全新数据目录上用真实 HTTP 连续跑 **3 轮 × 7 场景**：8 并发抢 1 件库存、并发幂等建单、券领取/核销竞态、拼团名额与支付竞态、取消竞态、pay/cancel 竞态。可用 `OPENSHOP_CONCURRENCY_TEST_PORT`、`OPENSHOP_CONCURRENCY_EVIDENCE_ROOT` 覆盖端口与证据目录。
 - 独立安全审查：**44/44 probes PASS，39/39 controls PASS，5/5 findings 修复可回归**。限速控制通过同库原地进程重启获得干净额度，seller 权限由 guest 401、buyer 403、seller 200 + 自身店铺匹配验证；完整原始记录见 [docs/peer-review-core-api.md](docs/peer-review-core-api.md)。
 - 仓库门已现读 **PASS**：19 项检查 0 failures（1 个非阻断 warning：GitHub Actions 的 checkout action 使用 tag 而非 SHA 固定）。`--selftest` 带 19 个仓库门负控；发布演练另有 10 个负控全部通过。
 - 完整真实浏览器验收由 `tools/qa/run_acceptance.py` 编排，使用真实后端、真实 Chromium、真实 cookie/CSRF 和 SQLite；本轮为 **API 35 PASS / 0 FAIL、浏览器 11 PASS / 0 FAIL、13 张截图、0 控制台错误、0 外链请求、0 横向溢出**。命令、机器依赖和证据路径见 [docs/testing.md](docs/testing.md)。
 - 另有真实浏览器补验：真实自营拼团由 1/2 已付款发起，再以第二位真实注册买家经 UI 参团并付款到 **FULL 2/2**；商家工作台经 UI 把报价库存从 **26 改为 27**，PATCH 200 且刷新后持久化。浏览器错误 0。
-- CI 配置会依次执行标准库测试、真实三轮并发验收、44 探针安全审计、仓库门自检和仓库门；本轮在本机模拟同一命令全绿。**远端 GitHub Actions 尚未实际触发。**
+- **AI 真实链路**：真实 deepseek-flash 模型完成从自然语言委托到真实 offer/SKU 校验、服务端复价与一次性方案的中介调用；HTTP 验收验证 CSRF 403、未登录 401、模型仅被调用一次、方案采纳购物车 0→1、方案复用 409、**订单数仍为 0**；真实 Chromium 完成登录→AI→采纳链路，桌面/390px 无溢出，0 console/page/外链错误。失败也保留：1,100 输出 token 上限曾返回空 content，服务端正确拒绝而未伪造结果。详见 [docs/ai-mediator.md](docs/ai-mediator.md) 与 [docs/testing.md](docs/testing.md)。
+- CI 配置会依次执行标准库测试（含 AI 假 provider 的真实 HTTP 集成测试）、真实三轮并发验收、44 探针安全审计、仓库门自检和仓库门；本轮在本机模拟同一命令全绿。**远端 GitHub Actions 尚未实际触发。**
 - 仓库门需要系统 `node` 做 JS 语法检查；运行产品本身不需要 Node。
 - 安全说明见 [SECURITY.md](SECURITY.md)，独立审查与修复记录见 [docs/peer-review-core-api.md](docs/peer-review-core-api.md)。
 
 ### 已知限制
 
+- AI 中介依赖外部 OpenAI 兼容模型网络与已授权配额；模型不可用时会显式失败，不会用假回答兜底。单次真实调用约 11–15 秒，未做流式输出。
+- AI 的全局/每用户额度写入 SQLite，每 IP 窗口和方案存储是**单进程内存**：重启会清空方案和 IP 窗口，不适用于多实例部署；外部模型可能产生不精确的定性描述，服务端价格/库存/供给身份才是事实来源。
 - 三轮并发验收覆盖 7 个场景，但只针对**单进程 SQLite、单机 loopback、直接 DB 构造的 fixture**；不覆盖多进程/多机、文件系统或锁超时、卖家售后审批并发、拼团过期并发，也不构成性能/容量压测或 SLA。
 - 拼团过期只能在查看/参与/支付路径被拒绝，没有后台自动取消和退款任务。
 - 售后目前只支持整单单店铺；多店铺退货退款不在 MVP 内。
@@ -153,4 +164,4 @@ python3 -B tools/check_repository.py --check
 
 ## English
 
-OpenShop is an audit-friendly, self-hosted open-source marketplace reference implementation: three offer types, real group-buying state, a stdlib-only Python backend, SQLite, and vanilla ES modules with no build step or third-party runtime dependencies. The fictional seed includes 18 products, 10 shops and 54 reviews. Local acceptance passed 35 real-HTTP API checks, 11 real-Chromium browser stages, a 44-probe security audit with 39 controls, a three-round seven-scenario concurrency suite, 22 standard-library tests, plus real-browser evidence of a completed two-person group buy and a persisted seller inventory update. Payments are simulated and all catalog identities are fictional. It has not been publicly deployed or pushed to a remote repository, and there is no production-scale or capacity guarantee. See [docs/INSTALL.md](docs/INSTALL.md) and [docs/testing.md](docs/testing.md). Licensed under Apache-2.0.
+OpenShop is an audit-friendly, self-hosted open-source marketplace reference implementation: three offer types, real group-buying state, a grounded AI buying mediator, a stdlib-only Python backend, SQLite, and vanilla ES modules with no build step or third-party runtime dependencies for the browser. The fictional seed includes 18 products, 10 shops and 54 reviews. Local acceptance passed 35 real-HTTP API checks, 11 real-Chromium browser stages, a 44-probe security API audit with 39 controls, a three-round seven-scenario concurrency suite, 25 standard-library tests, plus real-browser evidence of a completed two-person group buy, a persisted seller inventory update, and a live-model AI mediation-to-cart flow. The AI endpoint requires an operator-provided OpenAI-compatible model gateway; prompts and recent conversation are disclosed to that provider. Payments are simulated and all catalog identities are fictional. Public deployment and rollback evidence are recorded in docs/STATUS.md; there is no production-scale, availability or capacity guarantee. See [docs/INSTALL.md](docs/INSTALL.md), [docs/ai-mediator.md](docs/ai-mediator.md) and [docs/testing.md](docs/testing.md). Licensed under Apache-2.0.

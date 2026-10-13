@@ -14,6 +14,7 @@ const ROUTES = [
   { name: "order", pattern: /^\/orders\/([^/]+)\/?$/, module: "order", title: "订单详情 · OpenShop 开集", keys: ["orderNo"] },
   { name: "group", pattern: /^\/g\/([^/]+)\/?$/, module: "group", title: "一起拼 · OpenShop 开集", keys: ["code"] },
   { name: "seller", pattern: /^\/seller\/?$/, module: "seller", title: "商家工作台 · OpenShop 开集" },
+  { name: "ai", pattern: /^\/ai\/?$/, module: "ai", title: "AI 中介 · OpenShop 开集" },
   { name: "about", pattern: /^\/about\/?$/, module: "about", title: "关于开集 · 开源电商" },
   { name: "help", pattern: /^\/help\/?$/, module: "help", title: "帮助与规则 · OpenShop 开集" },
 ];
@@ -60,6 +61,11 @@ function updateActiveNav(routeName) {
       (["search", "product"].includes(routeName) && nav === "search") ||
       (["cart", "checkout", "group"].includes(routeName) && nav === "cart") ||
       (["account", "order", "seller"].includes(routeName) && nav === "account");
+    link.classList.toggle("is-active", active);
+    if (active) link.setAttribute("aria-current", "page"); else link.removeAttribute("aria-current");
+  });
+  document.querySelectorAll(".nav-ai").forEach((link) => {
+    const active = routeName === "ai";
     link.classList.toggle("is-active", active);
     if (active) link.setAttribute("aria-current", "page"); else link.removeAttribute("aria-current");
   });
@@ -163,7 +169,7 @@ function applyChrome() {
     badge.hidden = count <= 0;
   }
   document.getElementById("cart-action")?.setAttribute("aria-label", `购物车，${count} 件商品`);
-  document.getElementById("build-stamp").textContent = `OpenShop v0.1.2 · ${new Date().toLocaleDateString("zh-CN")}`;
+  document.getElementById("build-stamp").textContent = `OpenShop v0.2.0 · ${new Date().toLocaleDateString("zh-CN")}`;
 }
 
 function renderCategories() {

@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import http.cookies
+import ipaddress
 import json
 import logging
 import mimetypes
@@ -34,7 +35,7 @@ from packages.commerce import auth, db as dbutil  # noqa: E402
 from packages.commerce.seed import SeedMismatchError  # noqa: E402
 from packages.commerce.web import ApiError, MAX_BODY_BYTES, RequestContext, Response, Router  # noqa: E402
 
-APP_VERSION = "0.1.2"
+APP_VERSION = "0.2.0"
 WEB_ROOT = (REPO_ROOT / "web").resolve()
 LOG = logging.getLogger("openshop")
 
@@ -50,6 +51,45 @@ SECURITY_HEADERS = {
         "connect-src 'self'; font-src 'self' data:; object-src 'none'"
     ),
 }
+
+def resolve_client_ip(peer_ip: str, forwarded_for: str | None, trusted_raw: str | None = None) -> str:
+    """Resolve the real client IP only when the direct peer is a trusted proxy.
+
+    X-Forwarded-For is untrusted unless the TCP peer is explicitly configured in
+    OPENSHOP_TRUSTED_PROXIES. We walk the chain from right to left and return the
+    first address that is not itself a trusted proxy; malformed entries are
+    ignored and an absent/malformed chain falls back to the direct peer. This
+    keeps spoofed headers from controlling auth/AI rate-limit buckets.
+    """
+    peer_text = str(peer_ip or "").strip()
+    try:
+        peer = ipaddress.ip_address(peer_text)
+    except ValueError:
+        return peer_text or "unknown"
+    if trusted_raw is None:
+        trusted_raw = os.environ.get("OPENSHOP_TRUSTED_PROXIES", "")
+    networks: list[ipaddress.IPv4Network | ipaddress.IPv6Network] = []
+    for token in str(trusted_raw or "").split(","):
+        token = token.strip()
+        if not token:
+            continue
+        try:
+            networks.append(ipaddress.ip_network(token, strict=False))
+        except ValueError:
+            continue
+    if not networks or not any(peer in network for network in networks):
+        return str(peer)
+    chain: list[ipaddress.IPv4Address | ipaddress.IPv6Address] = []
+    for token in str(forwarded_for or "").split(",")[:20]:
+        try:
+            chain.append(ipaddress.ip_address(token.strip()))
+        except ValueError:
+            continue
+    for address in reversed(chain):
+        if not any(address in network for network in networks):
+            return str(address)
+    return str(chain[0]) if chain else str(peer)
+
 
 STATIC_MIME = {
     ".html": "text/html; charset=utf-8",
@@ -83,7 +123,7 @@ def build_router() -> Router:
     core.register(router)
     # Domain route modules are implemented by independent seats. They are
     # optional at boot so the shell can be inspected while work is in flight.
-    for module_name in ("catalog", "trade", "seller"):
+    for module_name in ("catalog", "trade", "seller", "ai"):
         try:
             module = __import__(f"apps.storefront.routes.{module_name}", fromlist=["register"])
             register = getattr(module, "register", None)
@@ -203,6 +243,9 @@ class Handler(BaseHTTPRequestHandler):
 
         return bool(supplied) and hmac.compare_digest(str(supplied), str(expected))
 
+    def _client_ip(self, headers: dict[str, str]) -> str:
+        return resolve_client_ip(self.client_address[0], headers.get("x-forwarded-for", ""))
+
     def _handle_api(self, parsed) -> None:
         request_id = uuid.uuid4().hex
         started = time.monotonic()
@@ -227,7 +270,7 @@ class Handler(BaseHTTPRequestHandler):
                 session_token=token,
                 request_id=request_id,
                 server_time=utc_now_iso(),
-                client_ip=self.client_address[0],
+                client_ip=self._client_ip(headers),
                 is_secure=self._is_secure(),
             )
             result = self.app.router.dispatch(ctx)

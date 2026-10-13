@@ -1,8 +1,32 @@
 # 变更记录
 
-本项目当前状态为 **v0.1.2 本地源码验收版**。真实 API、真实 Chromium、三轮并发、44 探针安全审计、标准库测试、仓库门与本地发布演练自检均已通过；**未公开部署、未推送远端仓库、未在远端 GitHub 实际执行 CI**。正式生产发布仍需 [docs/RELEASE.md](docs/RELEASE.md) 中的授权、远端 CI、部署与回滚演练。
+本项目当前状态为 **v0.2.0 AI 中介候选发布**。真实 API、真实 Chromium、三轮并发、44 探针安全审计、25 个标准库测试（含 AI 假 provider 的真实 HTTP/安全集成测试）、仓库门与本地发布演练自检均已通过；真实模型与真实 Chromium 的 AI 中介闭环也已跑通。公开部署、DNS/TLS、边缘及回滚的现读状态见 [docs/STATUS.md](docs/STATUS.md)。
 
-记录日期：2026-10-13（Asia/Shanghai）。公开发布日期：待定。
+记录日期：2026-10-13（Asia/Shanghai）。公开发布日期与线上地址以 docs/STATUS.md 现读记录为准。
+
+## [0.2.0] — AI 买手中介与公网发布准备
+
+### Added
+
+- 新增中立的 AI 中介页面 /ai：登录买家以自然语言提出需求与预算，AI 只从服务端真实在售 offer/SKU 中给出一个主推荐和最多 3 个替代项，解释匹配与取舍；服务端重新获取价格/库存，并给出绑定当前用户、15 分钟有效、只能使用一次的采纳方案。
+- 新增 GET /api/ai/status、POST /api/ai/mediate、POST /api/ai/plans/{plan_id}/adopt，复用既有 Cookie+CSRF+登录门与购物车规则；方案采纳不会创建订单或支付。
+- 新增 OpenAI 兼容模型接入：服务端仅发送公开供给、本次需求和最近对话；支持环境变量/API key 文件/systemd LoadCredential。缺少模型配置时 AI 明确关闭，商城其余功能正常。
+- 新增加固与限额：每条需求长度、对话总长、每日全站额度（SQLite meta）、每日每用户额度、每 IP 滑动窗口、最多 2 个并行上游请求、超时及显式错误。模型返回必须是可校验 JSON，只接受真实成对的 offer_id/sku_id；模型文本中的货币金额会被清洗。
+- 新增 tests/test_ai_mediator.py（CI 安全、本地 fake provider、真实 HTTP/SQLite/CSRF/登录/购物车），覆盖 CSRF 403、未登录 401、供给校验、一次性方案 409、用户额度 429、模型调用次数与“AI 采纳不建订单”。
+- 新增 docs/ai-mediator.md；生产 systemd 模板支持 LAN 边缘上游、AI 出站、非秘密 EnvironmentFile 与 systemd credential；补充 AI 环境变量示例。
+- 版本统一升级为 v0.2.0。
+
+### Verification
+
+- 真实 deepseek-flash 通过已授权 OpenAI 兼容网关返回合法 JSON；首次 1,100 max-token 导致空 content 的失败被保留，服务端正确返回 AI_INVALID_RESPONSE；提高到 4,000 后真实调用成功。
+- 真实 HTTP 验收：CSRF 403、未登录 401、模型仅被调用一次、方案采纳购物车 0→1、二次采纳 409、订单数仍为 0；真实 Chromium 在同一 AI 流程中完成登录、提交、渲染和加购，桌面 1440 与 390px 移动无横向溢出，console/page/外链错误均为 0。
+- 购物全链路、三轮并发、44/44 安全探针、真实 Chromium 11 阶段和发布演练工具保持原口径；新增测试通过后标准库测试总数从 22 增至 25。
+
+### Known limitations
+
+- AI 需要外部模型网络与配额，模型输出可能有不精确的定性描述；服务端 offer/SKU 身份、价格和库存是权威事实。
+- 单进程内存方案存储与每 IP 窗口；重启会丢失方案/窗口，不适合多实例。没有流式 AI 输出或多件自动组合。
+- Systemd 安装、DNS、TLS 与边缘发布在本变更中开始实际执行；最终线上状态与回滚结果以 docs/STATUS.md、最终交接和发布证据为准，不能以“服务还活着”代替验收。
 
 ## [0.1.2] — 安全审计全绿与 CI 安全门（本地源码，未公开发布）
 

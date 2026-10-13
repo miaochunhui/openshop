@@ -1301,14 +1301,20 @@ class RepositoryGate:
         host = option(argv, "--host")
         port_raw = option(argv, "--port")
         data_dir = option(argv, "--data-dir")
-        if host != FIXED_HOST:
-            result.fail("deploy/systemd/openshop.service", f"service must bind {FIXED_HOST} only")
+        # Two reviewed network profiles: the original loopback-only template and
+        # the deployed LAN-edge + AI profile. The latter is not an open listener:
+        # systemd BPF allow-lists only the two edge hosts and the outbound model
+        # gateway/DNS peers, and the app trusts X-Forwarded-For only from them.
+        public_edge = host == "0.0.0.0"
+        if host not in {FIXED_HOST, "0.0.0.0"}:
+            result.fail("deploy/systemd/openshop.service", f"service must bind {FIXED_HOST} only or the reviewed public-edge 0.0.0.0 profile")
+        expected_port = 8790 if public_edge else FIXED_PORT
         try:
             port = int(port_raw)
         except ValueError:
             port = 0
-        if port != FIXED_PORT:
-            result.fail("deploy/systemd/openshop.service", f"service must use fixed non-zero port {FIXED_PORT}")
+        if port != expected_port:
+            result.fail("deploy/systemd/openshop.service", f"service must use the fixed non-zero port {expected_port} for this network profile")
         if data_dir != FIXED_DATA_DIR:
             result.fail("deploy/systemd/openshop.service", f"service must use external data dir {FIXED_DATA_DIR}")
         if data_dir.startswith("/opt/openshop") or ".." in data_dir:
@@ -1353,15 +1359,27 @@ class RepositoryGate:
         address_families = first("RestrictAddressFamilies")
         if not {"AF_UNIX", "AF_INET"}.issubset(set(address_families.split())):
             result.fail("deploy/systemd/openshop.service", "RestrictAddressFamilies must include AF_UNIX and AF_INET")
-        if "127.0.0.1" not in first("IPAddressAllow"):
+        ip_allow = first("IPAddressAllow")
+        if "127.0.0.1" not in ip_allow:
             result.fail("deploy/systemd/openshop.service", "IPAddressAllow must include loopback")
+        if public_edge:
+            for required_peer in ("192.168.1.183/32", "192.168.1.184/32", "192.168.208.213/32", "192.168.208.223/32"):
+                if required_peer not in ip_allow:
+                    result.fail("deploy/systemd/openshop.service", f"public-edge IPAddressAllow must include {required_peer}")
+            for token in ip_allow.split():
+                if token in {"any", "all"} or token.endswith("/0"):
+                    result.fail("deploy/systemd/openshop.service", f"public-edge IPAddressAllow is open to all addresses: {token}")
+            env_flat = " ".join(directives.get("Environment", []))
+            if "OPENSHOP_TRUSTED_PROXIES=" not in env_flat or "192.168.1.183" not in env_flat or "192.168.1.184" not in env_flat:
+                result.fail("deploy/systemd/openshop.service", "public-edge profile must trust X-Forwarded-For only from the two edge hosts")
         for key in ("ReadWritePaths", "ReadOnlyPaths"):
             for value in directives.get(key, []):
                 if value.startswith("/opt/openshop"):
                     result.fail("deploy/systemd/openshop.service", "release tree must remain read-only")
         exec_post = first("ExecStartPost")
-        if "deploy/healthcheck.py" not in exec_post or "http://127.0.0.1:8780/healthz" not in exec_post:
-            result.fail("deploy/systemd/openshop.service", "ExecStartPost must run the loopback health check")
+        health_url = f"http://127.0.0.1:{expected_port}/healthz"
+        if "deploy/healthcheck.py" not in exec_post or health_url not in exec_post:
+            result.fail("deploy/systemd/openshop.service", "ExecStartPost must run the loopback health check for the configured port")
         if not any(key == "WantedBy" and value == "multi-user.target" for key, value in install):
             result.fail("deploy/systemd/openshop.service", "install section must be enabled for multi-user.target")
         if health_path.is_file():
